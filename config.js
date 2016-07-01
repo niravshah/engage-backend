@@ -1,7 +1,7 @@
 var config = [];
 
 config['dev'] = {
-    mongoUrl: 'mongodb://localhost/homefix',
+    mongoUrl: 'mongodb://localhost/engage',
     mongo_express_config: {
         mongodb: {
             server: "localhost",
@@ -14,7 +14,7 @@ config['dev'] = {
             admin: false,
             auth: [
                 {
-                    database: 'homefix',
+                    database: 'engage',
                     username: '',
                     password: '',
                 },
@@ -58,7 +58,7 @@ config['dev'] = {
 }
 
 config['int'] = {
-    mongoUrl: 'mongodb://mongo/homefix',
+    mongoUrl: 'mongodb://mongo/engage',
     mongo_express_config: {
         mongodb: {
             server: "mongo",
@@ -71,7 +71,7 @@ config['int'] = {
             admin: false,
             auth: [
                 {
-                    database: 'homefix',
+                    database: 'engage',
                     username: '',
                     password: '',
                 },
