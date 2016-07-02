@@ -17,7 +17,8 @@ config['dev'] = {
                     database: 'engage',
                     username: '',
                     password: '',
-                },
+                }
+
             ],
             adminUsername: '',
             adminPassword: '',
