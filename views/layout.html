@@ -1,12 +1,33 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/favicon.ico">
+    <title>Engage CSR</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
 
-{% block title %}HomeFix{% endblock %}
+<body>
+<header id="header">
+    <div id="header-wrap">
+        <div class="container clearfix">
 
-{% block head %}
-{% parent %}
-<link rel="stylesheet" href="/stylesheets/custom.css">
-{% endblock %}
-
-{% block content %}
-<p>Please Login</p>
-{% endblock %}
+            <div id="logo" class="m-t-3">
+            <a href="index.php" class="standard-logo"><img src="http://placehold.it/150x150" alt=""></a>
+            </div>
+            <nav id="primary-menu">
+            </nav>
+        </div>
+    </div>
+</header>
+{% block content %}{% endblock %}
+<script src="js/jquery.min.js"></script>
+<script src="js/tether.min.js"></script>
+<script src="js/bootstrap.js"></script>
+</body>
+</html>

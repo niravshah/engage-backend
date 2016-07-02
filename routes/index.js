@@ -1,8 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+
+
 router.get('/', function(req, res, next) {
- 
+    res.render('index');
+});
+
+
+router.get('/create', function(req, res, next) {
     var myFoo = new User({
         name: 'Test Name 2',
         email: '1232@456.com',

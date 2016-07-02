@@ -1,0 +1,143 @@
+/* HEADER STYLES */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 260px;
+    height: 100%;
+    height: calc(100vh);
+    background-color: #FFF;
+    border: none;
+    border-right: 1px solid #EEE;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .065);
+}
+
+#header-wrap {
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+    padding-right: 40px;
+}
+
+#header-wrap {
+    position: relative;
+    z-index: 199;
+}
+
+#content{
+    position:relative;
+    margin-left: 280px;
+}
+
+
+#logo img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* CARD STYLES */
+
+.card {
+    padding: 0;
+    margin-bottom: 35px;
+    display: block;
+}
+
+.card .card-img {
+    position: relative;
+    display: block;
+}
+
+.card .card-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.card .category {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.card .category .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    padding: 7px 10px;
+    font-weight: 400;
+}
+
+.card .meta {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    color: #FFF;
+    font-size: 14px;
+}
+
+.card .meta i {
+    font-size: 18px;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.card .caption {
+    padding: 25px 20px;
+    background: #FFF;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: #dcdcdc;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.07);
+    -webkit-transition: .25s;
+    transition: .25s;
+    color: #6d6d6d;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
+
+.card .card-title {
+    font-size: 17px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500 !important;
+    line-height: 1.1;
+}
+
+.card .caption ul {
+    font-size: 13px;
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+}
+
+.card .caption p {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.btn-rounded {
+    border-radius: 30px !important;
+    -webkit-border-radius: 30px !important;
+}
+
+.btn-shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-lg, .btn-group-lg > .btn {
+    padding: 13px 20px;
+    font-size: 15px;
+}
