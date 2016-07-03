@@ -1,4 +1,4 @@
-// app.js
+
 var app = angular.module('engageApp', ['ui.router']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -7,12 +7,21 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         .state('home', {
             url: '/home',
             templateUrl: '/angular/partials/main2.html',
+            resolve:{
+                pid:function(){return $("#content").data("pid")}
+            },
             controller:'projectCardsCtrl'
 
         });
 });
 
-app.controller('projectCardsCtrl', function ($scope) {
+app.controller('projectCardsCtrl', ['$scope','pid', function ($scope,pid) {
     $scope.testdata = [1,2,3];
-    $scope.pid = $("#content").data("pid");
-});
+    $scope.pid = pid;
+}]);
+
+app.service('ProjectsService',['$http',function($http){
+    this.getProjectById = function(id){
+        return $http.get('/api/projects/'+id);
+    }
+}]);
