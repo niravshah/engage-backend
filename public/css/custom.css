@@ -51,6 +51,28 @@
     z-index: 199;
 }
 
+.logo-span{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.logo-wrapper{
+    height:60px;
+}
+
+.logo-wrapper img{
+    width:250px;
+    height: 50px;
+}
+
+#logo img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+}
+
 
 #content{
     position:relative;
@@ -65,11 +87,7 @@
     padding: 20px;
 }
 
-#logo img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+
 
 /* CARD STYLES */
 
