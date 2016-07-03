@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section id="content" ng-app="engageApp" data-pid="{{pid}}">
+    <div class="row">
+        <div class="col-md-12">
+            <div ui-view></div>
+        </div>
+    </div>
+    </div>
+</section>
+<script src="/js/angular.min.js"></script>
+<script src="/js/angular-ui-router.min.js"></script>
+<script src="/angular/app2.js"></script>
+{% endblock %}

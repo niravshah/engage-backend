@@ -7,6 +7,9 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 
+router.get('/project/:id', function(req, res, next) {
+    res.render('project',{pid:req.params.id});
+});
 
 router.get('/create', function(req, res, next) {
     var myFoo = new User({
