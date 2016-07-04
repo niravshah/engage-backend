@@ -4,7 +4,7 @@ console.log("ENV:", env);
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-//mongoose.plugin(require('./plugins/tenant'));
+mongoose.plugin(require('./plugins/tenant'));
 mongoose.connect(config.mongoUrl);
 var mongo_express = require('mongo-express/lib/middleware')
 app.use('/mongo_express', mongo_express(config.mongo_express_config))
@@ -28,16 +28,34 @@ swig.setDefaults({
 var logger = require('morgan');
 app.use(logger('dev'));
 
+app.use(function(req,res,next){
+    var domain = req.headers.host,
+        subDomain = domain.split('.');
 
+    if(subDomain.length > 2){
+        subDomain = subDomain[0];
+    }else{
+        subDomain = "localhost";
+    }
+
+    req.body.tid = subDomain;
+
+    next();
+})
 
 var login = require('./routes/login');
 app.use(login);
+
+var modelForms = require('./routes/modelforms')
+app.use('/add',modelForms);
 
 var restify = require('./routes/models');
 app.use('/restify',restify);
 
 var index = require('./routes/index')
 app.use(index);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('The requested URL ' + req.url + ' not found');

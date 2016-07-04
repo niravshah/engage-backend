@@ -1,0 +1,11 @@
+{
+  "name": {
+    "title": "Name",
+    "type": "string",
+    "required":true
+  },
+  "description": {
+    "title":"Description",
+    "type": "string"
+  }
+}

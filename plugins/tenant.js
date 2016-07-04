@@ -1,11 +1,11 @@
-module.exports = exports = function addTenantIdPlugin(schema, options) {
+module.exports = exports = function addTenantIdPlugin(schema) {
     schema.add({
-        tenantId: String
+        tid: {type: String, required: true}
     })
-    schema.pre('save', function(next, req, callback) {
-        this.tenantId = req.param.tid || req.query.tid;
+    /*schema.pre('save', function(next, req, callback) {
+        this.tid = req.body.tid;
         next(callback);
-    });
+    });*/
 
     schema.pre('find', function(next,callback) {
         console.log(this._conditions)
