@@ -27,6 +27,10 @@ swig.setDefaults({
 });
 var logger = require('morgan');
 app.use(logger('dev'));
+
+var login = require('./routes/login');
+app.use(login);
+
 var index = require('./routes/index')
 app.use(index);
 // catch 404 and forward to error handler
