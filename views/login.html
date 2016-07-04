@@ -28,30 +28,5 @@
     </div>
 </div>
 {% endblock %} {%block jsinclude%}
-<script type="text/javascript">
-    var app = angular.module('engageLoginApp', ['ngStorage']);
-    app.config(function ($interpolateProvider) {
-        $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-    });
-    app.controller('LoginController', function Controller($scope, $http, $location, $localStorage) {
-        $scope.message='Inital Message';
-        $scope.controllerLogin = function() {
-            console.log('Login Button Hijacked!');
-            $http.post('/authenticate', {
-                email: $scope.email,
-                password: $scope.password
-            }).success(function(response) {
-                if(response.token) {
-                    $localStorage.currentUser = {
-                        username: username,
-                        token: response.token
-                    };
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                } else {
-                    $scope.message = response.message;
-                }
-            });
-        };
-    });
-</script>
+<script type="text/javascript" src="/angular/loginApp.js"></script>
 {% endblock %}

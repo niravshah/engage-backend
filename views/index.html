@@ -1,30 +1,29 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-<header id="header">
-    <div id="header-wrap">
-        <div id="logo" class="mt-20">
-            <a href="index.php" class="standard-logo"><img src="/img/engage-logo-s.png" alt=""></a>
+{% extends 'layout.html' %} {% block content %}
+<div ng-app="engageApp">
+    <header id="header">
+        <div id="header-wrap">
+            <div id="logo" class="mt-20">
+                <a href="index.php" class="standard-logo">
+                    <img src="/img/engage-logo-s.png" alt="">
+                </a>
+            </div>
+            <nav id="primary-menu">
+                <div ui-view="nav"></div>
+            </nav>
         </div>
-        <nav id="primary-menu">
-        </nav>
-    </div>
-</header>
-
-<section id="content" ng-app="engageApp">
-    <div class="row">
-        <div class="col-md-12">
-            <div ui-view></div>
+    </header>
+    <section id="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div ui-view="body"></div>
+            </div>
         </div>
-    </div>
-</section>
-<script src="js/angular.min.js"></script>
-<script src="js/angular-ui-router.min.js"></script>
-<script src="angular/app.js"></script>
-{% endblock %}
-{%block jsinclude%}
+    </section>
+</div>
+{% endblock %} {%block jsinclude%}
+<script src="angular/indexApp.js"></script>
 <script type="text/javascript">
-    $(window).load(function(){
+    $(window).load(function() {
         $('#myCarousel').carousel({
             interval: 2000
         });

@@ -28,6 +28,8 @@ swig.setDefaults({
 var logger = require('morgan');
 app.use(logger('dev'));
 
+
+
 var login = require('./routes/login');
 app.use(login);
 
@@ -62,4 +64,3 @@ if(env === 'dev') {
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!');
 });
-//module.exports = app;
