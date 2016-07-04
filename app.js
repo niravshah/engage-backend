@@ -4,7 +4,7 @@ console.log("ENV:", env);
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-mongoose.plugin(require('./plugins/tenant'));
+//mongoose.plugin(require('./plugins/tenant'));
 mongoose.connect(config.mongoUrl);
 var mongo_express = require('mongo-express/lib/middleware')
 app.use('/mongo_express', mongo_express(config.mongo_express_config))
@@ -32,6 +32,9 @@ app.use(logger('dev'));
 
 var login = require('./routes/login');
 app.use(login);
+
+var restify = require('./routes/models');
+app.use('/restify',restify);
 
 var index = require('./routes/index')
 app.use(index);

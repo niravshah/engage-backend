@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "express": "~4.13.4",
+    "express-restify-mongoose": "^4.0.2",
     "jsonwebtoken": "^7.0.1",
     "mongo-express": "^0.30.59",
     "mongoose": "^4.5.3",

@@ -3,7 +3,7 @@ module.exports = exports = function addTenantIdPlugin(schema, options) {
         tenantId: String
     })
     schema.pre('save', function(next, req, callback) {
-        this.tenantId = req.query.tid;
+        this.tenantId = req.param.tid || req.query.tid;
         next(callback);
     });
 
