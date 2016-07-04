@@ -9,9 +9,10 @@
     <link rel="icon" href="img/favicon.ico">
     <title>Engage CSR</title>
     <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
+
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/minnovate.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/js/datatables/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/js/datatables/datatables.bootstrap.min.css">
@@ -20,26 +21,73 @@
     <link rel="stylesheet" href="/js/datatables/extensions/ColVis/css/dataTables.colVis.min.css">
     <link rel="stylesheet" href="/js/datatables/extensions/TableTools/css/dataTables.tableTools.min.css">
     <link rel="stylesheet" href="/js/datetimepicker/css/bootstrap-datetimepicker.min.css">
-
-
 </head>
-
-<body>
-<header id="header-w">
-    <div id="header-wrap-w">
-        <div class="container-fluid clearfix">
-            <div class="logo-wrapper">
-            <span class="logo-span"></span><!--img src="http://placehold.it/250x50" alt=""-->
-                <img src="/img/engage-logo.png">
-            </div>
+<body ng-app="engageApp">
+<section id="header"  ng-controller="headerController">
+    <header class="clearfix">
+        <div class="branding">
+            <a class="brand" href="/index?token={[{token}]}">
+                <span><img src="/img/engage-logo.png"> </span>
+            </a>
+            <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline"><i class="fa fa-bars"></i></a>
         </div>
-    </div>
-</header>
+        <ul class="nav-right pull-right list-inline">
 
+            <li class="dropdown nav-profile">
+
+                <a href class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="/img/profile-photo.jpg" alt="" class="img-circle size-40x40">
+                    <span>John Douey <i class="fa fa-angle-down"></i></span>
+                </a>
+
+                <ul class="dropdown-menu animated littleFadeInRight" role="menu">
+
+                    <li>
+                        <a role="button" tabindex="0">
+                            <span class="badge bg-greensea pull-right">86%</span>
+                            <i class="fa fa-user"></i>Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <span class="label bg-lightred pull-right">new</span>
+                            <i class="fa fa-check"></i>Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-cog"></i>Settings
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-lock"></i>Lock
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-sign-out"></i>Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+
+        </ul>
+        <!-- Right-side navigation end -->
+
+
+
+    </header>
+
+</section>
 {% block content %}{% endblock %}
 <script src="/js/jquery.min.js"></script>
 <script src="/js/tether.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+
 
 <script src="/js/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/js/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>

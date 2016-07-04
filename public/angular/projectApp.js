@@ -1,12 +1,12 @@
 
-var app = angular.module('engageApp', ['ui.router']);
+var app = angular.module('engageApp', ['ngStorage','ui.router']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     $urlRouterProvider.otherwise('/home');
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: '/angular/partials/main2.html',
+            templateUrl: '/angular/partials/projectBody.html',
             resolve:{
                 pid:function(){return $("#content").data("pid")}
             },
@@ -25,3 +25,7 @@ app.service('ProjectsService',['$http',function($http){
         return $http.get('/api/projects/'+id);
     }
 }]);
+
+app.controller('headerController', function($scope,$localStorage) {
+    $scope.token = $localStorage.currentUser.token;
+});
