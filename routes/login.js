@@ -8,11 +8,12 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/setup', function(req, res, next) {
+router.post('/setup/admin', function(req, res, next) {
     var myFoo = new User({
-        name: 'Test User',
-        email: 'test@email.com',
-        password: '123456'
+        name: 'Admin User',
+        email: 'admin@u.com',
+        password: '123456',
+        roles:['user','admin'],
     });
     myFoo.save(req, function(err, result) {
         if(err){
@@ -24,6 +25,25 @@ router.post('/setup', function(req, res, next) {
         }
     });
 });
+
+router.post('/setup/user', function(req, res, next) {
+    var newUser = new User({
+        name: 'Normal User',
+        email: 'user@u.com',
+        password: '123456',
+        roles:['user'],
+    });
+    newUser.save(req, function(err, result) {
+        if(err){
+         console.log('User Save Error', err)   ;
+            res.status(500).send(err);
+        }else{
+        console.log('User Saved');
+            res.status(200).send(result)
+        }
+    });
+});
+
 
 router.post('/authenticate', function(req, res, next) {
         User.findOne({

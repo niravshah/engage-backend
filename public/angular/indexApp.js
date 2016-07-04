@@ -1,9 +1,9 @@
 // app.js
-var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'permission','permission.ui' ]).run(function (PermissionStore, $localStorage) {
-    console.log('Saved User: ', $localStorage.currentUser.email)
+var app = angular.module('engageApp', ['ngStorage', 'angular-jwt','ui.router', 'permission','permission.ui' ]).run(function (PermissionStore, $localStorage,jwtHelper) {
+    
     PermissionStore
-      .definePermission('seeDashboard', function () {        
-        return false;
+      .definePermission('isAdmin', function () {      
+        return jwtHelper.decodeToken($localStorage.currentUser.token)._doc.roles.indexOf('admin') > -1;
       });
   });
 app.config(function($interpolateProvider, $stateProvider, $urlRouterProvider) {
