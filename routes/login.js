@@ -63,6 +63,7 @@ router.post('/authenticate', function(req, res, next) {
                     });
                 } else {
                     var token = jwt.sign(user, 'secret_sauce', {expiresIn:"1h"});
+                    res.cookie('jwt',token,{httpOnly:true});
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',

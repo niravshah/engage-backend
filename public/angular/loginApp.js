@@ -17,7 +17,7 @@
                          token: response.token
                      };
                      $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                     $window.location.href = '/index?token='+response.token;
+                     $window.location.href = '/index';
                  } else {
                      $scope.message = 'Invalid Authentication Token';
                  }

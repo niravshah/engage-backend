@@ -1,4 +1,3 @@
-
 var app = angular.module('engageApp', ['ngStorage','ui.router']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');

@@ -3,20 +3,24 @@ var config = require('./config')[env]
 console.log("ENV:", env);
 var express = require('express');
 var app = express();
+
 var mongoose = require('mongoose');
 mongoose.plugin(require('./plugins/tenant'));
 mongoose.connect(config.mongoUrl);
 var mongo_express = require('mongo-express/lib/middleware')
 app.use('/mongo_express', mongo_express(config.mongo_express_config))
+
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+
 var cookieParser = require('cookie-parser');
-app.use(cookieParser());
 var bodyParser = require('body-parser');
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 var swig = require('swig');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', swig.renderFile);
@@ -25,9 +29,17 @@ app.set('view cache', false);
 swig.setDefaults({
     cache: false
 });
+
 var logger = require('morgan');
 app.use(logger('dev'));
 
+var passport = require('passport');
+app.use(passport.initialize());
+
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+//Sub Domain Extractor
 app.use(function(req,res,next){
     var domain = req.headers.host,
         subDomain = domain.split('.');
@@ -44,16 +56,13 @@ app.use(function(req,res,next){
 })
 
 var login = require('./routes/login');
-app.use(login);
-
 var modelForms = require('./routes/modelforms')
-app.use('/add',modelForms);
-
-var restify = require('./routes/models');
-app.use('/restify',restify);
-
-var index = require('./routes/index')
-app.use(index);
+var restify = require('./routes/restify');
+var index = require('./routes/index');
+app.use(login);
+app.use(passport.authenticate('jwt', {session: false}),modelForms);
+app.use(passport.authenticate('jwt', {session: false}), restify);
+app.use(passport.authenticate('jwt', {session: false}),index);
 
 
 // catch 404 and forward to error handler
@@ -82,6 +91,7 @@ if(env === 'dev') {
         });
     });
 }
+
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!');
 });

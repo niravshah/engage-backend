@@ -3,16 +3,20 @@ var validate = require('mongoose-validator');
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
     name: {
-        type: String
+        type: String,
+        required:true
     },
     email: {
-        type: String
+        type: String,
+        required:true
     },
     password: {
-        type: String
+        type: String,
+        required:true
     },
     roles:
-        { type : Array , "default" : [] }
+        { type : Array , default : ['USER'] }
     
 });
+
 module.exports = mongoose.model('User', userSchema);    
