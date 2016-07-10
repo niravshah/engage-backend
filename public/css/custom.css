@@ -250,7 +250,7 @@
     margin: 0px 5px;
 }
 
-.fixed-height-450{
-    height:450px;
+.fixed-height-350{
+    height:350px;
     overflow-y: scroll;
 }

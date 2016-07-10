@@ -1,16 +1,217 @@
-{% extends 'layoutw.html' %}
+{% extends 'layout.html' %}
+
+{% block stylesheets%}
+<link rel="stylesheet" href="/js/datatables/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="/js/datatables/datatables.bootstrap.min.css">
+<link rel="stylesheet" href="/js/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css">
+<link rel="stylesheet" href="/js/datatables/extensions/Responsive/css/dataTables.responsive.css">
+<link rel="stylesheet" href="/js/datatables/extensions/ColVis/css/dataTables.colVis.min.css">
+<link rel="stylesheet" href="/js/datatables/extensions/TableTools/css/dataTables.tableTools.min.css">
+<link rel="stylesheet" href="/js/datetimepicker/css/bootstrap-datetimepicker.min.css">
+{% endblock %}
 
 {% block content %}
+<div ng-app="engageApp">
+<section id="header"  ng-controller="headerController">
+    <header class="clearfix">
+        <div class="branding">
+            <a class="brand" href="/index?token={[{token}]}">
+                <span><img src="/img/engage-logo.png"> </span>
+            </a>
+            <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline"><i class="fa fa-bars"></i></a>
+        </div>
+        <ul class="nav-right pull-right list-inline">
+
+            <li class="dropdown nav-profile">
+
+                <a href class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="/img/random-avatar4.jpg" alt="" class="img-circle size-40x40">
+                    <span>Deel McApple <i class="fa fa-angle-down"></i></span>
+                </a>
+
+                <ul class="dropdown-menu animated littleFadeInRight" role="menu">
+
+                    <li>
+                        <a role="button" tabindex="0">
+                            <span class="badge bg-greensea pull-right">86%</span>
+                            <i class="fa fa-user"></i>Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <span class="label bg-lightred pull-right">new</span>
+                            <i class="fa fa-check"></i>Tasks
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-cog"></i>Settings
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-lock"></i>Lock
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" tabindex="0">
+                            <i class="fa fa-sign-out"></i>Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+
+        </ul>
+        <!-- Right-side navigation end -->
+
+
+
+    </header>
+</section>
 <section id="contentw" data-pid="{{pid}}">
     <div class="row">
         <div class="col-md-12">
-            <div ui-view></div>
+            <div class="row mt-10">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Project Info -->
+                            <div ui-view="projectInfo"></div>
+                            <!-- END: Project Info -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Team Members -->
+                            <div ui-view="teamMembers"></div>
+                            <!-- END: Team Members -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Project Tracker -->
+                            <div ui-view="projectTracker"></div>
+                            <!-- END: Project Tracker -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Message Stream -->
+                    <div ui-view="messageStream"></div>
+                    <!-- END: Message Stream -->
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
-<script src="/js/angular.min.js"></script>
-<script src="/js/angular-ui-router.min.js"></script>
-<script src="/js/ngStorage.min.js"></script>
-<script src="/angular/projectApp.js"></script>
+</div>
+{% endblock %}
 
+{% block scripts %}
+<script src="/js/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/js/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+<script src="/js/datatables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
+<script src="/js/datatables/extensions/ColVis/js/dataTables.colVis.min.js"></script>
+<script src="/js/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script src="/js/datatables/extensions/dataTables.bootstrap.js"></script>
+<script src="/js/datetimepicker/js/moment.js"></script>
+<script src="/js/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/angular/projectApp.js"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+
+        //Initialize mini calendar datepicker
+        $('#mini-calendar').datetimepicker({
+            inline: true
+        });
+
+        var table2 = $('#editable-usage');
+
+        var oTable = $('#editable-usage').DataTable({
+            "aoColumnDefs": [
+                {'bSortable': false, 'aTargets': ["no-sort"]}
+            ]
+        });
+
+        var nEditing = null;
+        var nNew = false;
+
+        $('#add-entry').click(function (e) {
+            e.preventDefault();
+
+            if (nNew && nEditing) {
+                if (confirm("Previous row is not saved yet. Save it ?")) {
+                    saveRow(oTable, nEditing); // save
+                    $(nEditing).find("td:first").html("Untitled");
+                    nEditing = null;
+                    nNew = false;
+
+                } else {
+                    oTable.row(nEditing).remove().draw(); // cancel
+                    nEditing = null;
+                    nNew = false;
+
+                    return;
+                }
+            }
+
+            var aiNew = oTable.row.add(['', '', '', '', '', '', '']).draw();
+            var nRow = oTable.row(aiNew[0]).node();
+            editRow(oTable, nRow);
+            nEditing = nRow;
+            nNew = true;
+        });
+
+        table2.on('click', '.delete', function (e) {
+            e.preventDefault();
+
+            if (confirm("Are you sure?") == false) {
+                return;
+            }
+
+            var nRow = $(this).parents('tr')[0];
+            oTable.row(nRow).remove().draw();
+            alert("Deleted!");
+        });
+
+        table2.on('click', '.cancel', function (e) {
+            e.preventDefault();
+            if (nNew) {
+                oTable.row(nEditing).remove().draw();
+                nEditing = null;
+                nNew = false;
+            } else {
+                restoreRow(oTable, nEditing);
+                nEditing = null;
+            }
+        });
+
+        table2.on('click', '.edit', function (e) {
+            e.preventDefault();
+
+            /* Get the row as a parent of the link that was clicked on */
+            var nRow = $(this).parents('tr')[0];
+
+            if (nEditing !== null && nEditing != nRow) {
+                /* Currently editing - but not this row - restore the old before continuing to edit mode */
+                restoreRow(oTable, nEditing);
+                editRow(oTable, nRow);
+                nEditing = nRow;
+            } else if (nEditing == nRow && this.innerHTML == "Save") {
+                /* Editing this row and want to save it */
+                saveRow(oTable, nEditing);
+                nEditing = null;
+                alert("Updated!");
+            } else {
+                /* No edit in progress - let's start one */
+                editRow(oTable, nRow);
+                nEditing = nRow;
+            }
+        });
+    });
+
+
+</script>
 {% endblock %}
