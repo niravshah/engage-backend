@@ -254,3 +254,32 @@
     height:350px;
     overflow-y: scroll;
 }
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate  {
+    padding-top:10px;
+    padding-bottom:10px;
+    font-family: "Lato", "Arial", sans-serif;
+}
+
+.dataTables_filter label{
+    width:100%;
+    font-size: 14px;
+}
+
+.dataTables_length label{
+    width:100%;
+    font-size: 14px;
+}
+
+
+@media (min-width: 768px) {
+    .form-inline input.form-control{
+        width:80%;
+        margin-left: 20px;
+    }
+
+    select.form-control{
+        margin:0px 5px;
+    }
+
+}

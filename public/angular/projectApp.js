@@ -6,6 +6,10 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         .state('home', {
             url: '/home',
             views: {
+                'projectHeader':{
+                    templateUrl:'/angular/partials/projectHeader.html',
+                    controller:'headerController'
+                },
                 'projectInfo': {
                     templateUrl: '/angular/partials/projectInfo.html'
                 },

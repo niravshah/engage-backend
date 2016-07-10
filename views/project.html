@@ -12,66 +12,8 @@
 
 {% block content %}
 <div ng-app="engageApp">
-<section id="header"  ng-controller="headerController">
-    <header class="clearfix">
-        <div class="branding">
-            <a class="brand" href="/index?token={[{token}]}">
-                <span><img src="/img/engage-logo.png"> </span>
-            </a>
-            <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline"><i class="fa fa-bars"></i></a>
-        </div>
-        <ul class="nav-right pull-right list-inline">
-
-            <li class="dropdown nav-profile">
-
-                <a href class="dropdown-toggle" data-toggle="dropdown">
-                    <img src="/img/random-avatar4.jpg" alt="" class="img-circle size-40x40">
-                    <span>Deel McApple <i class="fa fa-angle-down"></i></span>
-                </a>
-
-                <ul class="dropdown-menu animated littleFadeInRight" role="menu">
-
-                    <li>
-                        <a role="button" tabindex="0">
-                            <span class="badge bg-greensea pull-right">86%</span>
-                            <i class="fa fa-user"></i>Profile
-                        </a>
-                    </li>
-                    <li>
-                        <a role="button" tabindex="0">
-                            <span class="label bg-lightred pull-right">new</span>
-                            <i class="fa fa-check"></i>Tasks
-                        </a>
-                    </li>
-                    <li>
-                        <a role="button" tabindex="0">
-                            <i class="fa fa-cog"></i>Settings
-                        </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a role="button" tabindex="0">
-                            <i class="fa fa-lock"></i>Lock
-                        </a>
-                    </li>
-                    <li>
-                        <a role="button" tabindex="0">
-                            <i class="fa fa-sign-out"></i>Logout
-                        </a>
-                    </li>
-
-                </ul>
-
-            </li>
-
-        </ul>
-        <!-- Right-side navigation end -->
-
-
-
-    </header>
-</section>
-<section id="contentw" data-pid="{{pid}}">
+    <div ui-view="projectHeader"></div>
+    <section id="contentw" data-pid="{{pid}}">
     <div class="row">
         <div class="col-md-12">
             <div class="row mt-10">
@@ -122,9 +64,7 @@
 <script type="text/javascript">
     $(window).load(function () {
 
-
         var table2 = $('#editable-usage');
-
         var oTable = $('#editable-usage').DataTable({
             "aoColumnDefs": [
                 {'bSortable': false, 'aTargets': ["no-sort"]}
@@ -133,7 +73,6 @@
 
         var nEditing = null;
         var nNew = false;
-
         $('#add-entry').click(function (e) {
             e.preventDefault();
 
@@ -207,7 +146,6 @@
             }
         });
     });
-
 
 </script>
 {% endblock %}
