@@ -234,3 +234,23 @@
     font-size: 15px;
 }
 
+.image-float-left{
+    float:left;
+    margin: 0px 20px 20px 20px;
+}
+
+.text-wrap{
+    text-align: justify;
+    margin: 0px 20px 0px 20px;
+}
+
+.badge-img{
+    max-height: 50px;
+    display: inline;
+    margin: 0px 5px;
+}
+
+.fixed-height-450{
+    height:450px;
+    overflow-y: scroll;
+}
