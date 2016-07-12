@@ -14,7 +14,8 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/projectInfo.html'
                 },
                 'teamMembers': {
-                    templateUrl: '/angular/partials/teamMembers.html'
+                    templateUrl: '/angular/partials/teamMembers.html',
+                    controller: 'teamMemberController'
                 },
                 'messageStream': {
                     templateUrl: '/angular/partials/messageStream.html'
@@ -44,6 +45,20 @@ app.controller('headerController', function ($scope, $localStorage) {
     $scope.token = $localStorage.currentUser.token;
 });
 
+
+app.controller('teamMemberController', function ($scope, $http) {
+    $scope.init = function(){
+        console.log('teamMemberController Init');
+        $http.get('/data/projects/1/team.json').then(function(response){
+            $scope.team = response.data.team;
+            console.log($scope.team);
+        })
+    }
+
+    $scope.init();
+
+})
+
 app.controller('projectTasksController', function ($scope, $http) {
 
     $controls = $('#controls');
@@ -53,7 +68,6 @@ app.controller('projectTasksController', function ($scope, $http) {
 
     $scope.models = {
         selected: null,
-        lists: {"A": [], "B": []}
     };
 
     $scope.init = function(){

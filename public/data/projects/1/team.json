@@ -1,0 +1,46 @@
+{
+  "team":[
+    {
+      "firstName":"Roger",
+      "lastName":"Freeman",
+      "avatar":"/img/random-avatar5.jpg",
+      "badges":["/img/badge1.png"],
+      "role":"Team Lead"
+    },
+    {
+      "firstName":"Deel",
+      "lastName":"Marlow",
+      "avatar":"/img/random-avatar4.jpg",
+      "badges":["/img/badge3.png"],
+      "role":"Project Manager"
+    },
+    {
+      "firstName":"Anna",
+      "lastName":"Smith",
+      "avatar":"/img/random-avatar8.jpg",
+      "badges":["/img/badge2.png"],
+      "role":"Communications Manager"
+    },
+    {
+      "firstName":"Robin",
+      "lastName":"Wills",
+      "avatar":"/img/random-avatar8.jpg",
+      "badges":["/img/badge1.png","/img/badge1.png"],
+      "role":"Team Member"
+    },
+    {
+      "firstName":"Mike",
+      "lastName":"Herrington",
+      "avatar":"/img/random-avatar1.jpg",
+      "badges":["/img/badge2.png"],
+      "role":"Team Member"
+    },
+    {
+      "firstName":"John",
+      "lastName":"Douey",
+      "avatar":"/img/ici-avatar.jpg",
+      "badges":[],
+      "role":"Team Member"
+    }
+  ]
+}

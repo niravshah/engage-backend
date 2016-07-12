@@ -8,87 +8,20 @@
         </ul>
     </div>
     <div class="tile-body fixed-height-350">
-        <div class="media ">
-            <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/random-avatar5.jpg" alt="">
-            </div>
-            <div class="pull-right mt-10">
-                <img class="media-object badge-img" src="/img/badge1.png" alt="">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">Roger <strong>Flopple</strong></p>
-                <small class="text-lightred">Team Lead</small>
-            </div>
-        </div>
-
-        <hr/>
-
+        <div ng-for="member in team">
         <div class="media">
             <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/random-avatar4.jpg" alt="">
+                <img class="media-object img-circle" ng-src="{[{member.avatar}]}" alt="">
             </div>
             <div class="pull-right mt-10">
-                <img class="media-object badge-img" src="/img/badge3.png" alt="">
+                <img ng-for="badge in member.badges" class="media-object badge-img" src="{[{badge}]}" alt="">
             </div>
             <div class="media-body">
-                <p class="media-heading mb-0 mt-10">Deel <strong>McApple</strong></p>
-                <small class="text-lightred">Project Manager</small>
-            </div>
-        </div>
-
-        <hr/>
-
-        <div class="media ">
-            <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/random-avatar8.jpg" alt="">
-            </div>
-            <div class="pull-right mt-10">
-                <img class="media-object badge-img" src="/img/badge2.png" alt="">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">Anna <strong>Opichia</strong></p>
-                <small class="text-lightred">Communications</small>
+                <p class="media-heading mb-0 mt-10">{[{member.firstName}]} <strong>{[{member.lastName}]}</strong></p>
+                <small class="text-lightred">{[{member.role}]}</small>
             </div>
         </div>
         <hr/>
-        <div class="media ">
-            <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/random-avatar3.jpg" alt="">
-            </div>
-            <div class="pull-right mt-10">
-                <img class="media-object badge-img" src="/img/badge1.png" alt="">
-                <img class="media-object badge-img" src="/img/badge1.png" alt="">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">Robin <strong>Wills</strong></p>
-                <small class="text-lightred">Team Member</small>
-            </div>
-        </div>
-        <hr/>
-
-        <div class="media ">
-            <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/random-avatar1.jpg" alt="">
-            </div>
-            <div class="pull-right mt-10">
-                <img class="media-object badge-img" src="/img/badge2.png" alt="">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">Mike  <strong>Herrington</strong></p>
-                <small class="text-lightred">Team Member</small>
-            </div>
-        </div>
-        <hr/>
-        <div class="media ">
-            <div class="pull-left thumb">
-                <img class="media-object img-circle" src="/img/ici-avatar.jpg" alt="">
-            </div>
-            <div class="pull-right mt-10">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">John <strong>Douey</strong></p>
-                <small class="text-lightred">Team Member</small>
-            </div>
         </div>
     </div>
 </section>
