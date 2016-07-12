@@ -1,4 +1,4 @@
-var app = angular.module('engageApp', ['ngStorage', 'ui.router','dndLists']);
+var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     $urlRouterProvider.otherwise('/home');
@@ -6,9 +6,9 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         .state('home', {
             url: '/home',
             views: {
-                'projectHeader':{
-                    templateUrl:'/angular/partials/projectHeader.html',
-                    controller:'headerController'
+                'projectHeader': {
+                    templateUrl: '/angular/partials/projectHeader.html',
+                    controller: 'headerController'
                 },
                 'projectInfo': {
                     templateUrl: '/angular/partials/projectInfo.html'
@@ -18,11 +18,12 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     controller: 'teamMemberController'
                 },
                 'messageStream': {
-                    templateUrl: '/angular/partials/messageStream.html'
+                    templateUrl: '/angular/partials/messageStream.html',
+                    controller: 'messageStreamController'
                 },
                 'projectTasks': {
                     templateUrl: '/angular/partials/projectTracker.html',
-                    controller:'projectTasksController'
+                    controller: 'projectTasksController'
                 }
             },
             resolve: {
@@ -34,12 +35,36 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         });
 });
 
-app.filter('startFrom', function() {
-    return function(input, start) {
+app.filter('startFrom', function () {
+    return function (input, start) {
         start = +start; //parse to int
         return input.slice(start);
     }
 });
+
+app.directive('activeToggle', function () {
+    return {
+        restrict: 'A',
+        link: function postLink(scope, element, attr) {
+
+            element.on('click', function () {
+
+                var target = angular.element(attr.target) || Array(element);
+
+                if (element.hasClass('active')) {
+                    element.removeClass('active');
+                    target.removeClass('show');
+                } else {
+                    element.addClass('active');
+                    target.addClass('show');
+                }
+
+            });
+
+        }
+    };
+});
+
 
 app.controller('headerController', function ($scope, $localStorage) {
     $scope.token = $localStorage.currentUser.token;
@@ -47,32 +72,46 @@ app.controller('headerController', function ($scope, $localStorage) {
 
 
 app.controller('teamMemberController', function ($scope, $http) {
-    $scope.init = function(){
+    $scope.init = function () {
         console.log('teamMemberController Init');
-        $http.get('/data/projects/1/team.json').then(function(response){
+        $http.get('/data/projects/1/team.json').then(function (response) {
             $scope.team = response.data.team;
             console.log($scope.team);
+        })
+    };
+
+    $scope.init();
+
+});
+
+app.controller('messageStreamController', function ($scope, $http) {
+    $scope.init = function () {
+        console.log('messageStreamController Init');
+        $http.get('/data/projects/1/messages.json').then(function (response) {
+            $scope.messages = response.data.messages;
+            console.log($scope.messages);
         })
     }
 
     $scope.init();
 
-})
+});
+
 
 app.controller('projectTasksController', function ($scope, $http) {
 
     $controls = $('#controls');
     $scope.currentPage = 0;
     $scope.pageSize = 2;
-    $scope.tasks=[];
+    $scope.tasks = [];
 
     $scope.models = {
         selected: null,
     };
 
-    $scope.init = function(){
+    $scope.init = function () {
         console.log('projectTasksController Init', new Date().getTime());
-        $http.get('/data/projects/1/tasks.json').then(function(response){
+        $http.get('/data/projects/1/tasks.json').then(function (response) {
             $scope.tasks = response.data.tasks;
             console.log($scope.tasks);
         })
@@ -80,7 +119,7 @@ app.controller('projectTasksController', function ($scope, $http) {
 
     $scope.init();
 
-    $scope.dndSelectedFn = function(task){
+    $scope.dndSelectedFn = function (task) {
         console.log('Selected', task);
         $scope.models.selected = task;
 
@@ -89,15 +128,15 @@ app.controller('projectTasksController', function ($scope, $http) {
         }
     }
 
-    $scope.closeRightSidebar = function(){
+    $scope.closeRightSidebar = function () {
         if ($controls.hasClass('rightbar-show')) {
             $controls.removeClass('rightbar-show').addClass('rightbar-hidden');
         }
 
     }
 
-    $scope.numberOfPages=function(){
-        return Math.ceil($scope.tasks.length/$scope.pageSize);
+    $scope.numberOfPages = function () {
+        return Math.ceil($scope.tasks.length / $scope.pageSize);
     }
-    
+
 });
