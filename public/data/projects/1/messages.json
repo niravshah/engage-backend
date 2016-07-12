@@ -1,0 +1,18 @@
+{
+    "messages": {
+        "1": {
+            "from": "John Douey",
+            "avatar": "/img/ici-avatar.jpg",
+            "timestamp": "",
+            "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+            "likes": "2",
+            "replies": {
+                "from": "John Douey",
+                "avatar": "/img/ici-avatar.jpg",
+                "timestamp": "",
+                "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+                "likes": "2"
+            }
+        }
+    }
+}
