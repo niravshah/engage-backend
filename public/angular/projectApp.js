@@ -1,4 +1,4 @@
-var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment']);
+var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment','angularUtils.directives.dirPagination']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     $urlRouterProvider.otherwise('/home');
@@ -101,9 +101,8 @@ app.controller('messageStreamController', function ($scope, $http) {
 app.controller('projectTasksController', function ($scope, $http) {
 
     $controls = $('#controls');
-    $scope.currentPage = 0;
-    $scope.pageSize = 2;
     $scope.tasks = [];
+    $scope.tasksPerPage = "3";
 
     $scope.models = {
         selected: null,
@@ -126,17 +125,13 @@ app.controller('projectTasksController', function ($scope, $http) {
         if ($controls.hasClass('rightbar-hidden')) {
             $controls.removeClass('rightbar-hidden').addClass('rightbar-show');
         }
-    }
+    };
 
     $scope.closeRightSidebar = function () {
         if ($controls.hasClass('rightbar-show')) {
             $controls.removeClass('rightbar-show').addClass('rightbar-hidden');
         }
 
-    }
-
-    $scope.numberOfPages = function () {
-        return Math.ceil($scope.tasks.length / $scope.pageSize);
-    }
+    };
 
 });
