@@ -3,18 +3,17 @@
         <article class="streamline-post">
             <aside>
                 <div class="thumb thumb-sm">
-                    <img class="img-circle" src="/img//ici-avatar.jpg" alt="">
+                    <img class="img-circle" src="{[{m.avatar}]}" alt="">
                 </div>
             </aside>
             <div class="post-container">
                 <div class="panel panel-default">
                     <div class="panel-heading bg-white">
-                        John Douey <span class="label label-primary">Admin</span>
+                        {[{m.from}]}
                         <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> Just now</span>
                     </div>
-                    <div class="panel-body">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                    <div class="panel-body">     
+                        {[{m.message}]}
                         <p class="mt-10 mb-0">
                             <a href="" active-toggle="" class="btn btn-default btn-xs active">
                                 <i class="fa fa-heart-o text-inactive"></i><i
@@ -26,36 +25,30 @@
                         </p>
                     </div>
                 </div>
-
                 <ul class="list-unstyled post-replies">
                     <li>
                         <aside>
                             <div class="thumb thumb-sm">
-                                <img class="img-circle" src="/img//random-avatar4.jpg" alt="">
+                                <img class="img-circle" src="{[{r.avatar}]}" alt="">
                             </div>
                         </aside>
-
                         <div class="reply-container">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <p>
-                                        <strong>James Bend</strong>
+                                        <strong>{[{r.from}]}</strong>
                                         <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i> 6 minutes ago</span>
                                     </p>
 
-                                    <p class="mb-0 text-small">Unde omnis iste natus error sit voluptatem
-                                        accusantium doloremque.</p>
+                                    <p class="mb-0 text-small">{{r.message}}</p>
                                 </div>
                             </div>
                         </div>
-
                     </li>
-
                 </ul>
-
             </div>
         </article>
-
+<!--
         <article class="streamline-post">
             <aside>
                 <div class="thumb thumb-sm">
@@ -118,7 +111,7 @@
                 </div>
             </div>
         </article>
-
+-->
         <div class="streamline-form">
             <div class="thumb thumb-sm"><img class="img-circle" src="/img//profile-photo.jpg" alt="">
             </div>

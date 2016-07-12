@@ -71,7 +71,7 @@ app.controller('projectTasksController', function ($scope, $http) {
     };
 
     $scope.init = function(){
-        console.log('projectTasksController Init');
+        console.log('projectTasksController Init', new Date().getTime());
         $http.get('/data/projects/1/tasks.json').then(function(response){
             $scope.tasks = response.data.tasks;
             console.log($scope.tasks);
