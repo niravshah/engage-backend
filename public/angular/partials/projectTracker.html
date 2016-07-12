@@ -39,43 +39,46 @@
             </li>
         </ul>
     </div>
-    <div class="tile-body">
-        <div class="table-responsive">
-            <table class="table table-custom" id="editable-usage">
-                <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Owner</th>
-                    <th>Status</th>
-                    <th>Due Date</th>
-                    <th style="width: 160px;" class="no-sort">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="odd">
-                    <td>Trident</td>
-                    <td>Internet Explorer 4.0</td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td class="actions"><a role="button" tabindex="0"
-                                           class="edit text-primary text-uppercase text-strong text-sm mr-10">Edit</a><a
-                            role="button" tabindex="0"
-                            class="delete text-danger text-uppercase text-strong text-sm mr-10">Remove</a>
-                    </td>
-                </tr>
-                <tr class="even">
-                    <td>Trident</td>
-                    <td>Internet Explorer 5.0</td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td class="actions"><a role="button" tabindex="0"
-                                           class="edit text-primary text-uppercase text-strong text-sm mr-10">Edit</a><a
-                            role="button" tabindex="0"
-                            class="delete text-danger text-uppercase text-strong text-sm mr-10">Remove</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="tile-body project-tasks">
+        <label>Search: <input ng-model="searchText"></label>
+
+        <ul dnd-list="tasks">
+            <li ng-repeat="task in tasks |filter:searchText| startFrom:currentPage*pageSize | limitTo:pageSize" dnd-draggable="task" dnd-moved="tasks.splice($index,1)"
+                dnd-effect-allowed="move" dnd-selected="dndSelectedFn(task)"
+                ng-class="{'selected':models.selected==task}">
+                <div class="row task">
+                    <div class="col-md-6">{[{task.description}]}</div>
+                    <div class="col-md-2 task-image"><img src="/img/random-avatar4.jpg" alt=""
+                                                          class="img-circle size-30x30"><span>{[{task.owner}]}</span>
+                    </div>
+                    <div class="col-md-2">{[{task.status}]}</div>
+                    <div class="col-md-1">{[{task.due}]}</div>
+                    <div class="col-md-1">
+                        <a class="pull-right"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+            Previous
+        </button>
+        {[{currentPage+1}]}/{[{numberOfPages()}]}
+        <button ng-disabled="currentPage >= tasks.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+            Next
+        </button>
     </div>
 </section>
+
+<div id="controls" class="rightbar-hidden">
+    <aside id="rightbar">
+        <div class="row m-20">
+            <a role="button" tabindex="0" class="tile-close" style="float: right" ng-click="closeRightSidebar()"><i
+                    class="fa fa-times"></i></a>
+        </div>
+
+        <div class="row m-40">
+            {[{models.selected.description}]}
+        </div>
+
+    </aside>
+</div>

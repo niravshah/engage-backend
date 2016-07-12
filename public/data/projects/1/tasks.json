@@ -1,0 +1,8 @@
+{
+  "tasks":[
+    {"description":"Finalize the schedule of the day with KIDS representative","owner":"Nirav","status":"In Progress", "due":"21.7.16"},
+    {"description":"Work with the venue for health & safety assessment","owner":"Nirav","status":"In Progress", "due":"21.7.16"},
+    {"description":"Identify Speaker to deliver a talk on the importance of staying in education","owner":"Nirav","status":"In Progress", "due":"21.7.16"},
+    {"description":"Submit Proposal for the Games Night events","owner":"Nirav","status":"In Progress", "due":"21.7.16"}
+  ]
+}
