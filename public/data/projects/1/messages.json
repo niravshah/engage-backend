@@ -1,19 +1,51 @@
 {
   "messages": {
     "1": {
-      "from": "John Douey",
-      "avatar": "/img/ici-avatar.jpg",
+      "from": "Roger Freeman",
+      "avatar": "/img/roger.jpg",
       "timestamp": "1468345946819",
-      "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
+      "message": "Just reached out to Julie from KIDS. She confirmed we should make arrangements for about 40-50 children.",
       "likes": "2",
       "replies": {
         "1": {
-          "from": "John Douey",
-          "avatar": "/img/ici-avatar.jpg",
+          "from": "Anna Smith",
+          "avatar": "/img/anna.jpg",
           "timestamp": "1468345946819",
-          "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-          "likes": "2"
+          "message": "That's great. Thanks Roger. I'll reach out to the venue manager and make sure we can accommodate everyone.",
+          "likes": "0"
+        },
+        "2":{
+          "from": "Deel Marlow",
+          "avatar": "/img/deel.jpg",
+          "timestamp": "1468345946819",
+          "message": "I'll work with the entertainment group to make sure we have enough tables in the games room. ",
+          "likes": "0"
         }
+      }
+    },
+    "2":{
+      "from": "Robin Wills",
+      "avatar": "/img/robin.jpg",
+      "timestamp": "1468345946819",
+      "message": "Am meeting with our HR today. How many volunteers should we request for?",
+      "likes": "0",
+      "replies":{
+        "1":{
+          "from": "Anna Smith",
+          "avatar": "/img/anna.jpg",
+          "timestamp": "1468345946819",
+          "message": "I think we should look to have 1 volunteer for a table of 5 kids.",
+          "likes": "0"
+        },
+        "2":{
+          "from": "Roger Freeman",
+          "avatar": "/img/roger.jpg",
+          "timestamp": "1468345946819",
+          "message": "Agrred. 1 volunteer for 5 kids should be good.",
+          "likes": "0"
+
+        }
+
       }
     }
   }

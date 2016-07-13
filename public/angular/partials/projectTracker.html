@@ -43,7 +43,7 @@
 
         <div class="form-group" style="margin-bottom: 60px;">
             <label for="input05" class="col-sm-1 control-label">Search</label>
-            <div class="col-sm-8">
+            <div class="col-sm-11">
                 <input type="text" class="form-control rounded" ng-model="searchText" id="input05">
                 <span ng-click="searchText=''" id="searchclear" class="glyphicon glyphicon-remove-circle"></span>
             </div>
@@ -56,8 +56,8 @@
                     dnd-effect-allowed="move" dnd-selected="dndSelectedFn(task)"
                     ng-class="{'selected':models.selected==task}">
                     <div class="row task">
-                        <div class="col-md-6">{[{task.description}]}</div>
-                        <div class="col-md-2 task-image"><img src="{[{task.ownerImage}]}" alt=""
+                        <div class="col-md-5">{[{task.description}]}</div>
+                        <div class="col-md-3 task-image"><img src="{[{task.ownerImage}]}" alt=""
                                                               class="img-circle size-30x30"><span>{[{task.owner}]}</span>
                         </div>
                         <div class="col-md-2">{[{task.status}]}</div>

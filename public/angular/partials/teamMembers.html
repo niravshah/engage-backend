@@ -14,7 +14,7 @@
                 <img class="media-object img-circle" ng-src="{[{member.avatar}]}" alt="">
             </div>
             <div class="pull-right mt-10">
-                <img ng-for="badge in member.badges" class="media-object badge-img" src="{[{badge}]}" alt="">
+                <img ng-repeat="badge in member.badges track by $index" class="media-object badge-img" ng-src="{[{badge}]}" alt="">
             </div>
             <div class="media-body">
                 <p class="media-heading mb-0 mt-10">{[{member.firstName}]} <strong>{[{member.lastName}]}</strong></p>
