@@ -34,6 +34,13 @@
       "ownerImage":"/img/deel.jpg",
       "status": "In Progress",
       "due": "21.7.16"
-    }
+    },
+      {
+          "description": "Arrange catering for the event days",
+          "owner": "John Douey",
+          "ownerImage": "/img/john.jpg",
+          "status": "In Progress",
+          "due": "21.7.16"
+      }    
   ]
 }
