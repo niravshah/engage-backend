@@ -8,9 +8,9 @@
       "role":"Team Lead"
     },
     {
-      "firstName":"Deel",
-      "lastName":"Marlow",
-      "avatar":"/img/deel.jpg",
+      "firstName":"Robin",
+      "lastName":"Wills",
+      "avatar":"/img/robin.jpg",
       "badges":["/img/badge3.png"],
       "role":"Project Manager"
     },
@@ -22,9 +22,9 @@
       "role":"Communications Manager"
     },
     {
-      "firstName":"Robin",
-      "lastName":"Wills",
-      "avatar":"/img/robin.jpg",
+      "firstName":"Deel",
+      "lastName":"Marlow",
+      "avatar":"/img/deel.jpg",
       "badges":["/img/badge1.png","/img/badge1.png"],
       "role":"Team Member"
     },

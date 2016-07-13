@@ -15,12 +15,19 @@
       "due": "21.7.16"
     },
     {
-      "description": "Identify Speaker to deliver a talk on the importance of staying in education",
+      "description": "Recruit volunteers to help out on the event days ",
       "owner": "Robin Wills",
       "ownerImage":"/img/robin.jpg",
       "status": "In Progress",
       "due": "21.7.16"
     },
+    {
+      "description": "Identify Speaker to deliver a talk on the importance of staying in education",
+      "owner": "Mike Herrington",
+      "ownerImage":"/img/mike.jpg",
+      "status": "In Progress",
+      "due": "21.7.16"
+    },      
     {
       "description": "Submit Proposal for the Games Night events",
       "owner": "Deel Marlow",
