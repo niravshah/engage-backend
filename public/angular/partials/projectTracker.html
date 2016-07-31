@@ -49,18 +49,19 @@
             </div>
         </div>
         <div class="form-group">
-
             <ul dnd-list="tasks">
                 <li dir-paginate="task in tasks |filter:searchText| itemsPerPage: tasksPerPage" dnd-draggable="task"
                     dnd-moved="tasks.splice($index,1)"
                     dnd-effect-allowed="move" dnd-selected="dndSelectedFn(task)"
                     ng-class="{'selected':models.selected==task}">
                     <div class="row task">
-                        <div class="col-md-5">{[{task.description}]}</div>
+                        <div class="col-md-5 description">
+                            {[{task.description}]}
+                        </div>
                         <div class="col-md-3 task-image"><img src="{[{task.ownerImage}]}" alt=""
                                                               class="img-circle size-30x30"><span>{[{task.owner}]}</span>
                         </div>
-                        <div class="col-md-2">{[{task.status}]}</div>
+                        <div class="col-md-2 progress-task">{[{task.status}]}</div>
                         <div class="col-md-1">{[{task.due}]}</div>
                         <div class="col-md-1">
                             <a class="pull-right"><i class="fa fa-trash"></i></a>

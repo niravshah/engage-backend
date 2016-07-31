@@ -281,8 +281,25 @@
 }
 
 .task{
-    margin-top: 10px;
-    margin-bottom: 10px;
+    background-color: rgba(232, 230, 230, 0.47);
+    display: flex;
+    box-shadow: 4px 4px rgba(204, 207, 208, 0.52);
+    align-items: center;
+}
+
+.task div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.task .progress-task{
+    color: #00c875 !important;
+    text-align: center;
+    color: white;
+}
+
+.task .description{
+    border-left: 10px solid #00c875;
 }
 
 
@@ -331,7 +348,6 @@
 }
 .project-tasks ul[dnd-list] li {
     background-color: #fff;
-    border: 1px solid #ddd;
     display: block;
     padding: 10px 15px;
     margin-bottom: -1px;

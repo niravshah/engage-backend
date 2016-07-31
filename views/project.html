@@ -13,6 +13,14 @@
             <div class="row mt-10">
                 <div class="col-md-8">
                     <div class="row">
+                        <div class="col-md-12">
+                            <!-- Project Tracker -->
+                            <div ui-view="projectTasks"></div>
+                            <!-- END: Project Tracker -->
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-md-6">
                             <!-- Project Info -->
                             <div ui-view="projectInfo"></div>
@@ -22,13 +30,6 @@
                             <!-- Team Members -->
                             <div ui-view="teamMembers"></div>
                             <!-- END: Team Members -->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- Project Tracker -->
-                            <div ui-view="projectTasks"></div>
-                            <!-- END: Project Tracker -->
                         </div>
                     </div>
                 </div>
