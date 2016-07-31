@@ -14,7 +14,7 @@
   width: 100%;
   height: 100%;
   padding: 60px 10px;
-  background-color: #3f4e62;
+  background-color: #745BA7;
   overflow: auto;
 }
 
@@ -2826,7 +2826,7 @@ html.boxed-layout .appWrapper.header-fixed.aside-static #header {
   font-size: 18px;
   font-weight: 300;
   color: white;
-  padding-left: 30px;
+  padding-left: 20px;
   height: 45px;
   line-height: 45px;
   float: left;

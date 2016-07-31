@@ -9,12 +9,13 @@
     width: calc(100vw);
     box-shadow: 0 0 15px rgba(0, 0, 0, .8);
     border: none;
-    border-bottom: 1px solid #6A1B9A;
+    border-bottom: 1px solid #745BA7;
+    background: #745BA7;
 }
 
 .brand img{
-    width:150px;
-    height:40px;
+    width: 200px;
+    height: auto;
 }
 #header .branding {
     background-color: #FFF;
@@ -372,4 +373,13 @@
 .pagination{
     margin:0px;
     float:right;
+}
+
+.text-yellow1{
+    color: #EAAD21;
+}
+
+.btn-yellow1{
+    background-color: #EAAD21;
+    color:#ffffff;
 }
