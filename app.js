@@ -53,10 +53,10 @@ app.use(function(req,res,next){
     req.body.tid = subDomain;
 
     next();
-})
+});
 
 var login = require('./routes/login');
-var modelForms = require('./routes/modelforms')
+var modelForms = require('./routes/modelforms');
 var restify = require('./routes/restify');
 var index = require('./routes/index');
 app.use(login);

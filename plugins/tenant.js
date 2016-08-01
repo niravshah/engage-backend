@@ -1,7 +1,7 @@
 module.exports = exports = function addTenantIdPlugin(schema) {
     schema.add({
         tid: {type: String, required: true}
-    })
+    });
     /*schema.pre('save', function(next, req, callback) {
         this.tid = req.body.tid;
         next(callback);

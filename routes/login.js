@@ -13,7 +13,7 @@ router.post('/setup/admin', function(req, res, next) {
         name: 'Admin User',
         email: 'admin@u.com',
         password: '123456',
-        roles:['user','admin'],
+        roles:['user','admin']
     });
     myFoo.save(req, function(err, result) {
         if(err){
@@ -31,7 +31,7 @@ router.post('/setup/user', function(req, res, next) {
         name: 'Normal User',
         email: 'user@u.com',
         password: '123456',
-        roles:['user'],
+        roles:['user']
     });
     newUser.save(req, function(err, result) {
         if(err){
