@@ -47,11 +47,21 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+<script>
+    var config = {
+        apiKey: "AIzaSyCARUWiq-CHuBP9AbJBzwn9aSftF7tnH1w",
+        authDomain: "mwtest-55d3b.firebaseapp.com",
+        databaseURL: "https://mwtest-55d3b.firebaseio.com",
+        storageBucket: "mwtest-55d3b.appspot.com",
+    };
+    firebase.initializeApp(config);
+</script>
 <script src="/js/angular-drag-and-drop-lists.min.js"></script>
 <script src="/js/dirPagination.js"></script>
 <script src="/js/datetimepicker/js/moment.js"></script>
 <script src="/js/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/js/angular-moment.min.js"></script>
 <script src="/angular/projectApp.js"></script>
-
 {% endblock %}

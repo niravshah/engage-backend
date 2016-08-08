@@ -2,13 +2,17 @@ var jwt = require('jsonwebtoken');
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var firebase = require('firebase');
+var shortid = require('shortid');
 
 router.get('/', function(req, res, next) {
     res.render('login');
 });
 
+
 router.post('/authenticate', function(req, res, next) {
-        User.findOne({
+
+    User.findOne({
             email: req.body.email
         }, function(err, user) {
             if(err) throw err;
@@ -24,12 +28,16 @@ router.post('/authenticate', function(req, res, next) {
                         message: 'Authentication failed. Wrong password.'
                     });
                 } else {
+                    //var token = jwt.sign(user, 'secret_sauce', {expiresIn:"1h"});
+                    var uuid = shortid.generate();
+                    var firebaseToken = firebase.auth().createCustomToken(uuid);
                     var token = jwt.sign(user, 'secret_sauce', {expiresIn:"1h"});
                     res.cookie('jwt',token,{httpOnly:true});
                     res.json({
                         success: true,
                         message: 'Enjoy your token!',
-                        token: token
+                        token: token,
+                        firebaseToken: firebaseToken
                     });
                 }
             }

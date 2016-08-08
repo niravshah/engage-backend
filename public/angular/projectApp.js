@@ -1,4 +1,4 @@
-var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment','angularUtils.directives.dirPagination']);
+var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment', 'angularUtils.directives.dirPagination', 'firebase']);
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     $urlRouterProvider.otherwise('/home');
@@ -66,17 +66,25 @@ app.directive('activeToggle', function () {
 });
 
 
-app.controller('headerController', function ($scope, $localStorage) {
+app.controller('headerController', function ($scope, $localStorage, $firebaseAuth) {
     $scope.token = $localStorage.currentUser.token;
+    $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
+
+    var auth = $firebaseAuth();
+    auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
+        console.log('Firebase User Id:', firebaseUser.uid);
+    }).catch(function (error) {
+        console.log(error)
+    });
 });
 
 
 app.controller('teamMemberController', function ($scope, $http) {
     $scope.init = function () {
-        console.log('teamMemberController Init');
+        //console.log('teamMemberController Init');
         $http.get('/data/projects/1/team.json').then(function (response) {
             $scope.team = response.data.team;
-            console.log($scope.team);
+            //console.log($scope.team);
         })
     };
 
@@ -86,10 +94,10 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 app.controller('messageStreamController', function ($scope, $http) {
     $scope.init = function () {
-        console.log('messageStreamController Init');
+        //console.log('messageStreamController Init');
         $http.get('/data/projects/1/messages.json').then(function (response) {
             $scope.messages = response.data.messages;
-            console.log($scope.messages);
+            //console.log($scope.messages);
         })
     }
 
@@ -109,17 +117,17 @@ app.controller('projectTasksController', function ($scope, $http) {
     };
 
     $scope.init = function () {
-        console.log('projectTasksController Init', new Date().getTime());
+        //console.log('projectTasksController Init', new Date().getTime());
         $http.get('/data/projects/1/tasks.json').then(function (response) {
             $scope.tasks = response.data.tasks;
-            console.log($scope.tasks);
+            //console.log($scope.tasks);
         })
     }
 
     $scope.init();
 
     $scope.dndSelectedFn = function (task) {
-        console.log('Selected', task);
+        //console.log('Selected', task);
         $scope.models.selected = task;
 
         if ($controls.hasClass('rightbar-hidden')) {
