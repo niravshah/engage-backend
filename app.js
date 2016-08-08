@@ -5,13 +5,14 @@ var express = require('express');
 var app = express();
 
 var mongoose = require('mongoose');
-mongoose.plugin(require('./plugins/tenant'));
+mongoose.plugin(require('./models/plugins/tenant'));
 mongoose.connect(config.mongoUrl);
 var mongo_express = require('mongo-express/lib/middleware');
 app.use('/mongo_express', mongo_express(config.mongo_express_config));
 
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/angular', express.static(path.join(__dirname, 'angular')));
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -36,7 +37,7 @@ app.use(logger('dev'));
 var passport = require('passport');
 app.use(passport.initialize());
 
-var initPassport = require('./passport/init');
+var initPassport = require('./routes/passport/init');
 initPassport(passport);
 
 //Sub Domain Extractor

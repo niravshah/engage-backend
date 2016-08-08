@@ -13,10 +13,10 @@ app.config(function($interpolateProvider, $stateProvider, $urlRouterProvider,jwt
         url: '/home',
         views:{
             'nav':{
-                templateUrl: '/angular/partials/indexNav.html'
+                templateUrl: '/angular/partials/index/indexNav.html'
             },
             'body':{
-                templateUrl: '/angular/partials/indexBody.html',
+                templateUrl: '/angular/partials/index/indexBody.html',
                 controller: 'projectCardsCtrl'
             }
         }

@@ -3,42 +3,42 @@
     {
       "firstName":"Roger",
       "lastName":"Freeman",
-      "avatar":"/img/roger.jpg",
-      "badges":["/img/badge1.png"],
+      "avatar":"/img/avatars/roger.jpg",
+      "badges":["/img/badges/badge1.png"],
       "role":"Team Lead"
     },
     {
       "firstName":"Robin",
       "lastName":"Wills",
-      "avatar":"/img/robin.jpg",
-      "badges":["/img/badge3.png"],
+      "avatar":"/img/avatars/robin.jpg",
+      "badges":["/img/badges/badge3.png"],
       "role":"Project Manager"
     },
     {
       "firstName":"Anna",
       "lastName":"Smith",
-      "avatar":"/img/anna.jpg",
-      "badges":["/img/badge2.png"],
+      "avatar":"/img/avatars/anna.jpg",
+      "badges":["/img/badges/badge2.png"],
       "role":"Communications Manager"
     },
     {
       "firstName":"Deel",
       "lastName":"Marlow",
-      "avatar":"/img/deel.jpg",
-      "badges":["/img/badge1.png","/img/badge1.png"],
+      "avatar":"/img/avatars/deel.jpg",
+      "badges":["/img/badges/badge1.png","/img/badges/badge1.png"],
       "role":"Team Member"
     },
     {
       "firstName":"Mike",
       "lastName":"Herrington",
-      "avatar":"/img/mike.jpg",
-      "badges":["/img/badge2.png"],
+      "avatar":"/img/avatars/mike.jpg",
+      "badges":["/img/badges/badge2.png"],
       "role":"Team Member"
     },
     {
       "firstName":"John",
       "lastName":"Douey",
-      "avatar":"/img/john.jpg",
+      "avatar":"/img/avatars/john.jpg",
       "badges":[],
       "role":"Team Member"
     }

@@ -7,22 +7,22 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             url: '/home',
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/projectHeader.html',
+                    templateUrl: '/angular/partials/project/projectHeader.html',
                     controller: 'headerController'
                 },
                 'projectInfo': {
-                    templateUrl: '/angular/partials/projectInfo.html'
+                    templateUrl: '/angular/partials/project/projectInfo.html'
                 },
                 'teamMembers': {
-                    templateUrl: '/angular/partials/teamMembers.html',
+                    templateUrl: '/angular/partials/project/teamMembers.html',
                     controller: 'teamMemberController'
                 },
                 'messageStream': {
-                    templateUrl: '/angular/partials/messageStream.html',
+                    templateUrl: '/angular/partials/project/messageStream.html',
                     controller: 'messageStreamController'
                 },
                 'projectTasks': {
-                    templateUrl: '/angular/partials/projectTracker.html',
+                    templateUrl: '/angular/partials/project/projectTracker.html',
                     controller: 'projectTasksController'
                 }
             },

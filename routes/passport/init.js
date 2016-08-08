@@ -1,6 +1,6 @@
 var uname = require('./unamepwd');
-var jwt = require('./jwt')
-var User = require('../models/user');
+var jwt = require('./jwt');
+var User = require('../../models/user');
 
 module.exports = function(passport){
 
@@ -18,4 +18,4 @@ module.exports = function(passport){
 
     uname(passport);
     jwt(passport);
-}
+};
