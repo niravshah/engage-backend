@@ -31,7 +31,7 @@ swig.setDefaults({
 });
 
 var logger = require('morgan');
-app.use(logger('dev'));
+app.use(logger('dev')); 
 
 var passport = require('passport');
 app.use(passport.initialize());
@@ -51,7 +51,7 @@ app.use(function(req,res,next){
     }
 
     req.body.tid = subDomain;
-
+    console.log('Sub Domain Extractor',req.body.tid);
     next();
 });
 
@@ -93,5 +93,5 @@ if(env === 'dev') {
 }
 
 app.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
+    console.log('Engage Backend App listening on port 3000!');
 });

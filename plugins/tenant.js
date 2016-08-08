@@ -4,6 +4,7 @@ module.exports = exports = function addTenantIdPlugin(schema) {
     });
     /*schema.pre('save', function(next, req, callback) {
         this.tid = req.body.tid;
+        console.log('Pre Save', this.tid,req.body.tid);
         next(callback);
     });*/
 
@@ -16,7 +17,5 @@ module.exports = exports = function addTenantIdPlugin(schema) {
             var err = new Error('TenantId missing from Query')
             next(err);
         }
-     
-        
     });
 }
