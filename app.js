@@ -1,5 +1,5 @@
-var env = process.env.NODE_ENV || 'dev'
-var config = require('./config')[env]
+var env = process.env.NODE_ENV || 'dev';
+var config = require('./config')[env];
 console.log("ENV:", env);
 var express = require('express');
 var app = express();
@@ -7,8 +7,8 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.plugin(require('./plugins/tenant'));
 mongoose.connect(config.mongoUrl);
-var mongo_express = require('mongo-express/lib/middleware')
-app.use('/mongo_express', mongo_express(config.mongo_express_config))
+var mongo_express = require('mongo-express/lib/middleware');
+app.use('/mongo_express', mongo_express(config.mongo_express_config));
 
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,7 +31,7 @@ swig.setDefaults({
 });
 
 var logger = require('morgan');
-app.use(logger('dev')); 
+app.use(logger('dev'));
 
 var passport = require('passport');
 app.use(passport.initialize());
@@ -43,27 +43,23 @@ initPassport(passport);
 app.use(function(req,res,next){
     var domain = req.headers.host,
         subDomain = domain.split('.');
-
     if(subDomain.length > 2){
         subDomain = subDomain[0];
     }else{
         subDomain = "localhost";
     }
-
     req.body.tid = subDomain;
-    console.log('Sub Domain Extractor',req.body.tid);
     next();
 });
 
-var login = require('./routes/login');
-var modelForms = require('./routes/modelforms');
-var restify = require('./routes/restify');
-var index = require('./routes/index');
-app.use(login);
-app.use(passport.authenticate('jwt', {session: false}),modelForms);
-app.use(passport.authenticate('jwt', {session: false}), restify);
-app.use(passport.authenticate('jwt', {session: false}),index);
+var setup = require('./routes/setup');
+if(env == 'dev') app.use(setup);
 
+var login = require('./routes/login');
+var index = require('./routes/index');
+
+app.use(login);
+app.use(passport.authenticate('jwt', {session: false}),index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
