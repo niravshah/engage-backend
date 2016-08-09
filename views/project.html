@@ -7,13 +7,17 @@
 {% block content %}
 <div ng-app="engageApp">
     <div ui-view="projectHeader"></div>
-    <section id="contentw" data-pid="{{pid}}">
+    <section id="contentw" data-pid="{{pid}}" ng-controller="mainController">
     <div class="row">
         <div class="col-md-12">
             <div class="row mt-10">
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-12">
+                            <div>
+                                <pre>{[{fbTasks|json}]}</pre>
+                                <pre>{[{fbMessages|json}]}</pre>
+                            </div>
                             <!-- Project Tracker -->
                             <div ui-view="projectTasks"></div>
                             <!-- END: Project Tracker -->

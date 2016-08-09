@@ -4,44 +4,44 @@
       "description": "Finalize the schedule of the day with KIDS representative",
       "description": "Finalize the schedule of the day with KIDS representative",
       "owner": "Roger Freeman",
-      "ownerImage":"/img/avatars/roger.jpg",
+      "ownerImage": "/img/avatars/roger.jpg",
       "status": "In Progress",
       "due": "21.7.16"
     },
     {
       "description": "Work with the venue for a health & safety assessment",
       "owner": "Anna Smith",
-      "ownerImage":"/img/avatars/anna.jpg",
+      "ownerImage": "/img/avatars/anna.jpg",
       "status": "In Progress",
       "due": "21.7.16"
     },
     {
       "description": "Recruit volunteers to help out on the event days ",
       "owner": "Robin Wills",
-      "ownerImage":"/img/avatars/robin.jpg",
+      "ownerImage": "/img/avatars/robin.jpg",
       "status": "In Progress",
       "due": "21.7.16"
     },
     {
       "description": "Identify Speaker to deliver a talk on the importance of staying in education",
       "owner": "Mike Herrington",
-      "ownerImage":"/img/avatars/mike.jpg",
-      "status": "In Progress",
-      "due": "21.7.16"
-    },      
-    {
-      "description": "Submit Proposal for the Games Night events",
-      "owner": "Deel Marlow",
-      "ownerImage":"/img/avatars/deel.jpg",
+      "ownerImage": "/img/avatars/mike.jpg",
       "status": "In Progress",
       "due": "21.7.16"
     },
-      {
-          "description": "Arrange catering for the event days",
-          "owner": "John Douey",
-          "ownerImage": "/img/avatars/john.jpg",
-          "status": "In Progress",
-          "due": "21.7.16"
-      }    
+    {
+      "description": "Submit Proposal for the Games Night events",
+      "owner": "Deel Marlow",
+      "ownerImage": "/img/avatars/deel.jpg",
+      "status": "In Progress",
+      "due": "21.7.16"
+    },
+    {
+      "description": "Arrange catering for the event days",
+      "owner": "John Douey",
+      "ownerImage": "/img/avatars/john.jpg",
+      "status": "In Progress",
+      "due": "21.7.16"
+    }
   ]
 }

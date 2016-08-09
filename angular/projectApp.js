@@ -58,24 +58,32 @@ app.directive('activeToggle', function () {
                     element.addClass('active');
                     target.addClass('show');
                 }
-
             });
-
         }
     };
 });
 
 
-app.controller('headerController', function ($scope, $localStorage, $firebaseAuth) {
+app.controller('headerController', function ($scope, $localStorage) {
     $scope.token = $localStorage.currentUser.token;
-    $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
+});
 
-    var auth = $firebaseAuth();
-    auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
-        console.log('Firebase User Id:', firebaseUser.uid);
-    }).catch(function (error) {
-        console.log(error)
-    });
+app.controller('mainController', function ($scope, $localStorage,$firebaseAuth,$firebaseArray) {
+    $scope.init = function () {
+        $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
+        var auth = $firebaseAuth();
+        auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
+            var tasks = firebase.database().ref().child("P1").child("tasks");
+            var messages = firebase.database().ref().child("P1").child("messages");
+            $scope.fbTasks = $firebaseArray(tasks);
+            $scope.fbMessages = $firebaseArray(messages);
+        }).catch(function (error) {
+            console.log(error)
+        });
+    };
+
+    $scope.init();
+
 });
 
 
