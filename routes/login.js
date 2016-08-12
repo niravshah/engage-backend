@@ -28,10 +28,9 @@ router.post('/authenticate', function(req, res, next) {
                         message: 'Authentication failed. Wrong password.'
                     });
                 } else {
-                    //var token = jwt.sign(user, 'secret_sauce', {expiresIn:"1h"});
                     var uuid = shortid.generate();
-                    var firebaseToken = firebase.auth().createCustomToken(uuid);
-                    var token = jwt.sign(user, 'secret_sauce', {expiresIn:"1h"});
+                    var firebaseToken = firebase.auth().createCustomToken(uuid,{roles:user.roles,memberships:user.memberships});
+                    var token = jwt.sign(user, 'secret_sauce', {expiresIn:"4h"});
                     res.cookie('jwt',token,{httpOnly:true});
                     res.json({
                         success: true,

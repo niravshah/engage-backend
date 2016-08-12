@@ -130,7 +130,7 @@ app.controller('projectTasksController', function ($scope, $http) {
             $scope.tasks = response.data.tasks;
             //console.log($scope.tasks);
         })
-    }
+    };
 
     $scope.init();
 
