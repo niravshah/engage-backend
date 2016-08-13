@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "angular": "^1.5.8",
+    "angularfire": "^2.0.1",
     "body-parser": "~1.15.1",
     "bson": "^0.4.23",
     "cookie-parser": "^1.4.3",

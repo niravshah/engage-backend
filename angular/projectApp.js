@@ -1,10 +1,12 @@
-var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment', 'angularUtils.directives.dirPagination', 'firebase']);
+var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularMoment', 'angularUtils.directives.dirPagination', 'firebase', 'cgNotify','angularSpinner','angular-jwt']);
+
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     $urlRouterProvider.otherwise('/home');
     $stateProvider
         .state('home', {
             url: '/home',
+            authenticate:true,
             views: {
                 'projectHeader': {
                     templateUrl: '/angular/partials/project/projectHeader.html',
@@ -34,6 +36,20 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
 
         });
 });
+
+app.run(['$rootScope', '$state', 'AuthService','$window', function ($rootScope, $state, AuthService, $window) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if (!AuthService.validToken() && toState.authenticate) {
+            event.preventDefault();
+            $window.location.href='/login';
+        }
+        if (toState.redirectTo) {
+            event.preventDefault();
+            $state.go(toState.redirectTo, toParams, {location: 'replace'})
+        }
+    });
+
+}]);
 
 app.filter('startFrom', function () {
     return function (input, start) {
@@ -68,18 +84,31 @@ app.controller('headerController', function ($scope, $localStorage) {
     $scope.token = $localStorage.currentUser.token;
 });
 
-app.controller('mainController', function ($scope, $localStorage,$firebaseAuth,$firebaseArray) {
+app.controller('mainController', function ($attrs, $scope, $localStorage,$firebaseAuth,$firebaseArray, notify,usSpinnerService) {
     $scope.init = function () {
-        $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
-        var auth = $firebaseAuth();
-        auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
-            var tasks = firebase.database().ref().child("P1").child("tasks");
-            var messages = firebase.database().ref().child("P1").child("messages");
-            $scope.fbTasks = $firebaseArray(tasks);
-            $scope.fbMessages = $firebaseArray(messages);
-        }).catch(function (error) {
-            console.log(error)
-        });
+        if($localStorage.currentUser) {
+            $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
+            $scope.tenant = $localStorage.currentUser.tenant;
+            $scope.project = $attrs.pid;
+            var auth = $firebaseAuth();
+            auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
+                var tasks = firebase.database().ref().child($scope.tenant).child("P1").child("tasks");
+                var messages = firebase.database().ref().child("tenant").child("P1").child("messages");
+                usSpinnerService.spin('spin1');
+                $scope.fbTasks = $firebaseArray(tasks);
+                $scope.fbTasks.$loaded().then(function (x) {
+                    notify('Tasks Loaded');
+                });
+                $scope.fbMessages = $firebaseArray(messages);
+                $scope.fbMessages.$loaded().then(function (x) {
+                    usSpinnerService.stop('spin1');
+                    notify('Messages Loaded');
+                });
+            }).catch(function (error) {
+                notify("Unable to Retrieve Data." + error.message);
+                console.log(error)
+            });
+        }
     };
 
     $scope.init();
@@ -89,10 +118,8 @@ app.controller('mainController', function ($scope, $localStorage,$firebaseAuth,$
 
 app.controller('teamMemberController', function ($scope, $http) {
     $scope.init = function () {
-        //console.log('teamMemberController Init');
         $http.get('/data/projects/1/team.json').then(function (response) {
             $scope.team = response.data.team;
-            //console.log($scope.team);
         })
     };
 
@@ -102,17 +129,9 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 app.controller('messageStreamController', function ($scope, $http) {
     $scope.init = function () {
-        //console.log('messageStreamController Init');
-        $http.get('/data/projects/1/messages.json').then(function (response) {
-            $scope.messages = response.data.messages;
-            //console.log($scope.messages);
-        })
-    }
-
+    };
     $scope.init();
-
 });
-
 
 app.controller('projectTasksController', function ($scope, $http) {
 
@@ -121,23 +140,16 @@ app.controller('projectTasksController', function ($scope, $http) {
     $scope.tasksPerPage = "3";
 
     $scope.models = {
-        selected: null,
+        selected: null
     };
 
     $scope.init = function () {
-        //console.log('projectTasksController Init', new Date().getTime());
-        $http.get('/data/projects/1/tasks.json').then(function (response) {
-            $scope.tasks = response.data.tasks;
-            //console.log($scope.tasks);
-        })
     };
 
     $scope.init();
 
     $scope.dndSelectedFn = function (task) {
-        //console.log('Selected', task);
         $scope.models.selected = task;
-
         if ($controls.hasClass('rightbar-hidden')) {
             $controls.removeClass('rightbar-hidden').addClass('rightbar-show');
         }

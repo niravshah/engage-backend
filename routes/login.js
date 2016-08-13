@@ -9,13 +9,21 @@ router.get('/', function(req, res, next) {
     res.render('login');
 });
 
+router.get('/login', function(req, res, next) {
+    res.render('login');
+});
 
 router.post('/authenticate', function(req, res, next) {
 
     User.findOne({
             email: req.body.email
         }, function(err, user) {
-            if(err) throw err;
+            if(err){
+                res.json({
+                    success: false,
+                    message: 'Unexpected Error' + err.message
+                });
+            }
             if(!user) {
                 res.json({
                     success: false,
@@ -36,7 +44,8 @@ router.post('/authenticate', function(req, res, next) {
                         success: true,
                         message: 'Enjoy your token!',
                         token: token,
-                        firebaseToken: firebaseToken
+                        firebaseToken: firebaseToken,
+                        tenant:req.body.tid
                     });
                 }
             }

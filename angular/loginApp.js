@@ -16,7 +16,8 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
                     $localStorage.currentUser = {
                         email: $scope.email,
                         token: response.token,
-                        firebaseToken:response.firebaseToken
+                        firebaseToken:response.firebaseToken,
+                        tenant:response.tenant
                     };
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
                     $window.location.href = '/index';
