@@ -354,7 +354,7 @@
     margin-bottom: -1px;
 }
 .project-tasks ul[dnd-list] li.selected {
-    background-color: #dff0d8;
+    /* background-color: #dff0d8; */
     color: #3c763d;
 }
 

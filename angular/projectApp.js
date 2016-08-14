@@ -87,26 +87,39 @@ app.controller('headerController', function ($scope, $localStorage) {
 app.controller('mainController', function ($attrs, $scope, $localStorage,$firebaseAuth,$firebaseArray, notify,usSpinnerService) {
     $scope.init = function () {
         if($localStorage.currentUser) {
+
             $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
-            $scope.tenant = $localStorage.currentUser.tenant;
-            $scope.project = $attrs.pid;
+            var dataId = $localStorage.currentUser.tenant + "-" + $attrs.pid;
             var auth = $firebaseAuth();
             auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
-                var tasks = firebase.database().ref().child($scope.tenant).child("P1").child("tasks");
-                var messages = firebase.database().ref().child("tenant").child("P1").child("messages");
                 usSpinnerService.spin('spin1');
-                $scope.fbTasks = $firebaseArray(tasks);
-                $scope.fbTasks.$loaded().then(function (x) {
+                var tasksRef = firebase.database().ref().child(dataId).child("tasks");
+                var messagesRef = firebase.database().ref().child(dataId).child("messages");
+
+                var tasksData = $firebaseArray(tasksRef);
+                tasksData.$loaded().then(function(tasks){
+                    $scope.fbTasks = tasks;
                     notify('Tasks Loaded');
-                });
-                $scope.fbMessages = $firebaseArray(messages);
-                $scope.fbMessages.$loaded().then(function (x) {
                     usSpinnerService.stop('spin1');
-                    notify('Messages Loaded');
+                },function(err) {
+                    notify(err.message);
+                    usSpinnerService.stop('spin1');
                 });
+
+                var messageData = $firebaseArray(messagesRef);
+                messageData.$loaded().then(function(messages){
+                    $scope.fbMessages = messages;
+                    notify('Messages Loaded');
+                    usSpinnerService.stop('spin1');
+                }, function(err) {
+                    notify(err.message);
+                    usSpinnerService.stop('spin1');
+                });
+
             }).catch(function (error) {
                 notify("Unable to Retrieve Data." + error.message);
-                console.log(error)
+                console.log(error);
+                usSpinnerService.stop('spin1');
             });
         }
     };

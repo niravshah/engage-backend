@@ -1,13 +1,13 @@
 {
     "messages": {
-        "1": {
+        "p1m1": {
             "from": "Roger Freeman",
             "avatar": "/img/avatars/roger.jpg",
             "timestamp": "1468345946819",
             "message": "Just reached out to Julie from KIDS. She confirmed we should make arrangements for about 40-50 children.",
             "likes": "2",
             "replies": {
-                "1": {
+                "p1m1-1": {
                     "from": "Anna Smith",
                     "avatar": "/img/avatars/anna.jpg",
                     "timestamp": "1468345946819",
@@ -16,21 +16,21 @@
                 }
             }
         },
-        "2": {
+        "p1m2": {
             "from": "Robin Wills",
             "avatar": "/img/avatars/robin.jpg",
             "timestamp": "1468345946819",
             "message": "Am meeting with our HR today. How many volunteers should we request for?",
             "likes": "0",
             "replies": {
-                "1": {
+                "p1m2-1": {
                     "from": "Anna Smith",
                     "avatar": "/img/avatars/anna.jpg",
                     "timestamp": "1468345946819",
                     "message": "I think we should look to have 1 volunteer for a table of 5 kids.",
                     "likes": "0"
                 },
-                "2": {
+                "p1m2-2": {
                     "from": "Roger Freeman",
                     "avatar": "/img/avatars/roger.jpg",
                     "timestamp": "1468345946819",
@@ -39,21 +39,21 @@
                 }
             }
         },
-        "3": {
+        "p1m3": {
             "from": "Mike Herrington",
             "avatar": "/img/avatars/mike.jpg",
             "timestamp": "1468345946819",
             "message": "What are the key themes that we want to talk to the participants about?",
             "likes": "0",
             "replies": {
-                "1": {
+                "p1m3-1": {
                     "from": "Robin Wills",
                     "avatar": "/img/avatars/robin.jpg",
                     "timestamp": "1468345946819",
                     "message": "I suggest we talk to them about how good education can help them secure a better future for themselves",
                     "likes": "0"
                 },
-                "2": {
+                "p1m3-2": {
                     "from": "Anna Smit",
                     "avatar": "/img/avatars/anna.jpg",
                     "timestamp": "1468345946819",
