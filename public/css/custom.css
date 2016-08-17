@@ -383,3 +383,17 @@
     background-color: #EAAD21;
     color:#ffffff;
 }
+
+[contenteditable] {
+    border: 2px dotted #ccc;
+    background-color: #eee;
+    padding: 2px;
+}
+
+.img-circle-sm{
+    border-radius: 50%;
+    width: 40px;
+    height: auto;
+}
+
+.aside-header{height: 50px;background-color: #F8C524;/* vertical-align: middle; */}

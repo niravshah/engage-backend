@@ -1,5 +1,5 @@
-{
-    "p1-1":{
+[
+    {
       "description": "Finalize the schedule of the day with KIDS representative",
       "owner": "Roger Freeman",
       "ownerImage": "/img/avatars/roger.jpg",
@@ -7,7 +7,7 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     },
-    "p1-2":{
+    {
       "description": "Work with the venue for a health & safety assessment",
       "owner": "Anna Smith",
       "ownerImage": "/img/avatars/anna.jpg",
@@ -15,7 +15,7 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     },
-    "p1-3":{
+    {
       "description": "Recruit volunteers to help out on the event days ",
       "owner": "Robin Wills",
       "ownerImage": "/img/avatars/robin.jpg",
@@ -23,7 +23,7 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     },
-    "p1-4":{
+    {
       "description": "Identify Speaker to deliver a talk on the importance of staying in education",
       "owner": "Mike Herrington",
       "ownerImage": "/img/avatars/mike.jpg",
@@ -31,7 +31,7 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     },
-    "p1-5":{
+    {
       "description": "Submit Proposal for the Games Night events",
       "owner": "Deel Marlow",
       "ownerImage": "/img/avatars/deel.jpg",
@@ -39,7 +39,7 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     },
-    "p1-6":{
+    {
       "description": "Arrange catering for the event days",
       "owner": "John Douey",
       "ownerImage": "/img/avatars/john.jpg",
@@ -47,4 +47,4 @@
       "due": "21.7.16",
       "createdBy":"577a9853aa105cec0ef471a5"
     }
-}
+]
