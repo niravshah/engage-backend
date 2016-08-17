@@ -3,39 +3,8 @@
         <h1 class="custom-font"><strong>Project</strong> Tasks</h1>
         <ul class="controls">
             <li>
-                <a role="button" tabindex="0" id="add-entry"><i class="fa fa-plus mr-5"></i> Add
+                <a ng-click="addNewTask()" role="button" tabindex="0" id="add-entry"><i class="fa fa-plus mr-5"></i> Add
                     Entry</a>
-            </li>
-            <li class="dropdown">
-
-                <a role="button" tabindex="0" class="dropdown-toggle settings" data-toggle="dropdown">
-                    <i class="fa fa-cog"></i>
-                    <i class="fa fa-spinner fa-spin"></i>
-                </a>
-
-                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
-                    <li>
-                        <a role="button" tabindex="0" class="tile-toggle">
-                                    <span class="minimize"><i
-                                            class="fa fa-angle-down"></i>&nbsp;&nbsp;&nbsp;Minimize</span>
-                            <span class="expand"><i class="fa fa-angle-up"></i>&nbsp;&nbsp;&nbsp;Expand</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a role="button" tabindex="0" class="tile-refresh">
-                            <i class="fa fa-refresh"></i> Refresh
-                        </a>
-                    </li>
-                    <li>
-                        <a role="button" tabindex="0" class="tile-fullscreen">
-                            <i class="fa fa-expand"></i> Fullscreen
-                        </a>
-                    </li>
-                </ul>
-
-            </li>
-            <li class="remove"><a role="button" tabindex="0" class="tile-close"><i
-                    class="fa fa-times"></i></a>
             </li>
         </ul>
     </div>
@@ -55,14 +24,18 @@
                     dnd-selected="dndSelectedFn(task)"
                     ng-class="{'selected':models.selected==task}">
                     <div class="row task">
-                        <div class="col-md-5 description">
-                            {[{task.description}]}
+                            <div class="col-md-5" ng-class="{'In Progress':'progress-desc', 'New':'new-desc', 'Complete':'complete-desc', 'Blocked':'blocked-desc'}[task.status]">
+                                {[{task.description}]}
                         </div>
-                        <div class="col-md-3 task-image"><img src="{[{task.ownerImage}]}" alt=""
+                        <div class="col-md-3 task-image"><img ng-src="{[{task.ownerImage}]}" alt=""
                                                               class="img-circle size-30x30"><span>{[{task.owner}]}</span>
                         </div>
-                        <div class="col-md-2 progress-task">{[{task.status}]}</div>
-                        <div class="col-md-2">{[{task.due| date: 'MM-DD-YYYY'}]}</div>
+                        <div class="col-md-2">
+                            <span ng-class="{'In Progress':'progress', 'New':'new', 'Complete':'complete', 'Blocked':'blocked'}[task.status]">
+                                {[{task.status}]}
+                            </span>
+                        </div>
+                        <div class="col-md-2">{[{task.due}]}</div>
                         <div class="col-md-1">
                             <a ng-click="editTask($index)" href="#" class="pull-right"><i class="fa fa-edit"></i></a>
                             <a ng-click="deleteTask(task.$id)" href="#" class="md-pr-10 pull-right"><i
@@ -96,33 +69,37 @@
 
 <div id="controls" class="rightbar-hidden">
     <aside id="rightbar">
-        <div class="container">
-            <div class="row aside-header">
-                <div class="col-md-12">
-                    <a role="button" tabindex="0" class="tile-close" style="float: right;"
-                       ng-click="closeRightSidebar()"><i
-                            class="fa fa-times"></i></a>
-                    <h4>Edit Task</h4>
-                </div>
+        <div class="row aside-header">
+            <div class="col-md-12">
+                <a role="button" tabindex="0" class="tile-close" style="float: right;color: #ffffff;"
+                   ng-click="closeRightSidebar()"><i
+                        class="fa fa-times"></i></a>
+                <p class="custom-font aside-title"><strong>{[{models.selectedAction}]}</strong> Task</p>
             </div>
+        </div>
+        <div class="aside-container">
             <div class="row md-pt-40">
                 <div class="col-md-12">
+                    <label>Task Description</label>
                     <div contenteditable ng-model="models.selected.description"></div>
                 </div>
             </div>
             <div class="row md-pt-20">
                 <div class="col-md-12">
+                    <label>Assigned To</label>
                     <selectize config='myConfig' options='myOptions' ng-model="models.selected.ownerEmail"></selectize>
                 </div>
             </div>
             <div class="row md-pt-20">
                 <div class="col-md-12">
+                    <label>Current Status</label>
                     <selectize config='statusConfig' options='statusOptions'
                                ng-model="models.selected.status"></selectize>
                 </div>
             </div>
             <div class="row md-pt-20">
                 <div class="col-md-12">
+                    <label>Due Date</label>
                     <div class="dropdown">
                         <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#"
                            href="">
@@ -133,6 +110,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                             <datetimepicker data-ng-model="models.selected.due"
+                                            data-on-set-time="onTimeSet(newDate, oldDate)"
                                             data-datetimepicker-config="{ modelType: 'MM-DD-YYYY', minView:'day', dropdownSelector: '.dropdown-toggle' }"></datetimepicker>
                         </ul>
                     </div>
@@ -140,7 +118,8 @@
             </div>
             <div class="row md-pt-50">
                 <div class="col-md-12">
-                    <button ng-click="saveEditedItem(models.selected.$id)" class="btn btn-primary">Save</button>
+                    <button ng-click="save(models.selected)" class="btn btn-primary">Save</button>
+                    <button ng-click="cancelEditItem()" class="btn btn-warning">Cancel</button>
                 </div>
             </div>
         </div>

@@ -105,7 +105,7 @@ app.controller('headerController', function ($scope, $localStorage) {
     $scope.token = $localStorage.currentUser.token;
 });
 
-app.controller('mainController', function ($http, $attrs, $scope, $localStorage,$firebaseAuth,$firebaseArray, notify,usSpinnerService) {
+app.controller('mainController', function ($window, $http, $attrs, $scope, $localStorage,$firebaseAuth,$firebaseArray, notify,usSpinnerService) {
     $scope.init = function () {
         if($localStorage.currentUser) {
 
@@ -138,15 +138,16 @@ app.controller('mainController', function ($http, $attrs, $scope, $localStorage,
                 });
 
             }).catch(function (error) {
-                notify("Unable to Retrieve Data." + error.message);
-                console.log(error);
 
-                $http.get('/data/projects/1/tasksArr.json').then(function (response) {
-                    $scope.fbTasks = response.data;
-                });
-
-
-                usSpinnerService.stop('spin1');
+                if(error.code == 'auth/invalid-custom-token'){
+                    $window.location.href = '/login';
+                }else {
+                    notify("Unable to Retrieve Data." + error.message);
+                    $http.get('/data/projects/1/tasksArr.json').then(function (response) {
+                        $scope.fbTasks = response.data;
+                    });
+                    usSpinnerService.stop('spin1');
+                }
             });
         }
     };
@@ -237,7 +238,7 @@ app.controller('projectTasksController', function ($scope, notify) {
         labelField: 'firstName' + 'lastName',
         searchField: ['name', 'email'],
         delimiter: '|',
-        placeholder: 'Pick something',
+        placeholder: 'Assign Task',
         maxItems: 1,
         render: {
             item: function(item, escape) {
@@ -258,10 +259,8 @@ app.controller('projectTasksController', function ($scope, notify) {
             }
         },
         onChange: function(value){
-            console.log('New Value', value);
             angular.forEach($scope.myOptions,function(option){
                 if(option.email == value){
-                    console.log(option);
                     $scope.models.selected.owner = option.firstName + ' ' + option.lastName;
                     $scope.models.selected.ownerImage = option.avatar;
                     $scope.models.selected.ownerEmail = option.email;
@@ -272,6 +271,7 @@ app.controller('projectTasksController', function ($scope, notify) {
     };
 
     $scope.statusOptions = [
+        {value:'New'},
         {value:'In Progress'},
         {value:'Complete'},
         {value:'Blocked'}
@@ -283,7 +283,7 @@ app.controller('projectTasksController', function ($scope, notify) {
         valueField: 'value',
         labelField: 'value',
         delimiter: '|',
-        placeholder: 'Pick something',
+        placeholder: 'Pick Status',
         maxItems: 1
     };
 
@@ -291,22 +291,33 @@ app.controller('projectTasksController', function ($scope, notify) {
         selected: null
     };
 
-    $scope.init = function () {
+    $scope.closeRightSidebar = function () {
+        if ($controls.hasClass('rightbar-show')) {
+            $controls.removeClass('rightbar-show').addClass('rightbar-hidden');
+        }
     };
 
-    $scope.init();
-
-    $scope.dndSelectedFn = function (task) {
-        $scope.models.selected = task;
+    $scope.openRightSidebar = function () {
         if ($controls.hasClass('rightbar-hidden')) {
             $controls.removeClass('rightbar-hidden').addClass('rightbar-show');
         }
     };
 
-    $scope.closeRightSidebar = function () {
-        if ($controls.hasClass('rightbar-show')) {
-            $controls.removeClass('rightbar-show').addClass('rightbar-hidden');
-        }
+    $scope.dndSelectedFn = function (task) {
+        $scope.models.selected = task;
+        $scope.models.selectedAction = 'Edit';
+        $scope.openRightSidebar();
+    };
+
+    $scope.editTask = function(){
+        $scope.models.selected = $scope.fbTasks[index];
+        $scope.models.selectedAction = 'Edit';
+        $scope.openRightSidebar();
+    };
+    $scope.addNewTask = function(){
+        $scope.models.selected = {};
+        $scope.models.selectedAction = 'Add';
+        $scope.openRightSidebar();
     };
 
     $scope.deleteTask = function(index){
@@ -317,24 +328,34 @@ app.controller('projectTasksController', function ($scope, notify) {
         })
     };
 
-    $scope.addNewTask = function(task){
-        $scope.fbTasks.$add(task).then(function(){
-            notify('New Task Added' + ref);
-        });
-    };
-
-    $scope.editTask = function(index){
-        $scope.models.selected = $scope.fbTasks[index];
-        if ($controls.hasClass('rightbar-hidden')) {
-            $controls.removeClass('rightbar-hidden').addClass('rightbar-show');
+    $scope.save = function(task){
+        if(task.$id){
+             $scope.saveTask(task);
+        }else{
+            $scope.addTask(task);
         }
     };
-
-    $scope.saveEditedItem = function(index){
-        var record = $scope.fbTasks.$getRecord(index);
-        $scope.fbTasks.$save(record).then(function(ref){
-            $controls.addClass('rightbar-hidden');
+    $scope.addTask = function(task){
+        $scope.fbTasks.$add(task).then(function(ref){
+            $scope.closeRightSidebar();
+            notify('New Task Added');
+        },function(err){
+            $scope.closeRightSidebar();
+            notify('Error Adding New Task' + err);
+        });
+    };
+    
+    $scope.saveTask = function(task){
+        $scope.fbTasks.$save(task).then(function(ref){
+            $scope.closeRightSidebar();
             notify('Task Saved : ' + $scope.fbTasks.$getRecord(ref.key).description);
         });
     };
+
+    $scope.cancelEditItem = function(index){
+        $scope.closeRightSidebar();
+    }
+    $scope.onTimeSet=function(newDate, oldDate){
+        $('#dLabel').dropdown('toggle');
+    }
 });

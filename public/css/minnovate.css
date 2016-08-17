@@ -12936,7 +12936,7 @@ blockquote p {
 }
 
 .progress {
-  background-color: #ebeef2;
+  /* background-color: #ebeef2; */
   -webkit-box-shadow: none;
   box-shadow: none;
 }

@@ -60,7 +60,7 @@ var login = require('./routes/login');
 var index = require('./routes/index');
 
 app.use(login);
-app.use(passport.authenticate('jwt', {session: false}),index);
+app.use(passport.authenticate('jwt', {session: false,failureRedirect: '/login'}),index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
