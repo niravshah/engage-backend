@@ -96,48 +96,53 @@
 
 <div id="controls" class="rightbar-hidden">
     <aside id="rightbar">
-        <div class="row aside-header">
-            <div class="col-md-12">
-            <a role="button" tabindex="0" class="tile-close" style="float: right;" ng-click="closeRightSidebar()"><i
-                    class="fa fa-times"></i></a>
-             <h4>Edit Task</h4>
+        <div class="container">
+            <div class="row aside-header">
+                <div class="col-md-12">
+                    <a role="button" tabindex="0" class="tile-close" style="float: right;"
+                       ng-click="closeRightSidebar()"><i
+                            class="fa fa-times"></i></a>
+                    <h4>Edit Task</h4>
+                </div>
             </div>
-        </div>
-        <div class="row md-pt-40">
-            <div class="col-md-12">
-                <div contenteditable ng-model="models.selected.description"></div>
+            <div class="row md-pt-40">
+                <div class="col-md-12">
+                    <div contenteditable ng-model="models.selected.description"></div>
+                </div>
             </div>
-        </div>
-        <div class="row md-pt-20">
-            <div class="col-md-12">
-                <selectize config='myConfig' options='myOptions' ng-model="models.selected.ownerEmail"></selectize>
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <selectize config='myConfig' options='myOptions' ng-model="models.selected.ownerEmail"></selectize>
+                </div>
             </div>
-        </div>
-        <div class="row md-pt-20">
-            <div class="col-md-12">
-                <selectize config='statusConfig' options='statusOptions' ng-model="models.selected.status"></selectize>
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <selectize config='statusConfig' options='statusOptions'
+                               ng-model="models.selected.status"></selectize>
+                </div>
             </div>
-        </div>
-        <div class="row md-pt-20">
-            <div class="col-md-12">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                        <div class="input-append"><input type="text" class="input-large" data-ng-model="models.selected.due">
-                            <span class="add-on"><i class="fa fa-calendar"></i></span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="models.selected.due"
-                                        data-datetimepicker-config="{ modelType: 'MM-DD-YYYY', minView:'day', dropdownSelector: '.dropdown-toggle' }"></datetimepicker>
-                    </ul>
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#"
+                           href="">
+                            <div class="input-append"><input type="text" class="input-large"
+                                                             data-ng-model="models.selected.due">
+                                <span class="add-on"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="models.selected.due"
+                                            data-datetimepicker-config="{ modelType: 'MM-DD-YYYY', minView:'day', dropdownSelector: '.dropdown-toggle' }"></datetimepicker>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-pt-50">
+                <div class="col-md-12">
+                    <button ng-click="saveEditedItem(models.selected.$id)" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>
-        <div class="row md-pt-50">
-            <div class="col-md-12">
-                <button ng-click="saveEditedItem(models.selected.$id)" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-
     </aside>
 </div>
