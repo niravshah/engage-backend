@@ -52,62 +52,6 @@ app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope,
 
 }]);
 
-app.filter('startFrom', function () {
-    return function (input, start) {
-        start = +start; //parse to int
-        return input.slice(start);
-    }
-});
-
-app.directive('activeToggle', function () {
-    return {
-        restrict: 'A',
-        link: function postLink(scope, element, attr) {
-
-            element.on('click', function () {
-
-                var target = angular.element(attr.target) || Array(element);
-
-                if (element.hasClass('active')) {
-                    element.removeClass('active');
-                    target.removeClass('show');
-                } else {
-                    element.addClass('active');
-                    target.addClass('show');
-                }
-            });
-        }
-    };
-});
-
-app.directive('chatReply', function () {
-    return {
-        templateUrl: '/angular/partials/project/chatReply.html',
-        restrict: 'E'
-    };
-});
-
-app.directive("contenteditable", function () {
-    return {
-        restrict: "A",
-        require: "ngModel",
-        link: function (scope, element, attrs, ngModel) {
-
-            function read() {
-                ngModel.$setViewValue(element.html());
-            }
-
-            ngModel.$render = function () {
-                element.html(ngModel.$viewValue || "");
-            };
-
-            element.bind("blur keyup change", function () {
-                scope.$apply(read);
-            });
-        }
-    };
-});
-
 app.controller('headerController', function ($scope, $localStorage) {
 
 });
@@ -121,6 +65,7 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
             $scope.user.lastName = $localStorage.currentUser.lastName;
             $scope.user.avatar = $localStorage.currentUser.avatar;
             $scope.token = $localStorage.currentUser.token;
+            $scope.projectId = $attrs.pid;
 
             $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
             var dataId = $localStorage.currentUser.tenant + "-" + $attrs.pid;
@@ -173,11 +118,14 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
 
 });
 
-
 app.controller('teamMemberController', function ($scope, $http) {
     $scope.init = function () {
-        $http.get('/data/projects/1/team.json').then(function (response) {
-            $scope.team = response.data.team;
+        $http.get('/api/projects/' + $scope.projectId + '/members').then(function (response) {
+            if (response.data.success == true) {
+                $scope.team = response.data.users;
+            } else {
+                notify('Could not retrieve Team Members.' + err.message);
+            }
         });
     };
 
@@ -185,7 +133,8 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 });
 
-app.controller('messageStreamController', function ($scope, $compile,$firebaseArray) {
+
+app.controller('messageStreamController', function ($scope, $compile, $firebaseArray) {
     $scope.currentMessage = "";
     $scope.showReplyBox = {};
 
@@ -209,14 +158,29 @@ app.controller('messageStreamController', function ($scope, $compile,$firebaseAr
     };
 
     $scope.showReplyBox = function (index) {
+
+        var rep = document.createElement('chat-reply');
+
+        var att = document.createAttribute("post");
+        att.value = "postMessage(index, chatReply)";
+        rep.setAttributeNode(att);
+
+        var att2 = document.createAttribute("avatar");
+        att2.value = $scope.user.avatar;
+        rep.setAttributeNode(att2);
+
+        var att3 = document.createAttribute("index");
+        att3.value = index;
+        rep.setAttributeNode(att3);
+
+        var reply = angular.element(rep);
+        $compile(reply)($scope);
+
         var repliesBoxId = '#message' + index;
-        var reply = angular.element(document.createElement('chat-reply'));
-        $scope.replyMessageIndex = index;
-        $compile(reply)( $scope );
         angular.element(repliesBoxId).after(reply);
     };
 
-    $scope.postMessage = function(replyMessageIndex,currentReplyMessage){
+    $scope.postMessage = function (key, currentReplyMessage) {
         var newReply = {
             avatar: $scope.user.avatar,
             from: $scope.user.firstName + " " + $scope.user.lastName,
@@ -225,14 +189,13 @@ app.controller('messageStreamController', function ($scope, $compile,$firebaseAr
             timestamp: Date.now()
         };
 
-        var key = $scope.fbMessages.$keyAt(replyMessageIndex);
         var repliesRef = $scope.fbMessages.$ref().path.toString();
-        var childRef = repliesRef + "/" + key + "/"  + "replies";
+        var childRef = repliesRef + "/" + key + "/" + "replies";
         var db = firebase.database().ref(childRef);
         var repliesArr = $firebaseArray(db);
-        repliesArr.$add(newReply).then(function(ref){
+        repliesArr.$add(newReply).then(function (ref) {
             console.log('Message Added', ref);
-        },function(err){
+        }, function (err) {
             console.log('Message Add Error', err);
         });
     }
@@ -422,4 +385,65 @@ app.controller('projectTasksController', function ($scope, notify) {
     $scope.onTimeSet = function (newDate, oldDate) {
         $('#dLabel').dropdown('toggle');
     }
+});
+
+app.filter('startFrom', function () {
+    return function (input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+
+app.directive('activeToggle', function () {
+    return {
+        restrict: 'A',
+        link: function postLink(scope, element, attr) {
+
+            element.on('click', function () {
+
+                var target = angular.element(attr.target) || Array(element);
+
+                if (element.hasClass('active')) {
+                    element.removeClass('active');
+                    target.removeClass('show');
+                } else {
+                    element.addClass('active');
+                    target.addClass('show');
+                }
+            });
+        }
+    };
+});
+
+app.directive('chatReply', function () {
+    return {
+        templateUrl: '/angular/partials/project/chatReply.html',
+        restrict: 'E',
+        scope:{
+            avatar: '@',
+            index:'@',
+            post: '&'
+        }
+    };
+});
+
+app.directive("contenteditable", function () {
+    return {
+        restrict: "A",
+        require: "ngModel",
+        link: function (scope, element, attrs, ngModel) {
+
+            function read() {
+                ngModel.$setViewValue(element.html());
+            }
+
+            ngModel.$render = function () {
+                element.html(ngModel.$viewValue || "");
+            };
+
+            element.bind("blur keyup change", function () {
+                scope.$apply(read);
+            });
+        }
+    };
 });

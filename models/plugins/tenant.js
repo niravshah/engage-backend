@@ -10,11 +10,11 @@ module.exports = exports = function addTenantIdPlugin(schema) {
 
     schema.pre('find', function(next,callback) {
         console.log(this._conditions)
-        if(this._conditions.hasOwnProperty('tenantId')){
+        if(this._conditions.hasOwnProperty('tid')){
             next(callback);    
         }else{
-            console.log('No Tenant Id. Will return error');
-            var err = new Error('TenantId missing from Query')
+            console.log('Mongoose Filter : No Tenant Id. Will return error');
+            var err = new Error('Mongoose Filter : TenantId missing from Query')
             next(err);
         }
     });

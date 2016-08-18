@@ -20,13 +20,13 @@
                                 <i class="fa fa-heart-o text-inactive"></i><i
                                     class="fa fa-heart text-danger text-active"></i> Like
                             </a>
-                            <a href="" ng-click="showReplyBox($index)" class="btn btn-default btn-xs">
+                            <a href="" ng-click="showReplyBox(m.$id)" class="btn btn-default btn-xs">
                                 <i class="fa fa-mail-reply"></i> Reply
                             </a>
                         </p>
                     </div>
                 </div>
-                <ul id="message{[{$index}]}" class="list-unstyled post-replies">
+                <ul id="message{[{m.$id}]}" class="list-unstyled post-replies">
                     <li ng-repeat="r in m.replies">
                         <aside>
                             <div class="thumb thumb-sm">
