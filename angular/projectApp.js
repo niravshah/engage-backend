@@ -82,7 +82,7 @@ app.directive('activeToggle', function () {
 
 app.directive('chatReply', function () {
     return {
-        template: "<div class='streamline-form' style='position:inherit'> <div class='thumb thumb-sm'><img class='img-circle' ng-src='{[{user.avatar}]}' alt=''> </div> <form> <div class='input-group'><input ng-model='currentReplyMessage' type='text' class='form-control' placeholder='Reply here...'> <span class='input-group-btn'> <button ng-click='postMessage(replyMessageIndex,currentReplyMessage)' class='btn btn-default' type='button'>Post</button> </span> </div> </form> </div>",
+        templateUrl: '/angular/partials/project/chatReply.html',
         restrict: 'E'
     };
 });
@@ -185,7 +185,7 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 });
 
-app.controller('messageStreamController', function ($scope, $compile) {
+app.controller('messageStreamController', function ($scope, $compile,$firebaseArray) {
     $scope.currentMessage = "";
     $scope.showReplyBox = {};
 
@@ -216,8 +216,25 @@ app.controller('messageStreamController', function ($scope, $compile) {
         angular.element(repliesBoxId).after(reply);
     };
 
-    $scope.postMessage = function(replyMessageIndex){
-        console.log(replyMessageIndex);
+    $scope.postMessage = function(replyMessageIndex,currentReplyMessage){
+        var newReply = {
+            avatar: $scope.user.avatar,
+            from: $scope.user.firstName + " " + $scope.user.lastName,
+            likes: 0,
+            message: currentReplyMessage,
+            timestamp: Date.now()
+        };
+
+        var key = $scope.fbMessages.$keyAt(replyMessageIndex);
+        var repliesRef = $scope.fbMessages.$ref().path.toString();
+        var childRef = repliesRef + "/" + key + "/"  + "replies";
+        var db = firebase.database().ref(childRef);
+        var repliesArr = $firebaseArray(db);
+        repliesArr.$add(newReply).then(function(ref){
+            console.log('Message Added', ref);
+        },function(err){
+            console.log('Message Add Error', err);
+        });
     }
 });
 
