@@ -20,13 +20,13 @@
                                 <i class="fa fa-heart-o text-inactive"></i><i
                                     class="fa fa-heart text-danger text-active"></i> Like
                             </a>
-                            <a href="" class="btn btn-default btn-xs">
+                            <a href="" ng-click="showReplyBox($index)" class="btn btn-default btn-xs">
                                 <i class="fa fa-mail-reply"></i> Reply
                             </a>
                         </p>
                     </div>
                 </div>
-                <ul class="list-unstyled post-replies">
+                <ul id="message{[{$index}]}" class="list-unstyled post-replies">
                     <li ng-repeat="r in m.replies">
                         <aside>
                             <div class="thumb thumb-sm">
@@ -52,14 +52,14 @@
             </div>
         </article>
         <div class="streamline-form">
-            <div class="thumb thumb-sm"><img class="img-circle" src="/img/avatars/robin.jpg" alt="">
+            <div class="thumb thumb-sm"><img class="img-circle" ng-src="{[{user.avatar}]}" alt="">
             </div>
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Write your comment here...">
-                                                  <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Post</button>
-                                                  </span>
+                      <span class="input-group-btn">
+                        <button ng-click="postMessage()" class="btn btn-default" type="button">Post</button>
+                      </span>
                 </div>
             </form>
         </div>

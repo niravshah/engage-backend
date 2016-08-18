@@ -7,9 +7,9 @@
 {% endblock %}
 
 {% block content %}
-<div ng-app="engageApp">
+<div ng-app="engageApp" pid="{{pid}}" ng-controller="mainController">
     <div ui-view="projectHeader"></div>
-    <section id="contentw" pid="{{pid}}" ng-controller="mainController">
+    <section id="contentw">
         <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spin1"></span>
         <div class="row">
         <div class="col-md-12">
@@ -74,6 +74,7 @@
 <script src="/js/selectize.min.js"></script>
 <script src="/js/angular-selectize.js"></script>
 <script src="/js/moment.js"></script>
+<script src="/js/angular-moment.min.js"></script>
 <script src="/js/datetimepicker.js"></script>
 <script src="/js/datetimepicker.templates.js"></script>
 

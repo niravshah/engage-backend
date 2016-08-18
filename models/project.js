@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var schema = require('../schemas/project.json');
 var Schema = mongoose.Schema;
 var projectSchema = new Schema({
         "name": {

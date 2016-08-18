@@ -13,7 +13,7 @@ router.get('/login', function(req, res, next) {
     res.render('login');
 });
 
-router.post('/authenticate', function(req, res, next) {
+router.post('/authenticate', function(req, res) {
 
     User.findOne({
             email: req.body.email
@@ -37,6 +37,7 @@ router.post('/authenticate', function(req, res, next) {
                     });
                 } else {
                     var firebaseToken = firebase.auth().createCustomToken(user._id.toString(),{roles:user.roles,memberships:user.memberships.toString()});
+                    delete user.password;
                     var token = jwt.sign(user, 'secret_sauce', {expiresIn:"4h"});
                     res.cookie('jwt',token,{httpOnly:true});
                     res.json({

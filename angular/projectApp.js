@@ -1,5 +1,5 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
-    'firebase', 'cgNotify','angularSpinner','angular-jwt','selectize','ui.bootstrap.datetimepicker']);
+    'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize', 'angularMoment', 'ui.bootstrap.datetimepicker']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -7,7 +7,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
             url: '/home',
-            authenticate:true,
+            authenticate: true,
             views: {
                 'projectHeader': {
                     templateUrl: '/angular/partials/project/header.html',
@@ -38,11 +38,11 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         });
 });
 
-app.run(['$rootScope', '$state', 'AuthService','$window', function ($rootScope, $state, AuthService, $window) {
+app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope, $state, AuthService, $window) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if (!AuthService.validToken() && toState.authenticate) {
             event.preventDefault();
-            $window.location.href='/login';
+            $window.location.href = '/login';
         }
         if (toState.redirectTo) {
             event.preventDefault();
@@ -80,21 +80,28 @@ app.directive('activeToggle', function () {
     };
 });
 
-app.directive("contenteditable", function() {
+app.directive('chatReply', function () {
+    return {
+        template: "<div class='streamline-form' style='position:inherit'> <div class='thumb thumb-sm'><img class='img-circle' ng-src='{[{user.avatar}]}' alt=''> </div> <form> <div class='input-group'><input ng-model='currentReplyMessage' type='text' class='form-control' placeholder='Reply here...'> <span class='input-group-btn'> <button ng-click='postMessage(replyMessageIndex,currentReplyMessage)' class='btn btn-default' type='button'>Post</button> </span> </div> </form> </div>",
+        restrict: 'E'
+    };
+});
+
+app.directive("contenteditable", function () {
     return {
         restrict: "A",
         require: "ngModel",
-        link: function(scope, element, attrs, ngModel) {
+        link: function (scope, element, attrs, ngModel) {
 
             function read() {
                 ngModel.$setViewValue(element.html());
             }
 
-            ngModel.$render = function() {
+            ngModel.$render = function () {
                 element.html(ngModel.$viewValue || "");
             };
 
-            element.bind("blur keyup change", function() {
+            element.bind("blur keyup change", function () {
                 scope.$apply(read);
             });
         }
@@ -102,12 +109,18 @@ app.directive("contenteditable", function() {
 });
 
 app.controller('headerController', function ($scope, $localStorage) {
-    $scope.token = $localStorage.currentUser.token;
+
 });
 
-app.controller('mainController', function ($window, $http, $attrs, $scope, $localStorage,$firebaseAuth,$firebaseArray, notify,usSpinnerService) {
+app.controller('mainController', function ($window, $http, $attrs, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService) {
     $scope.init = function () {
-        if($localStorage.currentUser) {
+        if ($localStorage.currentUser) {
+
+            $scope.user = {};
+            $scope.user.firstName = $localStorage.currentUser.firstName;
+            $scope.user.lastName = $localStorage.currentUser.lastName;
+            $scope.user.avatar = $localStorage.currentUser.avatar;
+            $scope.token = $localStorage.currentUser.token;
 
             $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
             var dataId = $localStorage.currentUser.tenant + "-" + $attrs.pid;
@@ -115,37 +128,41 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
             auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
                 usSpinnerService.spin('spin1');
                 var tasksRef = firebase.database().ref().child(dataId).child("tasks");
-                var messagesRef = firebase.database().ref().child(dataId).child("messages");
+                var messagesRef = firebase.database().ref().child(dataId).child("messages").limitToLast(30);
 
                 var tasksData = $firebaseArray(tasksRef);
-                tasksData.$loaded().then(function(tasks){
+                tasksData.$loaded().then(function (tasks) {
                     $scope.fbTasks = tasks;
                     notify('Tasks Loaded');
                     usSpinnerService.stop('spin1');
-                },function(err) {
+                }, function (err) {
                     notify(err.message);
                     usSpinnerService.stop('spin1');
                 });
 
                 var messageData = $firebaseArray(messagesRef);
-                messageData.$loaded().then(function(messages){
+                messageData.$loaded().then(function (messages) {
                     $scope.fbMessages = messages;
                     notify('Messages Loaded');
                     usSpinnerService.stop('spin1');
-                }, function(err) {
+                }, function (err) {
                     notify(err.message);
                     usSpinnerService.stop('spin1');
                 });
 
             }).catch(function (error) {
 
-                if(error.code == 'auth/invalid-custom-token'){
+                if (error.code == 'auth/invalid-custom-token') {
                     $window.location.href = '/login';
-                }else {
+                } else {
                     notify("Unable to Retrieve Data." + error.message);
                     $http.get('/data/projects/1/tasksArr.json').then(function (response) {
                         $scope.fbTasks = response.data;
                     });
+                    $http.get('/data/projects/1/messagesArr.json').then(function (response) {
+                        $scope.fbMessages = response.data;
+                    });
+
                     usSpinnerService.stop('spin1');
                 }
             });
@@ -168,10 +185,40 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 });
 
-app.controller('messageStreamController', function ($scope, $http) {
-    $scope.init = function () {
+app.controller('messageStreamController', function ($scope, $compile) {
+    $scope.currentMessage = "";
+    $scope.showReplyBox = {};
+
+    $scope.postMessage = function () {
+        var newMessage = {
+            $id: Date.now(),
+            avatar: $scope.user.avatar,
+            from: $scope.user.firstName + " " + $scope.user.lastName,
+            likes: 0,
+            message: $scope.currentMessage,
+            replies: {},
+            timestamp: Date.now()
+        };
+
+        $scope.fbMessages.$add(newMessage).then(function (ref) {
+            console.log('Message Added', ref);
+            $scope.currentMessage = "";
+        }, function (err) {
+            console.log('Message Add Error', err);
+        });
     };
-    $scope.init();
+
+    $scope.showReplyBox = function (index) {
+        var repliesBoxId = '#message' + index;
+        var reply = angular.element(document.createElement('chat-reply'));
+        $scope.replyMessageIndex = index;
+        $compile(reply)( $scope );
+        angular.element(repliesBoxId).after(reply);
+    };
+
+    $scope.postMessage = function(replyMessageIndex){
+        console.log(replyMessageIndex);
+    }
 });
 
 app.controller('projectTasksController', function ($scope, notify) {
@@ -182,57 +229,57 @@ app.controller('projectTasksController', function ($scope, notify) {
 
     $scope.myOptions = [
         {
-            "firstName":"Roger",
-            "lastName":"Freeman",
-            "email":"roger@ew.com",
-            "avatar":"/img/avatars/roger.jpg",
-            "badges":["/img/badges/badge1.png"],
-            "role":"Team Lead"
+            "firstName": "Roger",
+            "lastName": "Freeman",
+            "email": "roger@ew.com",
+            "avatar": "/img/avatars/roger.jpg",
+            "badges": ["/img/badges/badge1.png"],
+            "role": "Team Lead"
         },
         {
-            "firstName":"Robin",
-            "lastName":"Wills",
-            "email":"robin@ew.com",
-            "avatar":"/img/avatars/robin.jpg",
-            "badges":["/img/badges/badge3.png"],
-            "role":"Project Manager"
+            "firstName": "Robin",
+            "lastName": "Wills",
+            "email": "robin@ew.com",
+            "avatar": "/img/avatars/robin.jpg",
+            "badges": ["/img/badges/badge3.png"],
+            "role": "Project Manager"
         },
         {
-            "firstName":"Anna",
-            "lastName":"Smith",
-            "email":"anna@ew.com",
-            "avatar":"/img/avatars/anna.jpg",
-            "badges":["/img/badges/badge2.png"],
-            "role":"Communications Manager"
+            "firstName": "Anna",
+            "lastName": "Smith",
+            "email": "anna@ew.com",
+            "avatar": "/img/avatars/anna.jpg",
+            "badges": ["/img/badges/badge2.png"],
+            "role": "Communications Manager"
         },
         {
-            "firstName":"Deel",
-            "lastName":"Marlow",
-            "email":"deel@ew.com",
-            "avatar":"/img/avatars/deel.jpg",
-            "badges":["/img/badges/badge1.png","/img/badges/badge1.png"],
-            "role":"Team Member"
+            "firstName": "Deel",
+            "lastName": "Marlow",
+            "email": "deel@ew.com",
+            "avatar": "/img/avatars/deel.jpg",
+            "badges": ["/img/badges/badge1.png", "/img/badges/badge1.png"],
+            "role": "Team Member"
         },
         {
-            "firstName":"Mike",
-            "lastName":"Herrington",
-            "email":"mike@ew.com",
-            "avatar":"/img/avatars/mike.jpg",
-            "badges":["/img/badges/badge2.png"],
-            "role":"Team Member"
+            "firstName": "Mike",
+            "lastName": "Herrington",
+            "email": "mike@ew.com",
+            "avatar": "/img/avatars/mike.jpg",
+            "badges": ["/img/badges/badge2.png"],
+            "role": "Team Member"
         },
         {
-            "firstName":"John",
-            "lastName":"Douey",
-            "email":"john@ew.com",
-            "avatar":"/img/avatars/john.jpg",
-            "badges":[],
-            "role":"Team Member"
+            "firstName": "John",
+            "lastName": "Douey",
+            "email": "john@ew.com",
+            "avatar": "/img/avatars/john.jpg",
+            "badges": [],
+            "role": "Team Member"
         }
     ];
 
     $scope.myConfig = {
-        create:false,
+        create: false,
         persist: false,
         valueField: 'email',
         labelField: 'firstName' + 'lastName',
@@ -241,26 +288,26 @@ app.controller('projectTasksController', function ($scope, notify) {
         placeholder: 'Assign Task',
         maxItems: 1,
         render: {
-            item: function(item, escape) {
+            item: function (item, escape) {
                 var label = item.avatar;
                 var caption = item.firstName + item.lastName;
                 return '<div>' +
-                    '<img class="img-circle-sm" src="'+label+ '"/>' +
+                    '<img class="img-circle-sm" src="' + label + '"/>' +
                     (caption ? '<span class="caption md-pl-15">' + escape(caption) + '</span>' : '') +
                     '</div>';
             },
-            option: function(item, escape) {
+            option: function (item, escape) {
                 var label = item.avatar;
                 var caption = item.firstName + item.lastName;
                 return '<div>' +
-                    '<img class="img-circle-sm" src="'+label+ '"/>' +
+                    '<img class="img-circle-sm" src="' + label + '"/>' +
                     (caption ? '<span class="caption md-pl-15">' + escape(caption) + '</span>' : '') +
                     '</div>';
             }
         },
-        onChange: function(value){
-            angular.forEach($scope.myOptions,function(option){
-                if(option.email == value){
+        onChange: function (value) {
+            angular.forEach($scope.myOptions, function (option) {
+                if (option.email == value) {
                     $scope.models.selected.owner = option.firstName + ' ' + option.lastName;
                     $scope.models.selected.ownerImage = option.avatar;
                     $scope.models.selected.ownerEmail = option.email;
@@ -271,14 +318,14 @@ app.controller('projectTasksController', function ($scope, notify) {
     };
 
     $scope.statusOptions = [
-        {value:'New'},
-        {value:'In Progress'},
-        {value:'Complete'},
-        {value:'Blocked'}
+        {value: 'New'},
+        {value: 'In Progress'},
+        {value: 'Complete'},
+        {value: 'Blocked'}
     ];
 
     $scope.statusConfig = {
-        create:false,
+        create: false,
         persist: false,
         valueField: 'value',
         labelField: 'value',
@@ -309,53 +356,53 @@ app.controller('projectTasksController', function ($scope, notify) {
         $scope.openRightSidebar();
     };
 
-    $scope.editTask = function(){
+    $scope.editTask = function () {
         $scope.models.selected = $scope.fbTasks[index];
         $scope.models.selectedAction = 'Edit';
         $scope.openRightSidebar();
     };
-    $scope.addNewTask = function(){
+    $scope.addNewTask = function () {
         $scope.models.selected = {};
         $scope.models.selectedAction = 'Add';
         $scope.openRightSidebar();
     };
 
-    $scope.deleteTask = function(index){
+    $scope.deleteTask = function (index) {
         var record = $scope.fbTasks.$getRecord(index);
         record.status = 'deleted';
-        $scope.fbTasks.$save(record).then(function(ref){
+        $scope.fbTasks.$save(record).then(function (ref) {
             notify('Task Deleted : ' + $scope.fbTasks.$getRecord(ref.key).description);
         })
     };
 
-    $scope.save = function(task){
-        if(task.$id){
-             $scope.saveTask(task);
-        }else{
+    $scope.save = function (task) {
+        if (task.$id) {
+            $scope.saveTask(task);
+        } else {
             $scope.addTask(task);
         }
     };
-    $scope.addTask = function(task){
-        $scope.fbTasks.$add(task).then(function(ref){
+    $scope.addTask = function (task) {
+        $scope.fbTasks.$add(task).then(function (ref) {
             $scope.closeRightSidebar();
             notify('New Task Added');
-        },function(err){
+        }, function (err) {
             $scope.closeRightSidebar();
             notify('Error Adding New Task' + err);
         });
     };
-    
-    $scope.saveTask = function(task){
-        $scope.fbTasks.$save(task).then(function(ref){
+
+    $scope.saveTask = function (task) {
+        $scope.fbTasks.$save(task).then(function (ref) {
             $scope.closeRightSidebar();
             notify('Task Saved : ' + $scope.fbTasks.$getRecord(ref.key).description);
         });
     };
 
-    $scope.cancelEditItem = function(index){
+    $scope.cancelEditItem = function (index) {
         $scope.closeRightSidebar();
     }
-    $scope.onTimeSet=function(newDate, oldDate){
+    $scope.onTimeSet = function (newDate, oldDate) {
         $('#dLabel').dropdown('toggle');
     }
 });

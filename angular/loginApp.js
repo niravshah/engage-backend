@@ -13,8 +13,12 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
             if (response.token) {
                 //console.log(jwtHelper.decodeToken(response.token));
                 if (!jwtHelper.isTokenExpired(response.token)) {
+                    var user = jwtHelper.decodeToken(response.token)._doc;
                     $localStorage.currentUser = {
-                        email: $scope.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        avatar: user.avatar,
                         token: response.token,
                         firebaseToken:response.firebaseToken,
                         tenant:response.tenant

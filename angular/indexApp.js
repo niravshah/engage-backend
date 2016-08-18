@@ -2,7 +2,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'angular-jwt','ui.router', 'permission','permission.ui' ]).run(function (PermissionStore, $localStorage,jwtHelper) {
     PermissionStore
       .definePermission('isAdmin', function () {      
-        return jwtHelper.decodeToken($localStorage.currentUser.token)._doc.roles.indexOf('admin') > -1;
+        return jwtHelper.decodeToken($localStorage.currentUser.token)._doc.userRoles.indexOf('admin') > -1;
       });
   });
 
