@@ -11,34 +11,26 @@
         <div class="row">
             <div class="image-float-left text-center">
                 <div class="thumb thumb-xl">
-                    <img class="img-circle" src="/img/icon_75_75.png" alt="">
+                    <img class="img-circle" ng-src="{[{info.logo}]}" alt="">
                 </div>
-                <h4 class="mb-0">Kids London Break</h4>
-                <span class="text-muted">14th August - 20th August</span>
+                <h4 class="mb-0">{[{info.name}]}</h4>
+                <span class="text-muted">{[{info.sDate | date: "mediumDate"}]} - {[{info.eDate | date: "mediumDate"}]}</span>
             </div>
-            <div class="text-wrap">
-                <p>
-                    The break provides children with the space to have fun and enjoy by taking part in
-                    activities such as rock climbing, swimming, going to theme parks, cinema and
-                    fun-filled. </p>
-                <p> The encouragement, high level energy and one to one attention the children receive
-                    from professional role models is invaluable for the children's self-esteem and
-                    aspirations.
-                </p>
+            <div ng-bind-html="info.description" class="text-wrap">
             </div>
         </div>
 
-        <ul class="nav nav-tabs mt-20 mb-20">
-            <li role="presentation" class="active"><a href="#">About Kids</a></li>
-            <li role="presentation"><a href="#">Details</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
+        <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+            <li class="active"><a href="#aboutOrg" data-toggle="tab">About</a></li>
+            <li><a href="#orgContact" data-toggle="tab">Contacts</a></li>
+            <li><a href="#otherResources" data-toggle="tab">Resources</a></li>
         </ul>
-        <div>
-            <p>
-                Whenever anyone looks back on their childhood, most will undoubtedly comment on the perks of being ‘carefree’, but for many children across the UK this is sadly not the case. For some children, day to day life is complicated with stresses and situations that even the toughest of adults would struggle with. At Kids Adventure we believe that every child deserves to be just that. A child.</p> 
-            <p>Kids Adventure provides non-residential respite breaks for disadvantaged children aged 8-11 years. The program is run by teams of professional volunteers who provide desperately needed breaks for children and families within their local communities.</p>
-            </p>
 
+        <div id="my-tab-content" class="tab-content">
+            <div ng-bind-html="info.aboutOrg" class="tab-pane active" id="aboutOrg"></div>
+            <div ng-bind-html="info.orgContact" class="tab-pane" id="orgContact"></div>
+            <div ng-bind-html="info.otherResources" class="tab-pane" id="otherResources"></div>
         </div>
+
     </div>
 </section>

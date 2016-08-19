@@ -1,5 +1,5 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
-    'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize', 'angularMoment', 'ui.bootstrap.datetimepicker']);
+    'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize', 'angularMoment', 'ui.bootstrap.datetimepicker','ngSanitize']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -56,7 +56,7 @@ app.controller('projectInfoController', function ($scope, $http) {
     $scope.init = function(){
         $http.get('/api/projects/' + $scope.projectId + '/info').then(function (response) {
             if (response.data.success == true) {
-                $scope.info = response.data.users;
+                $scope.info = response.data.project;
             } else {
                 notify('Could not retrieve Team Members.' + err.message);
             }

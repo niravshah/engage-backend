@@ -16,7 +16,7 @@ router.get('/projects/:id/members', function (req, res) {
 
 router.get('/projects/:id/info', function (req, res) {
 
-    Project.find({sid:req.params.id, tid: req.body.tid},function(err,project){
+    Project.findOne({sid:req.params.id, tid: req.body.tid},function(err,project){
         if(err){
             res.status(500).json({success:false,err:err});
         }else{
