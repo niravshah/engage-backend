@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-router.post('/setup/user', function (req, res, next) {
+router.post('/setup/user', function (req, res) {});
+
+router.post('/setup/user', function (req, res) {
 
     new User({
         "firstName": "Roger",

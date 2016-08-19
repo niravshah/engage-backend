@@ -10,16 +10,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading bg-white">
                         {[{m.from}]}
-                        <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i><span
-                                am-time-ago="m.timestamp"></span></span>
+
+                        <span ng-click="deleteMessage(m.$id,false,null)" class="text-muted pull-right md-ml-15">
+                        <a href=""><i class="fa fa-trash"></i><span></span></a>
+                        </span>
+
+                        <span class="text-muted pull-right">
+                            <i class="fa fa-clock-o mr-5"></i><span
+                                am-time-ago="m.timestamp"></span>
+                        </span>
+
                     </div>
                     <div class="panel-body">
                         {[{m.message}]}
                         <p class="mt-10 mb-0">
-                            <a href="" active-toggle class="btn btn-default btn-xs">
-                                <i class="fa fa-heart-o text-inactive"></i><i
-                                    class="fa fa-heart text-danger text-active"></i> Like
-                            </a>
                             <a href="" ng-click="showReplyBox(m.$id)" class="btn btn-default btn-xs">
                                 <i class="fa fa-mail-reply"></i> Reply
                             </a>
@@ -38,7 +42,9 @@
                                 <div class="panel-body">
                                     <p>
                                         <strong>{[{r.from}]}</strong>
-
+                                        <span ng-click="deleteMessage(r.$id,true,m.$id)" class="text-muted pull-right md-ml-15">
+                                        <a href=""><i class="fa fa-trash"></i><span></span></a>
+                                        </span>
                                         <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i><span
                                                 am-time-ago="m.timestamp"></span></span>
                                     </p>

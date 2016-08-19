@@ -10,11 +10,11 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/project/header.html',
-                    controller: 'headerController'
+                    templateUrl: '/angular/partials/project/header.html'
                 },
                 'projectInfo': {
-                    templateUrl: '/angular/partials/project/info.html'
+                    templateUrl: '/angular/partials/project/info.html',
+                    controller: 'projectInfoController'
                 },
                 'teamMembers': {
                     templateUrl: '/angular/partials/project/team.html',
@@ -52,8 +52,18 @@ app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope,
 
 }]);
 
-app.controller('headerController', function ($scope, $localStorage) {
+app.controller('projectInfoController', function ($scope, $http) {
+    $scope.init = function(){
+        $http.get('/api/projects/' + $scope.projectId + '/info').then(function (response) {
+            if (response.data.success == true) {
+                $scope.info = response.data.users;
+            } else {
+                notify('Could not retrieve Team Members.' + err.message);
+            }
+        });
+    };
 
+    $scope.init();
 });
 
 app.controller('mainController', function ($window, $http, $attrs, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService) {
@@ -180,12 +190,12 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         angular.element(repliesBoxId).after(reply);
     };
 
-    $scope.postMessage = function (key, currentReplyMessage) {
+    $scope.postMessage = function (key, message) {
         var newReply = {
             avatar: $scope.user.avatar,
             from: $scope.user.firstName + " " + $scope.user.lastName,
             likes: 0,
-            message: currentReplyMessage,
+            message: message,
             timestamp: Date.now()
         };
 
@@ -198,7 +208,28 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         }, function (err) {
             console.log('Message Add Error', err);
         });
+    };
+
+    $scope.deleteMessage = function(mid, isReply, parentMid){
+        if(isReply) {
+            console.log('Delete Message', mid);
+            var repliesRef = $scope.fbMessages.$ref().path.toString();
+            var childRef = repliesRef + "/" + parentMid + "/" + "replies";
+            var db = firebase.database().ref(childRef);
+            var repliesArr = $firebaseArray(db);
+            var index = repliesArr.$indexFor(mid);
+            repliesArr.$remove(index).then(function(ref){
+                console.log('Message Deleted',ref);
+            })
+
+        }else{
+            var index = $scope.fbMessages.$indexFor(mid);
+            $scope.fbMessages.$remove(index).then(function(ref){
+               console.log('Message Deleted',ref);
+            });
+        }
     }
+    
 });
 
 app.controller('projectTasksController', function ($scope, notify) {

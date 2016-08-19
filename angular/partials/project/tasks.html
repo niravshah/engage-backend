@@ -24,8 +24,9 @@
                     dnd-selected="dndSelectedFn(task)"
                     ng-class="{'selected':models.selected==task}">
                     <div class="row task">
-                            <div class="col-md-5" ng-class="{'In Progress':'progress-desc', 'New':'new-desc', 'Complete':'complete-desc', 'Blocked':'blocked-desc'}[task.status]">
-                                {[{task.description}]}
+                        <div class="col-md-5"
+                             ng-class="{'In Progress':'progress-desc', 'New':'new-desc', 'Complete':'complete-desc', 'Blocked':'blocked-desc'}[task.status]">
+                            {[{task.description}]}
                         </div>
                         <div class="col-md-3 task-image"><img ng-src="{[{task.ownerImage}]}" alt=""
                                                               class="img-circle size-30x30"><span>{[{task.owner}]}</span>
