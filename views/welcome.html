@@ -1,0 +1,14 @@
+{% extends 'layout.html' %} {% block content %}
+<div id="wrap" class="animsition" ng-app="engageLoginApp">
+    <div class="page page-core page-login">
+        <div class="text-center">
+            <img src="/img/logo_160_160.png">
+        </div>
+        <div class="container w-420 p-15 bg-white mt-40 text-center" ng-controller="WelcomeController">
+            <h2 class="text-light text-yellow1">Welcome. Let's set you up!</h2>
+        </div>
+    </div>
+</div>
+{% endblock %} {%block scripts%}
+<script type="text/javascript" src="/angular/welcomeApp.js"></script>
+{% endblock %}

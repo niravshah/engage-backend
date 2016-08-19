@@ -9,7 +9,8 @@ var userSchema = new Schema({
     userRoles: {type: Array, default: ['USER']},
     memberships: {type: Array, default: []},
     projectRoles:{type:Array, default:[]},
-    badges:{type:Array, default:[]}
+    badges:{type:Array, default:[]},
+    firstLogin: {type:Boolean, default:true}
 });
 
 module.exports = mongoose.model('User', userSchema);    

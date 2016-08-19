@@ -4,27 +4,31 @@ app.config(function ($interpolateProvider) {
 });
 app.controller('LoginController', function Controller($scope, $http, $location, $localStorage, jwtHelper, $window) {
     $scope.message = '';
-    
+
     $scope.controllerLogin = function () {
-        $http.post('/authenticate', {
+        $http.post('/api/authenticate', {
             email: $scope.email,
             password: $scope.password
         }).success(function (response) {
             if (response.token) {
-                //console.log(jwtHelper.decodeToken(response.token));
                 if (!jwtHelper.isTokenExpired(response.token)) {
                     var user = jwtHelper.decodeToken(response.token)._doc;
-                    $localStorage.currentUser = {
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        avatar: user.avatar,
-                        token: response.token,
-                        firebaseToken:response.firebaseToken,
-                        tenant:response.tenant
-                    };
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
-                    $window.location.href = '/index';
+                    if (user.firstLogin == true) {
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+                        $window.location.href = '/welcome';
+                    } else {
+                        $localStorage.currentUser = {
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            avatar: user.avatar,
+                            token: response.token,
+                            firebaseToken: response.firebaseToken,
+                            tenant: response.tenant
+                        };
+                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+                        $window.location.href = '/index';
+                    }
                 } else {
                     $scope.message = 'Invalid Authentication Token';
                 }
