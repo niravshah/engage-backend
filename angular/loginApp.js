@@ -31,7 +31,7 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
                     } else if (user.profileSet == false) {
                         $window.location.href = '/welcome';
                     } else {
-                        $window.location.href = '/index';
+                        $window.location.href = '/project/' + user.memberships[0].split("-")[1];
                     }
                 } else {
                     $scope.message = 'Invalid Authentication Token';

@@ -2,7 +2,7 @@ module.exports = function(app) {
     var User = require('../../models/user');
     var Project = require('../../models/project');
 
-    app.get('/projects/:id/members', function (req, res) {
+    app.get('/api/projects/:id/members', function (req, res) {
         var membershipId = req.body.tid + "-" + req.params.id;
         User.find({
             memberships: membershipId,
@@ -16,7 +16,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/projects/:id/info', function (req, res) {
+    app.get('/api/projects/:id/info', function (req, res) {
 
         Project.findOne({sid: req.params.id, tid: req.body.tid}, function (err, project) {
             if (err) {
