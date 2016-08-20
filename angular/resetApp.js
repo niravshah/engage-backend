@@ -1,13 +1,45 @@
-var app = angular.module('engageResetApp',['ngStorage']);
-app.config(function ($interpolateProvider) {
+var app = angular.module('engageResetApp', ['ngStorage', 'angular-jwt','cgNotify']);
+app.config(function ($interpolateProvider, $httpProvider, jwtOptionsProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-});
-app.controller('ResetController', function Controller($scope, $http, $location,$localStorage) {
 
-    $scope.init = function(){
+    jwtOptionsProvider.config({
+        tokenGetter:['AuthService', function (AuthService) {
+            return AuthService.getToken();
+        }]
+    });
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+});
+
+app.service('AuthService', ['$localStorage',
+    function ($localStorage) {
+        this.getToken = function () {
+            return $localStorage.currentUser.token;
+        }
+    }]);
+
+app.controller('ResetController', function Controller($scope, $http, $window, $localStorage) {
+
+    $scope.init = function () {
         $scope.user = $localStorage.currentUser;
     };
 
     $scope.init();
+
+    $scope.resetPassword = function () {
+        console.log($scope.resetForm, $scope.user.userid);
+
+        var url = '/api/user/' + $scope.user.userid + '/reset';
+        $http.post(url, $scope.resetForm).then(function (resp) {
+            if(resp.data.success == true){
+                $window.location.href = '/login';
+            }else{
+                notify('Could reste password' + resp.data.reason);
+            }
+
+        }, function (err) {
+            console.log('Error', err)
+        })
+    }
 
 });

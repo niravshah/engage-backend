@@ -1,22 +1,17 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function (app) {
+    app.get('/', function (req, res) {
+        res.render('login');
+    });
 
+    app.get('/login', function (req, res) {
+        res.render('login');
+    });
 
-router.get('/', function(req, res) {
-    res.render('login');
-});
+    app.get('/welcome', function (req, res) {
+        res.render('welcome');
+    });
 
-router.get('/login', function(req, res) {
-    res.render('login');
-});
-
-router.get('/welcome', function(req, res) {
-    res.render('welcome');
-});
-
-router.get('/reset', function(req, res) {
-    res.render('reset');
-});
-
-
-module.exports = router;
+    app.get('/reset', function (req, res) {
+        res.render('reset');
+    });
+};

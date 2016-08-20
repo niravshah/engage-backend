@@ -13,16 +13,16 @@
 
             <form name="form" class="form-validation mt-20" novalidate="">
                 <div class="form-group">
-                    <input ng-model="email" type="email" class="form-control underline-input" placeholder="Email">
+                    <input ng-model="resetForm.email" type="email" class="form-control underline-input" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <input ng-model="eP" type="password" placeholder="Password" class="form-control underline-input">
+                    <input ng-model="resetForm.eP" type="password" placeholder="Password" class="form-control underline-input">
                 </div>
                 <div class="form-group">
-                    <input ng-model="nP" type="password" placeholder="New Password" class="form-control underline-input">
+                    <input ng-model="resetForm.nP" type="password" placeholder="New Password" class="form-control underline-input">
                 </div>
                 <div class="form-group">
-                    <input ng-model="rNP" type="password" placeholder="Repeat New Password" class="form-control underline-input">
+                    <input ng-model="resetForm.rNP" type="password" placeholder="Repeat New Password" class="form-control underline-input">
                 </div>
 
                 <div class="form-group text-center mt-20">
@@ -35,7 +35,7 @@
 </div>
 </div>
 {% endblock %} {%block scripts%}
-
+<script src="/js/angular-notify.js"></script>
 <script type="text/javascript" src="/angular/resetApp.js"></script>
 
 {% endblock %}
