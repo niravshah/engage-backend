@@ -54,12 +54,13 @@ module.exports = function (app) {
             }else{
                 if(user){
                     user.profileSet = true;
-                    user.avatar = getSavedFilePath(req,0);
+                    var av = getSavedFilePath(req,0);
+                    user.avatar = av;
                     user.save(function(err){
                         if(err){
                             res.json({success:false,reason:"Error saving User." + err.message});
                         }else{
-                            res.json({success:true});
+                            res.json({success:true,avatar:av,nextUrl:'/project/' + user.memberships[0].split("-")[1]});
                         }
                     })
                 }else{

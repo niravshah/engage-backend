@@ -14,6 +14,7 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
                 if (!jwtHelper.isTokenExpired(response.token)) {
                     var user = jwtHelper.decodeToken(response.token)._doc;
                     $localStorage.currentUser = {
+                        shortid:user.shortid,
                         userid: user._id,
                         firstName: user.firstName,
                         lastName: user.lastName,

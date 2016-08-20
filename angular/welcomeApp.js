@@ -32,7 +32,8 @@ app.controller('WelcomeController', function Controller($scope, $http, $location
                 if (err){
                     notify('Error uploading avatar '+ err);
                 } else{
-                    $window.location.href = '/login';
+                    $localStorage.currentUser.avatar = resp.data.avatar;
+                    $window.location.href = resp.data.nextUrl;
                 }
             })
         };

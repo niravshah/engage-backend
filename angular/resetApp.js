@@ -34,7 +34,7 @@ app.controller('ResetController', function Controller($scope, $http, $window, $l
             if(resp.data.success == true){
                 $window.location.href = '/login';
             }else{
-                notify('Could reste password' + resp.data.reason);
+                notify('Could reset password' + resp.data.reason);
             }
 
         }, function (err) {

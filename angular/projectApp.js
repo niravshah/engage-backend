@@ -10,7 +10,9 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/project/header.html'
+                    templateUrl: '/angular/partials/project/header.html',
+                    controller: 'headerController'
+
                 },
                 'projectInfo': {
                     templateUrl: '/angular/partials/project/info.html',
@@ -52,6 +54,12 @@ app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope,
 
 }]);
 
+app.controller('headerController', function ($window, $scope, $localStorage) {
+    $scope.logout = function () {
+        delete $localStorage.currentUser;
+        $window.location.href = '/login';
+    }
+});
 app.controller('projectInfoController', function ($scope, $http) {
     $scope.init = function(){
         $http.get('/api/projects/' + $scope.projectId + '/info').then(function (response) {
@@ -74,6 +82,7 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
             $scope.user.firstName = $localStorage.currentUser.firstName;
             $scope.user.lastName = $localStorage.currentUser.lastName;
             $scope.user.avatar = $localStorage.currentUser.avatar;
+            $scope.user.shortid = $localStorage.currentUser.shortid;
             $scope.token = $localStorage.currentUser.token;
             $scope.projectId = $attrs.pid;
 
@@ -88,7 +97,7 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
                 var tasksData = $firebaseArray(tasksRef);
                 tasksData.$loaded().then(function (tasks) {
                     $scope.fbTasks = tasks;
-                    notify('Tasks Loaded');
+                    //notify('Tasks Loaded');
                     usSpinnerService.stop('spin1');
                 }, function (err) {
                     notify(err.message);
@@ -98,7 +107,7 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
                 var messageData = $firebaseArray(messagesRef);
                 messageData.$loaded().then(function (messages) {
                     $scope.fbMessages = messages;
-                    notify('Messages Loaded');
+                    //notify('Messages Loaded');
                     usSpinnerService.stop('spin1');
                 }, function (err) {
                     notify(err.message);

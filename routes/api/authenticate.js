@@ -2,7 +2,6 @@ module.exports = function(app) {
 
     var jwt = require('jsonwebtoken');
     var firebase = require('firebase');
-    var shortid = require('shortid');
     var User = require('../../models/user');
 
     app.post('/api/authenticate', function (req, res) {

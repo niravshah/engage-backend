@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Project = require('../models/project');
+var shortid = require('shortid');
 
 router.post('/setup/project', function (req, res) {
     new Project({
@@ -28,6 +29,7 @@ router.post('/setup/project', function (req, res) {
 router.post('/setup/user', function (req, res) {
 
     new User({
+        "shortid":shortid.generate(),
         "firstName": "Roger",
         "lastName": "Freeman",
         "email": "roger@ew.com",
@@ -41,6 +43,7 @@ router.post('/setup/user', function (req, res) {
     }).save();
 
     new User({
+        "shortid":shortid.generate(),
         "firstName":"Robin",
         "lastName":"Wills",
         "email":"robin@ew.com",
@@ -54,6 +57,7 @@ router.post('/setup/user', function (req, res) {
     }).save();
 
     new User({
+        "shortid":shortid.generate(),
         "firstName":"Anna",
         "lastName":"Smith",
         "email":"anna@ew.com",
@@ -67,6 +71,7 @@ router.post('/setup/user', function (req, res) {
     }).save();
 
     new User({
+        "shortid":shortid.generate(),
         "firstName":"Deel",
         "lastName":"Marlow",
         "email":"deel@ew.com",
@@ -80,6 +85,7 @@ router.post('/setup/user', function (req, res) {
     }).save();
 
     new User({
+        "shortid":shortid.generate(),
         "firstName":"Mike",
         "lastName":"Herrington",
         "email":"mike@ew.com",
@@ -93,6 +99,7 @@ router.post('/setup/user', function (req, res) {
     }).save();
 
     new User({
+        "shortid":shortid.generate(),
         "firstName":"John",
         "lastName":"Douey",
         "email":"john@ew.com",
