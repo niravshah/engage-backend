@@ -2814,9 +2814,9 @@ html.boxed-layout .appWrapper.header-fixed.aside-static #header {
 }
 
 #header .branding {
-  background-color: #493d55;
+  background-color: #faf9fb;
   width: 250px;
-  height: 45px;
+  /* height: auto; */
   float: left;
   padding: 0 15px;
 }

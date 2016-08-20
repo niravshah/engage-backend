@@ -28,9 +28,12 @@ app.controller('WelcomeController', function Controller($scope, $http, $location
         };
 
         if(files.length > 0) {
-            $scope.upload(files, $scope.user.userid, '/upload/user/avatar', function (resp, err) {
-                if (err) console.log('Error uploading avatar', err);
-                else console.log('Avatar Uploaded', resp);
+            $scope.upload(files, $scope.user.userid, '/api/user/avatar', function (resp, err) {
+                if (err){
+                    notify('Error uploading avatar '+ err);
+                } else{
+                    $window.location.href = '/login';
+                }
             })
         };
     };

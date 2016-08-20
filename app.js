@@ -13,6 +13,7 @@ app.use('/mongo_express', mongo_express(config.mongo_express_config));
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/angular', express.static(path.join(__dirname, 'angular')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');

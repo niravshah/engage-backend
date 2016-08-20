@@ -1,6 +1,7 @@
 var config = [];
 
 config['dev'] = {
+    fileStorage:'local',
     mongoUrl: 'mongodb://localhost/engage',
     mongo_express_config: {
         mongodb: {
@@ -52,13 +53,14 @@ config['dev'] = {
             subprocessTimeout: 300,
             readOnly: false,
             collapsibleJSON: true,
-            collapsibleJSONDefaultUnfold: 1,
+            collapsibleJSONDefaultUnfold: 1
         },
         defaultKeyNames: {}
     }
 }
 
-config['int'] = {
+config['live'] = {
+    fileStorage:'s3',
     mongoUrl: 'mongodb://mongo/engage',
     mongo_express_config: {
         mongodb: {
