@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block css%}
+<link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div id="wrap" class="animsition" ng-app="engageResetApp" ng-controller="ResetController">
+    <div class="page page-core page-login">
+        <div class="text-center">
+            <img src="/img/logo_160_160.png">
+            <h3 class="text-white">Please reset your Password</h3>
+        </div>
+        <div class="container w-420 p-15 bg-white mt-40 text-center">
+
+            <form name="form" class="form-validation mt-20" novalidate="">
+                <div class="form-group">
+                    <input ng-model="email" type="email" class="form-control underline-input" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <input ng-model="eP" type="password" placeholder="Password" class="form-control underline-input">
+                </div>
+                <div class="form-group">
+                    <input ng-model="nP" type="password" placeholder="New Password" class="form-control underline-input">
+                </div>
+                <div class="form-group">
+                    <input ng-model="rNP" type="password" placeholder="Repeat New Password" class="form-control underline-input">
+                </div>
+
+                <div class="form-group text-center mt-20">
+                    <a href="#login" ng-click="resetPassword();" class="btn btn-lg btn-yellow1 b-0 br-2 mr-5">Reset</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %} {%block scripts%}
+
+<script type="text/javascript" src="/angular/resetApp.js"></script>
+
+{% endblock %}

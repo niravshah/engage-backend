@@ -1,14 +1,46 @@
-{% extends 'layout.html' %} {% block content %}
-<div id="wrap" class="animsition" ng-app="engageLoginApp">
+{% extends 'layout.html' %}
+{% block css%}
+<link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div id="wrap" class="animsition" ng-app="engageWelcomeApp" ng-controller="WelcomeController">
     <div class="page page-core page-login">
         <div class="text-center">
             <img src="/img/logo_160_160.png">
+            <h2 class="text-light text-yellow1">Welcome, {[{user.firstName}]}</h2>
+            <h3 class="text-white">Let's set you up!</h3>
         </div>
-        <div class="container w-420 p-15 bg-white mt-40 text-center" ng-controller="WelcomeController">
-            <h2 class="text-light text-yellow1">Welcome. Let's set you up!</h2>
+        <div class="container w-420 p-15 bg-white mt-40 text-center">
+            <div class="row md-mt-10 md-mb-50">
+                <div class="col-md-12">
+                    <div class="default-profile-photo" style="height:100px; width:100px; margin: 0 auto;">
+                        {[{user.firstName}]} {[{user.lastName}]}
+                    </div>
+                    <div>
+                        <img ngf-src="uploadedAvatar" style="height: 100px;width: 100px" ngf-no-object-url="true">
+                    </div>
+                    </img>
+                    <a ng-model="uploadedAvatar" id="uploadedAvatar"
+                       name="uploadedAvatar" ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'" ngf-max-size="2MB"
+                       ngf-select="imageAdded()"
+                       class="btn btn-orange btn-border btn-rounded md-mt-30">Upload Profile Image</a>
+                </div>
+            </div>
+            <button class="btn btn-success btn-lg btn-raised" ng-click="uploadImage()">Done</button>
+
         </div>
     </div>
 </div>
+</div>
 {% endblock %} {%block scripts%}
+
+<script type="text/javascript" src="/js/material-avatar.min.js"></script>
+<script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
+
 <script type="text/javascript" src="/angular/welcomeApp.js"></script>
+
+<script type="text/javascript">
+    $('.default-profile-photo').materialAvatar({colorPalette: ['#745BA7'], textColor: '#F8C524', fontFamily: 'Bungee'});
+</script>
 {% endblock %}

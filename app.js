@@ -58,14 +58,15 @@ if(env == 'dev') app.use(setup);
 
 var login = require('./routes/login');
 var index = require('./routes/index');
-
-app.use(login);
-app.use(passport.authenticate('jwt', {session: false,failureRedirect: '/login'}),index);
-
 var projectsApi = require('./routes/api/projects');
 var authenticateApi = require('./routes/api/authenticate');
+var userApi = require('./routes/api/user');
 
+app.use(login);
 app.use('/api',authenticateApi);
+
+app.use(passport.authenticate('jwt', {session: false,failureRedirect: '/login'}),index);
+app.use('/upload',userApi);
 app.use('/api',passport.authenticate('jwt', {session: false,failureRedirect: '/login'}),projectsApi);
 
 // catch 404 and forward to error handler

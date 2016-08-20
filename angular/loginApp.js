@@ -13,20 +13,24 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
             if (response.token) {
                 if (!jwtHelper.isTokenExpired(response.token)) {
                     var user = jwtHelper.decodeToken(response.token)._doc;
-                    if (user.firstLogin == true) {
-                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+                    $localStorage.currentUser = {
+                        userid: user._id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        avatar: user.avatar,
+                        token: response.token,
+                        firebaseToken: response.firebaseToken,
+                        tenant: response.tenant
+                    };
+
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+
+                    if(user.resetPassword == true){
+                        $window.location.href = '/reset';
+                    } else if (user.profileSet == false) {
                         $window.location.href = '/welcome';
                     } else {
-                        $localStorage.currentUser = {
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            email: user.email,
-                            avatar: user.avatar,
-                            token: response.token,
-                            firebaseToken: response.firebaseToken,
-                            tenant: response.tenant
-                        };
-                        $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
                         $window.location.href = '/index';
                     }
                 } else {

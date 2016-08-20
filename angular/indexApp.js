@@ -20,7 +20,7 @@ app.config(function($interpolateProvider, $stateProvider, $urlRouterProvider,jwt
                 controller: 'projectCardsCtrl'
             }
         }
-    })
+    });
     jwtInterceptorProvider.tokenGetter = function() {
         var user =  $localStorageProvider.get('currentUser');
         if(typeof user != undefined){

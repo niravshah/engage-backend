@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 var firebase = require('firebase');
 var shortid = require('shortid');
+var User = require('../../models/user');
 
 router.post('/authenticate', function(req, res) {
     User.findOne({
@@ -22,6 +22,7 @@ router.post('/authenticate', function(req, res) {
             });
         } else if(user) {
             if(user.password != req.body.password) {
+                console.log("5");
                 res.json({
                     success: false,
                     message: 'Authentication failed. Wrong password.'
@@ -42,3 +43,5 @@ router.post('/authenticate', function(req, res) {
         }
     });
 });
+
+module.exports = router;

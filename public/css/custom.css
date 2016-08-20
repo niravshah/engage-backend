@@ -232,11 +232,6 @@
     text-align: center !important;
 }
 
-.btn-rounded {
-    border-radius: 30px !important;
-    -webkit-border-radius: 30px !important;
-}
-
 .btn-shadow {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
@@ -442,4 +437,41 @@
 .aside-title{
     margin: 0px;
     font-size: 22px;
+}
+
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width:200px;
+    height:200px;
+}
+
+.cropArea canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.resultArea{
+    background: #cee4cb;
+    overflow: hidden;
+    width:200px;
+    height:200px;
+    text-align: center;
+}
+
+.resultArea > span{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.resultArea >img{
+    vertical-align: middle;max-height: 200px;max-width: 200px;
 }
