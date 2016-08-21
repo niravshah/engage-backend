@@ -7,6 +7,7 @@ var userSchema = new Schema({
     email: {type: String,required: true},
     password: {type: String,required: true},
     avatar: {type: String,required: true},
+    title: {type: String},
     userRoles: {type: Array, default: ['USER']},
     memberships: {type: Array, default: []},
     projectRoles:{type:Array, default:[]},

@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+
+{% block css%}
+<link rel="stylesheet" href="/css/minnovate.css">
+<link rel="stylesheet" href="/css/custom/profile.css">
+{% endblock %}
+
+{% block content %}
+<div ng-app="engageApp" pid="{{pid}}" ng-controller="mainController">
+    <div ui-view="projectHeader"></div>
+    <section id="contentw">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row mt-10">
+                    <section id="profile">
+                        <div class="page page-profile">
+                            <div class="pagecontent">
+
+
+                                <!-- row -->
+                                <div class="row">
+
+
+                                    <!-- col -->
+                                    <div class="col-md-4">
+                                           <div ui-view="about"></div>
+
+                                    </div>
+                                    <!-- /col -->
+
+
+                                    <!-- col -->
+                                    <div class="col-md-8">
+
+                                        <!-- tile -->
+                                        <section class="tile tile-simple">
+
+                                            <!-- tile body -->
+                                            <div class="tile-body p-0">
+
+                                                <div role="tabpanel">
+
+                                                    <!-- Nav tabs -->
+                                                    <ul class="nav nav-tabs tabs-dark" role="tablist">
+                                                        <li role="presentation" class="active"><a href="#projectsTab"
+                                                                                                  aria-controls="projectsTab"
+                                                                                                  role="tab"
+                                                                                                  data-toggle="tab">Projects</a>
+                                                        </li>
+                                                        <li role="presentation"><a href="#settingsTab"
+                                                                                   aria-controls="settingsTab"
+                                                                                   role="tab"
+                                                                                   data-toggle="tab">Settings</a></li>
+                                                    </ul>
+
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane active" id="projectsTab" ui-view="projects"></div>
+                                                        <div role="tabpanel" class="tab-pane" id="settingsTab" ui-view="settings"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /tile body -->
+                                        </section>
+                                        <!-- /tile -->
+
+                                    </div>
+                                    <!-- /col -->
+
+
+                                </div>
+                                <!-- /row -->
+
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/angular-jwt.min.js" type="text/javascript"></script>
+<script src="/angular/profileApp.js"></script>
+{% endblock %}

@@ -43,11 +43,8 @@ module.exports = function (app) {
             return '/' + req.files[index].path;
         }
     };
-
-
+    
     app.post('/api/user/avatar', upload.any(), function (req, res) {
-        console.log('Multer', req.files, req.body);
-
         User.findOne({_id:req.body.addData},function(err,user){
             if(err){
                 res.json({success:false,reason:"Unexpected Error." + err.message});

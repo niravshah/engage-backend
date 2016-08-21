@@ -152,7 +152,6 @@ app.controller('teamMemberController', function ($scope, $http) {
 
 });
 
-
 app.controller('messageStreamController', function ($scope, $compile, $firebaseArray) {
     $scope.currentMessage = "";
     $scope.showReplyBox = {};

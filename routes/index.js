@@ -12,4 +12,8 @@ module.exports = function(app) {
     app.get('/project/:id', function (req, res) {
         res.render('project', {pid: req.params.id});
     });
-}
+
+    app.get('/profile/:id', function (req, res) {
+        res.render('profile', {pid: req.params.id});
+    });
+};
