@@ -1,4 +1,6 @@
 <div class="wrap-reset">
         <h1>Projects</h1>
-        <pre>{[{projects}]}</pre>
+        <div ng-repeat="project in projects">
+                <a ng-href="/project/{[{project.sid}]}">{[{project.name}]}</a>
+        </div>
 </div>

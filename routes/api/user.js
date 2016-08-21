@@ -57,7 +57,7 @@ module.exports = function (app) {
                         if(err){
                             res.json({success:false,reason:"Error saving User." + err.message});
                         }else{
-                            res.json({success:true,avatar:av,nextUrl:'/project/' + user.memberships[0].split("-")[1]});
+                            res.json({success:true,avatar:av,nextUrl:'/profile/' + user.shortid});
                         }
                     })
                 }else{
