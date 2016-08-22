@@ -55,8 +55,8 @@ app.use(function(req,res,next){
 });
 
 var setup = require('./routes/setup');
-//if(env == 'dev') app.use(setup);
-app.use(setup);
+if(env == 'dev') app.use(setup);
+
 
 
 
