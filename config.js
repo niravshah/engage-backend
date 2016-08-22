@@ -61,7 +61,7 @@ config['dev'] = {
 
 config['live'] = {
     fileStorage:'s3',
-    mongoUrl: 'mongodb://mongo/engage',
+    mongoUrl: 'mongodb://localhost/engage',
     mongo_express_config: {
         mongodb: {
             server: "mongo",
