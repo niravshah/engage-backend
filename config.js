@@ -64,7 +64,7 @@ config['live'] = {
     mongoUrl: 'mongodb://localhost/engage',
     mongo_express_config: {
         mongodb: {
-            server: "mongo",
+            server: "localhost",
             port: 27017,
             ssl: false,
             sslValidate: true,
