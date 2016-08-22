@@ -55,10 +55,11 @@ app.use(function(req,res,next){
 });
 
 var setup = require('./routes/setup');
-if(env == 'dev') app.use(setup);
+if(env == 'dev'){
+    app.use(setup);
+}
 
-
-
+app.use(setup);
 
 require('./routes/index')(app);
 require('./routes/login')(app);
@@ -95,5 +96,5 @@ if(env === 'dev') {
 }
 
 app.listen(12000, function() {
-    console.log('Engage Backend App listening on port 3000!');
+    console.log('Engage Backend App listening on port 12000!');
 });

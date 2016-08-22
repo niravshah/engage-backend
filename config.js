@@ -2,7 +2,7 @@ var config = [];
 
 config['dev'] = {
     fileStorage:'local',
-    mongoUrl: 'mongodb://localhost/engage',
+    mongoUrl: 'mongodb://localhost/engageapp',
     mongo_express_config: {
         mongodb: {
             server: "localhost",
@@ -57,11 +57,11 @@ config['dev'] = {
         },
         defaultKeyNames: {}
     }
-}
+};
 
 config['live'] = {
     fileStorage:'s3',
-    mongoUrl: 'mongodb://localhost/engage',
+    mongoUrl: 'mongodb://localhost/engageapp',
     mongo_express_config: {
         mongodb: {
             server: "localhost",
@@ -115,7 +115,7 @@ config['live'] = {
         },
         defaultKeyNames: {}
     }
-}
+};
 
 
 module.exports = config;
