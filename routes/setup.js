@@ -40,7 +40,8 @@ router.post('/setup/user', function (req, res) {
         "memberships": ["localhost-P1"],
         "projectRoles": [{"localhost-P1": "Team Member"}],
         "badges":["/img/badges/badge1.png"],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     new User({
@@ -55,7 +56,8 @@ router.post('/setup/user', function (req, res) {
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge3.png"],
         "projectRoles": [{"localhost-P1": "Project Manager"}],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     new User({
@@ -70,7 +72,8 @@ router.post('/setup/user', function (req, res) {
         "badges":["/img/badges/badge2.png"],
         "memberships": ["localhost-P1"],
         "projectRoles": [{"localhost-P1": "Communications Manager"}],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     new User({
@@ -85,7 +88,8 @@ router.post('/setup/user', function (req, res) {
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge1.png","/img/badges/badge1.png"],
         "projectRoles": [{"localhost-P1": "Team Member"}],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     new User({
@@ -100,7 +104,8 @@ router.post('/setup/user', function (req, res) {
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge2.png"],
         "projectRoles": [{"localhost-P1": "Team Member"}],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     new User({
@@ -115,7 +120,8 @@ router.post('/setup/user', function (req, res) {
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge2.png"],
         "projectRoles": [{"localhost-P1": "Team Member"}],
-        "tid": "localhost"
+        "tid": "localhost",
+        "aboutMe":"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
     }).save();
 
     res.json({"message":"done"});

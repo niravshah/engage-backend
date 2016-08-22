@@ -1,9 +1,5 @@
-<!-- tile -->
 <section class="tile tile-simple">
-
-    <!-- tile widget -->
     <div class="tile-widget p-30 text-center">
-
         <div class="thumb thumb-xl">
             <img class="img-circle" ng-src="{[{user.avatar}]}"
                  alt="">
@@ -11,73 +7,30 @@
         <h4 class="mb-0"><strong>{[{user.firstName}]}</strong>
             {[{user.lastName}]}</h4>
         <span class="text-muted">{[{user.title}]}</span>
-
     </div>
-    <!-- /tile widget -->
-
-    <!-- tile body -->
     <div class="tile-body text-center bg-blue p-0">
-
-        <ul class="list-inline tbox m-0">
-            <li class="tcol p-10">
-                <h2 class="m-0">695</h2>
-                <span class="text-transparent-white">Tweets</span>
-            </li>
-            <li class="tcol bg-blue dker p-10">
-                <h2 class="m-0">1 269</h2>
-                <span class="text-transparent-white">Followers</span>
-            </li>
-            <li class="tcol p-10">
-                <h2 class="m-0">369</h2>
-                <span class="text-transparent-white">Following</span>
-            </li>
-        </ul>
-
     </div>
-    <!-- /tile body -->
-
 </section>
-<!-- /tile -->
 
-
-<!-- tile -->
 <section class="tile tile-simple">
-
-    <!-- tile header -->
     <div class="tile-header">
         <h1 class="custom-font"><strong>About</strong> Me</h1>
     </div>
-    <!-- /tile header -->
-
-    <!-- tile body -->
     <div class="tile-body">
-
-        <p>
-            <a href="#"
-               class="myIcon icon-info icon-ef-3 icon-ef-3b icon-color"><i
-                    class="fa fa-twitter"></i></a>
-            <a href="#"
-               class="myIcon icon-primary icon-ef-3 icon-ef-3b icon-color"><i
-                    class="fa fa-facebook"></i></a>
-            <a href="#"
-               class="myIcon icon-lightred icon-ef-3 icon-ef-3b icon-color"><i
-                    class="fa fa-google-plus"></i></a>
-            <a href="#"
-               class="myIcon icon-hotpink icon-ef-3 icon-ef-3b icon-color"><i
-                    class="fa fa-dribbble"></i></a>
-        </p>
-
-        <p class="text-default lt">But I must explain to you how all this
-            mistaken idea of denouncing pleasure and praising pain was born and
-            I will give you a complete account of the system, and expound the
-            actual teachings of the great explorer of the truth, the
-            master-builder of human happiness. No one rejects, dislikes, or
-            avoids pleasure itself, because it is pleasure, but because those
-            who do not know how to pursue pleasure rationally encounter
-            consequences that are extremely painful.</p>
+        <p class="text-default lt">{[{user.aboutMe}]}</p>
 
     </div>
-    <!-- /tile body -->
-
 </section>
-<!-- /tile -->
+
+<section class="tile tile-simple">
+    <div class="tile-header">
+        <h1 class="custom-font"><strong>Badges</strong> Earned</h1>
+    </div>
+    <div class="tile-body">
+        <p>
+            <span class="md-mr-10 md-ml-10" ng-repeat="badge in user.badges">
+                <img style="height:75px" ng-src="{[{badge}]}"/>
+            </span>
+        </p>
+    </div>
+</section>

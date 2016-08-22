@@ -18,7 +18,7 @@ app.service('AuthService', ['$localStorage',
         }
     }]);
 
-app.controller('ResetController', function Controller($scope, $http, $window, $localStorage) {
+app.controller('ResetController', function Controller($scope, $http, $window, $localStorage, notify) {
 
     $scope.init = function () {
         $scope.user = $localStorage.currentUser;

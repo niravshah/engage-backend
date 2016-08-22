@@ -38,22 +38,25 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
 
         $scope.projects = [];
         if ($localStorage.currentUser) {
-            $scope.user = $localStorage.currentUser;
+            $http.get('/api/user/' + $localStorage.currentUser.userid).then(function (resp) {
+                $scope.user = resp.data.user;
 
-            var memberships = $scope.user.memberships;
-            angular.forEach(memberships,function(membership){
-                var pid = membership.split("-")[1];
-                console.log(pid);
-                var url ='/api/projects/' + pid + '/info';
-                $http.get(url).then(function(resp){
-                    if(resp.data.success == true){
-                        $scope.projects.push(resp.data.project)
-                    }
-                },function(err){});
+                var memberships = $scope.user.memberships;
+                angular.forEach(memberships, function (membership) {
+                    var pid = membership.split("-")[1];
+                    console.log(pid);
+                    var url = '/api/projects/' + pid + '/info';
+                    $http.get(url).then(function (resp) {
+                        if (resp.data.success == true) {
+                            $scope.projects.push(resp.data.project)
+                        }
+                    }, function (err) {
+                    });
+                });
+
+            }, function (err) {
             });
-
         }
-
     };
 
     $scope.init();

@@ -5,8 +5,7 @@ module.exports = function (app) {
     var multer = require('multer');
     var multerS3 = require('multer-s3');
     var aws = require('aws-sdk');
-    var s3 = new aws.S3({signatureVersion: 'v4'});
-
+    var s3 = new aws.S3({ signatureVersion: 'v4' });
 
     var localStorage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -22,7 +21,7 @@ module.exports = function (app) {
         bucket: 'engage-site-nns',
         acl: 'public-read',
         metadata: function (req, file, cb) {
-            cb(null, {fieldName: file.fieldname});
+            cb(null, { fieldName: file.fieldname });
         },
         key: function (req, file, cb) {
             cb(null, Date.now() + '-' + file.originalname);
@@ -30,11 +29,10 @@ module.exports = function (app) {
     });
 
     if (config.fileStorage == 's3') {
-        var upload = multer({storage: s3Sotrage});
+        var upload = multer({ storage: s3Sotrage });
     } else {
-        var upload = multer({storage: localStorage});
+        var upload = multer({ storage: localStorage });
     }
-
 
     var getSavedFilePath = function (req, index) {
         if (config.fileStorage == 's3') {
@@ -43,60 +41,75 @@ module.exports = function (app) {
             return '/' + req.files[index].path;
         }
     };
-    
+
     app.post('/api/user/avatar', upload.any(), function (req, res) {
-        User.findOne({_id:req.body.addData},function(err,user){
-            if(err){
-                res.json({success:false,reason:"Unexpected Error." + err.message});
-            }else{
-                if(user){
+        User.findOne({ _id: req.body.addData }, function (err, user) {
+            if (err) {
+                res.json({ success: false, reason: "Unexpected Error." + err.message });
+            } else {
+                if (user) {
                     user.profileSet = true;
-                    var av = getSavedFilePath(req,0);
+                    var av = getSavedFilePath(req, 0);
                     user.avatar = av;
-                    user.save(function(err){
-                        if(err){
-                            res.json({success:false,reason:"Error saving User." + err.message});
-                        }else{
-                            res.json({success:true,avatar:av,nextUrl:'/profile/' + user.shortid});
+                    user.save(function (err) {
+                        if (err) {
+                            res.json({ success: false, reason: "Error saving User." + err.message });
+                        } else {
+                            res.json({ success: true, avatar: av, nextUrl: '/profile/' + user.shortid });
                         }
                     })
-                }else{
-                    res.json({success:false,reason:"User Not Found."});
+                } else {
+                    res.json({ success: false, reason: "User Not Found." });
                 }
             }
         });
     });
 
     app.post('/api/user/:id/reset', function (req, res) {
-        console.log(req.body);
-        User.findOne({_id: req.params.id}, function (err, user) {
+        User.findOne({ _id: req.params.id }, function (err, user) {
 
             if (err) {
-                res.status(500).json({success: false, err: err});
+                res.status(500).json({ success: false, err: err });
             } else {
-                if(user) {
+                if (user) {
                     if (user.password == req.body.eP) {
-                        if(req.body.nP == req.body.rNP) {
+                        if (req.body.nP == req.body.rNP) {
                             user.password = req.body.nP;
                             user.resetPassword = false;
-                            user.save(function(err, user){
-                                if(err){
-                                    res.json({success: false, reason: err.message})
-                                }else{
-                                    res.json({success: true});
+                            user.save(function (err, user) {
+                                if (err) {
+                                    res.json({ success: false, reason: err.message })
+                                } else {
+                                    res.json({ success: true });
                                 }
                             });
-                        }else{
-                            res.json({success: false, reason: "New Password does not match Repeat New Password"})
+                        } else {
+                            res.json({ success: false, reason: "New Password does not match Repeat New Password" })
                         }
                     } else {
-                        res.json({success: false, reason: "Password does not match"})
+                        res.json({ success: false, reason: "Password does not match" })
                     }
-                }else {
-                    res.json({success: false, reason: "No matching user found"})
+                } else {
+                    res.json({ success: false, reason: "No matching user found" })
                 }
             }
         });
     });
 
+    app.get('/api/user/:id', function (req, res) {
+        User.findOne({ _id: req.params.id }, function (err, user) {
+
+            if (err) {
+                res.status(500).json({ success: false, err: err });
+            } else {
+                if (user) {
+                    delete user.password;
+                    res.json({ success: true, user:user });
+                } else {
+                    res.json({ success: false, reason: "No matching user found" })
+                }
+            }
+        });
+
+    });
 };

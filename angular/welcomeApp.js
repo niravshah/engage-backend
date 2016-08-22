@@ -1,8 +1,8 @@
-var app = angular.module('engageWelcomeApp', ['ngStorage', 'angular-jwt', 'ngCookies','ngFileUpload']);
+var app = angular.module('engageWelcomeApp', ['ngStorage', 'angular-jwt', 'ngCookies','ngFileUpload','cgNotify']);
 app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
-app.controller('WelcomeController', function Controller($scope, $http, $location, $localStorage, jwtHelper, $window,Upload) {
+app.controller('WelcomeController', function Controller($scope, $http, $location, $localStorage, jwtHelper, $window,Upload, notify) {
 
     $scope.init = function(){
         $scope.user = $localStorage.currentUser;
