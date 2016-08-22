@@ -15,7 +15,7 @@ config['dev'] = {
             admin: false,
             auth: [
                 {
-                    database: 'engage',
+                    database: 'engageapp',
                     username: '',
                     password: '',
                 }
@@ -74,7 +74,7 @@ config['live'] = {
             admin: false,
             auth: [
                 {
-                    database: 'engage',
+                    database: 'engageapp',
                     username: '',
                     password: '',
                 },
