@@ -59,7 +59,7 @@ if(env == 'dev'){
     app.use(setup);
 }
 
-app.use(setup);
+//app.use(setup);
 
 require('./routes/index')(app);
 require('./routes/login')(app);
