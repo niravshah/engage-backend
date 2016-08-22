@@ -11,7 +11,7 @@
         <div ng-repeat="member in team">
         <div class="media">
             <div class="pull-left thumb">
-                <img class="media-object img-circle" ng-src="{[{member.avatar}]}" alt="">
+                <img style="width: 50px;height: 50px;" class="media-object img-circle" ng-src="{[{member.avatar}]}" alt="">
             </div>
             <div class="pull-right mt-10">
                 <img ng-repeat="badge in member.badges track by $index" class="media-object badge-img" ng-src="{[{badge}]}" alt="">

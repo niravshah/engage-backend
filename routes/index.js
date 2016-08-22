@@ -14,6 +14,6 @@ module.exports = function(app) {
     });
 
     app.get('/profile/:id', function (req, res) {
-        res.render('profile', {pid: req.params.id});
+        res.render('profile', {sid: req.params.id});
     });
 };

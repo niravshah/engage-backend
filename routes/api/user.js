@@ -96,8 +96,8 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/api/user/:id', function (req, res) {
-        User.findOne({ _id: req.params.id }, function (err, user) {
+    app.get('/api/user/sid/:id', function (req, res) {
+        User.findOne({ shortid: req.params.id }, function (err, user) {
 
             if (err) {
                 res.status(500).json({ success: false, err: err });
@@ -112,4 +112,27 @@ module.exports = function (app) {
         });
 
     });
+
+    app.post('/api/user/:id', upload.any(),function (req, res) {
+
+        if(req.files.length > 0){
+            req.body.addData.avatar = getSavedFilePath(req,0);
+        }
+        User.findOneAndUpdate({_id:req.params.id},req.body.addData,function(err,user){
+            if (err) {
+                res.status(500).json({ success: false, err: err });
+            } else {
+                if (user) {
+                    delete user.password;
+                    res.json({ success: true, user:user });
+                } else {
+                    res.json({ success: false, reason: "User not found" })
+                }
+            }
+
+        });
+
+
+    });
+
 };

@@ -1,6 +1,8 @@
 <div class="wrap-reset">
-        <h1>Projects</h1>
-        <div ng-repeat="project in projects">
-                <a ng-href="/project/{[{project.sid}]}">{[{project.name}]}</a>
+        <div class="md-p-20" style="min-height:200px;box-shadow: 5px 5px 5px #e7eaeb;border: 0.1px solid #e7eaeb;" ng-repeat="project in projects">
+                <img style="width:75px;" ng-src="{[{project.logo}]}">
+                <h4 class="custom-font"><strong>{[{project.name}]}</strong></h4>
+                <p ng-bind-html="project.description"></p>
+                <a class="md-mt-30 btn btn-rounded btn-success" ng-href="/project/{[{project.sid}]}">Goto Project</a>
         </div>
 </div>

@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block css%}
 <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+<link rel="stylesheet" href="/css/angular-notify.css">
 {% endblock %}
 {% block content %}
 <div id="wrap" class="animsition" ng-app="engageWelcomeApp" ng-controller="WelcomeController">
@@ -17,9 +18,8 @@
                         {[{user.firstName}]} {[{user.lastName}]}
                     </div>
                     <div>
-                        <img ngf-src="uploadedAvatar" style="height: 100px;width: 100px" ngf-no-object-url="true">
+                        <img ngf-src="uploadedAvatar" style="height: 100px;width: 100px" ngf-no-object-url="true"/>
                     </div>
-                    </img>
                     <a ng-model="uploadedAvatar" id="uploadedAvatar"
                        name="uploadedAvatar" ngf-pattern="'image/*'"
                        ngf-accept="'image/*'" ngf-max-size="2MB"
@@ -37,7 +37,7 @@
 
 <script type="text/javascript" src="/js/material-avatar.min.js"></script>
 <script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
-<script src="/js/angular-notify.js"></script>
+<script type="text/javascript" src="/js/angular-notify.js"></script>
 <script type="text/javascript" src="/angular/welcomeApp.js"></script>
 
 <script type="text/javascript">
