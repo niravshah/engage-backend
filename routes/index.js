@@ -9,15 +9,7 @@ module.exports = function(app) {
         res.render('index');
     });
 
-    app.get('/project/:id', function (req, res) {
-        res.render('project', {pid: req.params.id});
-    });
-
-    app.get('/profile/:id', function (req, res) {
-        res.render('profile', {sid: req.params.id});
-    });
-
     app.get('/home/:id', function (req, res) {
-        res.render('project', {sid: req.params.id});
+        res.render('home', {sid: req.params.id});
     });
 };

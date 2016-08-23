@@ -1,6 +1,16 @@
 var app = angular.module('engageLoginApp', ['ngStorage', 'angular-jwt', 'ngCookies']);
-app.config(function ($interpolateProvider) {
+app.config(function ($interpolateProvider,jwtInterceptorProvider, $localStorageProvider,$httpProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+
+    jwtInterceptorProvider.tokenGetter = function() {
+        var user =  $localStorageProvider.get('currentUser');
+        if(user != null){
+            return user.token;
+        }
+    };
+
+    $httpProvider.interceptors.push('jwtInterceptor');
+
 });
 app.controller('LoginController', function Controller($scope, $http, $location, $localStorage, jwtHelper, $window) {
     $scope.message = '';
