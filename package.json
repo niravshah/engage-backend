@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "encrypt": "encrypt config.json config.json.cast5",
-    "decrypt": "decrypt config.json.cast5 config.json"
+    "encrypt": "encrypt config.js config.js.cast5",
+    "decrypt": "decrypt config.js.cast5 config.js"
   },
   "dependencies": {
     "angular": "^1.5.8",
