@@ -25,12 +25,6 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
         })
 });
 
-app.controller('headerController', function ($window, $scope, $localStorage) {
-    $scope.logout = function () {
-        delete $localStorage.currentUser;
-        $window.location.href = '/login';
-    }
-});
 
 app.controller('mainController', function ($window, $http, $attrs, $scope,Upload, notify,usSpinnerService) {
     $scope.init = function () {
@@ -82,8 +76,7 @@ app.controller('mainController', function ($window, $http, $attrs, $scope,Upload
            }
         });
     };
-
-
+    
     $scope.upload = function (file, addMore, url, cb) {
         Upload.upload({
             url: url,

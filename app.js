@@ -62,7 +62,7 @@ require('./routes/setup')(app,bcrypt);
 require('./routes/index')(app);
 require('./routes/login')(app);
 require('./routes/api/authenticate')(app,bcrypt);
-require('./routes/api/user')(app);
+require('./routes/api/user')(app,bcrypt);
 require('./routes/api/projects')(app);
 
 // catch 404 and forward to error handler
