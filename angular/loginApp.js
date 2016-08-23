@@ -25,7 +25,8 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
                         firebaseToken: response.firebaseToken,
                         tenant: response.tenant,
                         memberships:user.memberships,
-                        projectRoles:user.projectRoles
+                        projectRoles:user.projectRoles,
+                        userRoles:user.userRoles
                     };
 
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;

@@ -9,7 +9,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/project/header.html',
+                    templateUrl: '/angular/partials/header.html',
                     controller: 'headerController'
                 },
                 'about': {

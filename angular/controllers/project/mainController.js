@@ -1,4 +1,4 @@
-app.controller('mainController', function ($window, $http, $attrs, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService) {
+app.controller('mainController', function ($window, $http, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService) {
     $scope.init = function () {
         if ($localStorage.currentUser) {
 
@@ -8,10 +8,10 @@ app.controller('mainController', function ($window, $http, $attrs, $scope, $loca
             $scope.user.avatar = $localStorage.currentUser.avatar;
             $scope.user.shortid = $localStorage.currentUser.shortid;
             $scope.token = $localStorage.currentUser.token;
-            $scope.projectId = $attrs.pid;
+            $scope.projectId = angular.element('#project-id').data('pid');
 
             $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
-            var dataId = $localStorage.currentUser.tenant + "-" + $attrs.pid;
+            var dataId = $localStorage.currentUser.tenant + "-" + $scope.projectId;
             var auth = $firebaseAuth();
             auth.$signInWithCustomToken($scope.firebaseToken).then(function (firebaseUser) {
                 usSpinnerService.spin('spin1');

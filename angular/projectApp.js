@@ -1,5 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
-    'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize', 'angularMoment', 'ui.bootstrap.datetimepicker','ngSanitize']);
+    'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
+    'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize',
+    'permission', 'permission.ui']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -10,32 +12,47 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/project/header.html',
+                    templateUrl: '/angular/partials/header.html',
                     controller: 'headerController'
-
                 },
-                'projectInfo': {
-                    templateUrl: '/angular/partials/project/info.html',
-                    controller: 'projectInfoController'
+                'mainView': {
+                    templateUrl: '/angular/partials/project/main.html',
+                    controller:'mainController'
                 },
-                'teamMembers': {
+                'teamMembers@home': {
                     templateUrl: '/angular/partials/project/team.html',
                     controller: 'teamMemberController'
                 },
-                'messageStream': {
+                'messageStream@home': {
                     templateUrl: '/angular/partials/project/messages.html',
                     controller: 'messageStreamController'
                 },
-                'projectTasks': {
+                'projectTasks@home': {
                     templateUrl: '/angular/partials/project/tasks.html',
                     controller: 'projectTasksController'
+                },
+                'projectInfo@home': {
+                    templateUrl: '/angular/partials/project/info.html',
+                    controller: 'projectInfoController'
                 }
             }
-
+        })
+        .state('admin', {
+            url: '/admin',
+            authenticate: true,
+            views: {
+                'projectHeader': {
+                    templateUrl: '/angular/partials/header.html',
+                    controller: 'headerController'
+                },
+                'mainView': {
+                    templateUrl: '/angular/partials/admin/main.html'
+                }
+            }
         });
 });
 
-app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope, $state, AuthService, $window) {
+app.run(['$rootScope', '$state', 'AuthService', '$window', 'PermissionStore', '$localStorage', function ($rootScope, $state, AuthService, $window, PermissionStore, $localStorage) {
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if (!AuthService.validToken() && toState.authenticate) {
             event.preventDefault();
@@ -46,6 +63,11 @@ app.run(['$rootScope', '$state', 'AuthService', '$window', function ($rootScope,
             $state.go(toState.redirectTo, toParams, {location: 'replace'})
         }
     });
+
+    PermissionStore
+        .definePermission('isAdmin', function () {
+            return $localStorage.currentUser.userRoles.indexOf('admin') > -1;
+        });
 
 }]);
 
@@ -81,9 +103,9 @@ app.directive('chatReply', function () {
     return {
         templateUrl: '/angular/partials/project/chatReply.html',
         restrict: 'E',
-        scope:{
+        scope: {
             avatar: '@',
-            index:'@',
+            index: '@',
             post: '&'
         }
     };

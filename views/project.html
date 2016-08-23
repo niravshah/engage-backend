@@ -9,48 +9,12 @@
 {% endblock %}
 
 {% block content %}
-<div ng-app="engageApp" pid="{{pid}}" ng-controller="mainController">
+<div ng-app="engageApp">
+    <span id="project-id" data-pid="{{pid}}" ></span>
     <div ui-view="projectHeader"></div>
     <section id="contentw">
         <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spin1"></span>
-        <div class="row">
-        <div class="col-md-12">
-            <div class="row mt-10">
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!--div>
-                                <pre>{[{fbTasks|json}]}</pre>
-                                <pre>{[{fbMessages|json}]}</pre>
-                            </div-->
-                            <!-- Project Tracker -->
-                            <div ui-view="projectTasks"></div>
-                            <!-- END: Project Tracker -->
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <!-- Project Info -->
-                            <div ui-view="projectInfo"></div>
-                            <!-- END: Project Info -->
-                        </div>
-                        <div class="col-md-6">
-                            <!-- Team Members -->
-                            <div ui-view="teamMembers"></div>
-                            <!-- END: Team Members -->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <!-- Message Stream -->
-                    <div ui-view="messageStream"></div>
-                    <!-- END: Message Stream -->
-                </div>
-            </div>
-
-        </div>
-    </div>
+        <div ui-view="mainView"></div>
 </section>
 </div>
 {% endblock %}
@@ -83,8 +47,9 @@
 
 <script src="/angular/projectApp.js"></script>
 <script src="/angular/services/auth.js"></script>
-<script src="/angular/controllers/project/mainController.js"></script>
 <script src="/angular/controllers/headerController.js"></script>
+
+<script src="/angular/controllers/project/mainController.js"></script>
 <script src="/angular/controllers/project/projectInfoController.js"></script>
 <script src="/angular/controllers/project/teamMemberController.js"></script>
 <script src="/angular/controllers/project/projectTasksController.js"></script>
