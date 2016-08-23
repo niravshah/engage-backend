@@ -180,7 +180,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         var rep = document.createElement('chat-reply');
 
         var att = document.createAttribute("post");
-        att.value = "postMessage(index, chatReply)";
+        att.value = "postReply(index, chatReply)";
         rep.setAttributeNode(att);
 
         var att2 = document.createAttribute("avatar");
@@ -198,7 +198,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         angular.element(repliesBoxId).after(reply);
     };
 
-    $scope.postMessage = function (key, message) {
+    $scope.postReply = function (key, message) {
         var newReply = {
             avatar: $scope.user.avatar,
             from: $scope.user.firstName + " " + $scope.user.lastName,
