@@ -16,4 +16,8 @@ module.exports = function(app) {
     app.get('/profile/:id', function (req, res) {
         res.render('profile', {sid: req.params.id});
     });
+
+    app.get('/home/:id', function (req, res) {
+        res.render('project', {sid: req.params.id});
+    });
 };

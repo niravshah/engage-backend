@@ -10,7 +10,7 @@
 
 {% block content %}
 <div ng-app="engageApp">
-    <span id="project-id" data-pid="{{pid}}" ></span>
+    <span id="project-id" data-sid="{{sid}}" data-pid="{{pid}}" ></span>
     <div ui-view="projectHeader"></div>
     <section id="contentw">
         <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spin1"></span>
@@ -44,6 +44,7 @@
 <script src="/js/angular-moment.min.js"></script>
 <script src="/js/datetimepicker.js"></script>
 <script src="/js/datetimepicker.templates.js"></script>
+<script type="text/javascript" src="/js/ng-file-upload.min.js"></script>
 
 <script src="/angular/projectApp.js"></script>
 <script src="/angular/services/auth.js"></script>
@@ -54,6 +55,8 @@
 <script src="/angular/controllers/project/teamMemberController.js"></script>
 <script src="/angular/controllers/project/projectTasksController.js"></script>
 <script src="/angular/controllers/project/messageStreamController.js"></script>
+
+<script src="/angular/controllers/profile/mainProfileController.js"></script>
 
 
 {% endblock %}

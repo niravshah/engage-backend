@@ -1,14 +1,39 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
-    'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize',
+    'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
     'permission', 'permission.ui']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-    $urlRouterProvider.otherwise('/home');
+
+    $urlRouterProvider.otherwise('/profile');
+
     $stateProvider
-        .state('home', {
-            url: '/home',
+        .state('profile', {
+            url: '/profile',
+            authenticate: true,
+            views: {
+                'projectHeader': {
+                    templateUrl: '/angular/partials/header.html',
+                    controller: 'headerController'
+                },
+                'mainView': {
+                    templateUrl: '/angular/partials/profile/main.html',
+                    controller:'mainProfileController'
+                },
+                'about@profile': {
+                    templateUrl: '/angular/partials/profile/about.html'
+                },
+                'projects@profile': {
+                    templateUrl: '/angular/partials/profile/projects.html'
+                },
+                'settings@profile': {
+                    templateUrl: '/angular/partials/profile/settings.html'
+                }
+            }
+        })
+        .state('project', {
+            url: '/projects/:id',
             authenticate: true,
             views: {
                 'projectHeader': {
@@ -19,19 +44,19 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/project/main.html',
                     controller:'mainController'
                 },
-                'teamMembers@home': {
+                'teamMembers@project': {
                     templateUrl: '/angular/partials/project/team.html',
                     controller: 'teamMemberController'
                 },
-                'messageStream@home': {
+                'messageStream@project': {
                     templateUrl: '/angular/partials/project/messages.html',
                     controller: 'messageStreamController'
                 },
-                'projectTasks@home': {
+                'projectTasks@project': {
                     templateUrl: '/angular/partials/project/tasks.html',
                     controller: 'projectTasksController'
                 },
-                'projectInfo@home': {
+                'projectInfo@project': {
                     templateUrl: '/angular/partials/project/info.html',
                     controller: 'projectInfoController'
                 }
