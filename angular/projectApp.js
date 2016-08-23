@@ -156,13 +156,13 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
     $scope.currentMessage = "";
     $scope.showReplyBox = {};
 
-    $scope.postMessage = function () {
+    $scope.postMessage = function (message) {
         var newMessage = {
             $id: Date.now(),
             avatar: $scope.user.avatar,
             from: $scope.user.firstName + " " + $scope.user.lastName,
             likes: 0,
-            message: $scope.currentMessage,
+            message: message,
             replies: {},
             timestamp: Date.now()
         };

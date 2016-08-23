@@ -57,14 +57,14 @@
                 </ul>
             </div>
         </article>
-        <div class="streamline-form">
+        <div class="streamline-form md-mt-20">
             <div class="thumb thumb-sm"><img style="width: 40px; height: 40px;" class="img-circle" ng-src="{[{user.avatar}]}" alt="">
             </div>
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Write your comment here...">
+                    <input ng-model="currentMessage" type="text" class="form-control" placeholder="Write your comment here...">
                       <span class="input-group-btn">
-                        <button ng-click="postMessage()" class="btn btn-default" type="button">Post</button>
+                        <button ng-click="postMessage(currentMessage)" class="btn btn-default" type="button">Post</button>
                       </span>
                 </div>
             </form>
