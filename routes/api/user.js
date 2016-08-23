@@ -6,6 +6,8 @@ module.exports = function (app) {
     var multerS3 = require('multer-s3');
     var aws = require('aws-sdk');
     var s3 = new aws.S3({ signatureVersion: 'v4' });
+    var bcrypt = require('bcryptjs');
+    var salt = bcrypt.genSaltSync(10);
 
     var localStorage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -74,7 +76,7 @@ module.exports = function (app) {
                 if (user) {
                     if (user.password == req.body.eP) {
                         if (req.body.nP == req.body.rNP) {
-                            user.password = req.body.nP;
+                            user.password = bcrypt.hashSync(req.body.nP,salt);
                             user.resetPassword = false;
                             user.save(function (err, user) {
                                 if (err) {

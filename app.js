@@ -1,12 +1,14 @@
+var express = require('express');
+var app = express();
+
 var env = process.env.NODE_ENV || 'dev';
 var config = require('./config')[env];
 console.log("ENV:", env);
-var express = require('express');
-var app = express();
 
 var mongoose = require('mongoose');
 mongoose.plugin(require('./models/plugins/tenant'));
 mongoose.connect(config.mongoUrl);
+
 var mongo_express = require('mongo-express/lib/middleware');
 app.use('/mongo_express', mongo_express(config.mongo_express_config));
 
@@ -54,19 +56,14 @@ app.use(function(req,res,next){
     next();
 });
 
-var setup = require('./routes/setup');
-if(env == 'dev'){
-    app.use(setup);
-}
+var bcrypt = require('bcryptjs');
 
-//app.use(setup);
-
+require('./routes/setup')(app,bcrypt);
 require('./routes/index')(app);
 require('./routes/login')(app);
-require('./routes/api/authenticate')(app);
+require('./routes/api/authenticate')(app,bcrypt);
 require('./routes/api/user')(app);
 require('./routes/api/projects')(app);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

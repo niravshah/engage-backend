@@ -1,9 +1,9 @@
-module.exports = function(app) {
+module.exports = function(app,bcrypt) {
 
     var jwt = require('jsonwebtoken');
     var firebase = require('firebase');
     var User = require('../../models/user');
-    var bcrypt = require('bcryptjs');
+    
 
     app.post('/api/authenticate', function (req, res) {
         User.findOne({
@@ -21,27 +21,47 @@ module.exports = function(app) {
                     message: 'Authentication failed. User not found.'
                 });
             } else if (user) {
-                if (bcrypt.compareSync(user.password,req.body.password)) {
-                    res.json({
-                        success: false,
-                        message: 'Authentication failed. Wrong password.'
-                    });
-                } else {
-                    var firebaseToken = firebase.auth().createCustomToken(user._id.toString(), {
-                        roles: user.roles,
-                        memberships: user.memberships.toString()
-                    });
-                    delete user.password;
-                    var token = jwt.sign(user, 'secret_sauce', {expiresIn: "4h"});
-                    res.cookie('jwt', token, {httpOnly: true});
-                    res.json({
-                        success: true,
-                        message: 'Enjoy your token!',
-                        token: token,
-                        firebaseToken: firebaseToken,
-                        tenant: req.body.tid
-                    });
-                }
+
+                bcrypt.compare(req.body.password,user.password,function(err,result){
+
+                    if(err){
+                        res.json({
+                            success: false,
+                            message: 'Authentication failed. Unable to decrypt.'
+                        });
+
+                    }else{
+
+                        if(result == true){
+                            var firebaseToken = firebase.auth().createCustomToken(user._id.toString(), {
+                                roles: user.roles,
+                                memberships: user.memberships.toString()
+                            });
+                            delete user.password;
+                            var token = jwt.sign(user, 'secret_sauce', {expiresIn: "4h"});
+                            res.cookie('jwt', token, {httpOnly: true});
+                            res.json({
+                                success: true,
+                                message: 'Enjoy your token!',
+                                token: token,
+                                firebaseToken: firebaseToken,
+                                tenant: req.body.tid
+                            });
+
+                        }else{
+                            res.json({
+                                success: false,
+                                message: 'Authentication failed. Wrong password.'
+                            });
+
+                        }
+
+                    }
+
+
+
+                });
+
             }
         });
     });
