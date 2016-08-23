@@ -44,3 +44,4 @@ jspm_packages
 .idea
 /engage-backend.iml
 /uploads/
+/config.js

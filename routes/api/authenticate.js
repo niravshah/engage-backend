@@ -3,6 +3,7 @@ module.exports = function(app) {
     var jwt = require('jsonwebtoken');
     var firebase = require('firebase');
     var User = require('../../models/user');
+    var bcrypt = require('bcrypt');
 
     app.post('/api/authenticate', function (req, res) {
         User.findOne({
@@ -20,8 +21,7 @@ module.exports = function(app) {
                     message: 'Authentication failed. User not found.'
                 });
             } else if (user) {
-                if (user.password != req.body.password) {
-                    console.log("5");
+                if (bcrypt.compareSync(user.password,req.body.password)) {
                     res.json({
                         success: false,
                         message: 'Authentication failed. Wrong password.'
