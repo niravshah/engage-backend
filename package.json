@@ -14,7 +14,7 @@
     "angularfire": "^2.0.1",
     "aws": "0.0.3-2",
     "aws-sdk": "^2.5.2",
-    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.3.0",
     "body-parser": "~1.15.1",
     "bson": "^0.4.23",
     "config-leaf": "^0.3.0",

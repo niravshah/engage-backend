@@ -3,7 +3,8 @@ var router = express.Router();
 var User = require('../models/user');
 var Project = require('../models/project');
 var shortid = require('shortid');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 router.post('/setup/project', function (req, res) {
     new Project({
@@ -36,7 +37,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email": "roger@ew.com",
         "avatar": "/img/avatars/roger.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "memberships": ["localhost-P1"],
         "projectRoles": [{"localhost-P1": "Team Member"}],
@@ -52,7 +53,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email":"robin@ew.com",
         "avatar":"/img/avatars/robin.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge3.png"],
@@ -68,7 +69,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email":"anna@ew.com",
         "avatar":"/img/avatars/anna.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "badges":["/img/badges/badge2.png"],
         "memberships": ["localhost-P1"],
@@ -84,7 +85,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email":"deel@ew.com",
         "avatar":"/img/avatars/deel.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge1.png","/img/badges/badge1.png"],
@@ -100,7 +101,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email":"mike@ew.com",
         "avatar":"/img/avatars/mike.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge2.png"],
@@ -116,7 +117,7 @@ router.post('/setup/user', function (req, res) {
         "title":"Project Manager",
         "email":"john@ew.com",
         "avatar":"/img/avatars/john.jpg",
-        "password": bcrypt.hashSync("123456",10),
+        "password": bcrypt.hashSync("123456",salt),
         "userRoles": ['user'],
         "memberships": ["localhost-P1"],
         "badges":["/img/badges/badge2.png"],

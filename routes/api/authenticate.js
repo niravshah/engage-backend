@@ -3,7 +3,7 @@ module.exports = function(app) {
     var jwt = require('jsonwebtoken');
     var firebase = require('firebase');
     var User = require('../../models/user');
-    var bcrypt = require('bcrypt');
+    var bcrypt = require('bcryptjs');
 
     app.post('/api/authenticate', function (req, res) {
         User.findOne({
