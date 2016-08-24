@@ -1,15 +1,6 @@
 var app = angular.module('engageLoginApp', ['ngStorage', 'angular-jwt', 'ngCookies']);
-app.config(function ($interpolateProvider,jwtInterceptorProvider, $localStorageProvider,$httpProvider) {
+app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-
-    jwtInterceptorProvider.tokenGetter = function() {
-        var user =  $localStorageProvider.get('currentUser');
-        if(user != null){
-            return user.token;
-        }
-    };
-
-    $httpProvider.interceptors.push('jwtInterceptor');
 
 });
 app.controller('LoginController', function Controller($scope, $http, $location, $localStorage, jwtHelper, $window) {
@@ -46,7 +37,7 @@ app.controller('LoginController', function Controller($scope, $http, $location, 
                     } else if (user.profileSet == false) {
                         $window.location.href = '/welcome';
                     } else {
-                        $window.location.href = '/home/' + user.shortid;
+                        $window.location.href = '/home';
                     }
                 } else {
                     $scope.message = 'Invalid Authentication Token';

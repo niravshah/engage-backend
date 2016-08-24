@@ -1,5 +1,6 @@
 module.exports = function(app) {
     var firebase = require('firebase');
+    var jwt = require('jsonwebtoken');
 
     firebase.initializeApp({
         serviceAccount: __dirname + "/mwtest.json"
@@ -9,7 +10,12 @@ module.exports = function(app) {
         res.render('index');
     });
 
-    app.get('/home/:id', function (req, res) {
-        res.render('home', {sid: req.params.id});
+    app.get('/home', function (req, res) {
+        if(req.cookies.jwt) {
+            var decoded = jwt.verify(req.cookies.jwt, 'secret_sauce');
+            res.render('home', {sid: decoded._doc.shortid});
+        }else{
+            res.redirect('/login');
+        }
     });
 };
