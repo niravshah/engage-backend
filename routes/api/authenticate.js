@@ -1,9 +1,7 @@
-module.exports = function(app,bcrypt) {
+module.exports = function(app,bcrypt,firebase) {
 
     var jwt = require('jsonwebtoken');
-    var firebase = require('firebase');
     var User = require('../../models/user');
-    
 
     app.post('/api/authenticate', function (req, res) {
         User.findOne({

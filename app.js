@@ -43,6 +43,20 @@ app.use(passport.initialize());
 var initPassport = require('./routes/passport/init');
 initPassport(passport);
 
+var bcrypt = require('bcryptjs');
+
+var firebase = require('firebase');
+firebase.initializeApp({
+    serviceAccount: "firebase_mwtest.json"
+});
+
+require('./routes/setup')(app,bcrypt);
+require('./routes/login')(app);
+require('./routes/index')(app,passport);
+require('./routes/api/authenticate')(app,bcrypt,firebase);
+require('./routes/api/user')(app,bcrypt);
+require('./routes/api/projects')(app);
+
 //Sub Domain Extractor
 app.use(function(req,res,next){
     var domain = req.headers.host,
@@ -56,21 +70,13 @@ app.use(function(req,res,next){
     next();
 });
 
-var bcrypt = require('bcryptjs');
-
-require('./routes/setup')(app,bcrypt);
-require('./routes/index')(app);
-require('./routes/login')(app);
-require('./routes/api/authenticate')(app,bcrypt);
-require('./routes/api/user')(app,bcrypt);
-require('./routes/api/projects')(app);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('The requested URL ' + req.url + ' not found');
     err.status = 404;
     next(err);
 });
+
 if(env === 'dev') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -81,8 +87,6 @@ if(env === 'dev') {
         });
     });
 } else {
-    // production error handler
-    // no stacktraces leaked to user
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.json({

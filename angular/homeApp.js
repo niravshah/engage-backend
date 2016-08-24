@@ -71,7 +71,8 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     controller: 'headerController'
                 },
                 'mainView': {
-                    templateUrl: '/angular/partials/admin/main.html'
+                    templateUrl: '/angular/partials/admin/main.html',
+                    controller:'mainAdminController'
                 }
             }
         });

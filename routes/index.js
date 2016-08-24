@@ -1,21 +1,10 @@
-module.exports = function(app) {
-    var firebase = require('firebase');
-    var jwt = require('jsonwebtoken');
+module.exports = function (app,passport) {
+    
+    /*app.get('/index', function (req, res) {
+     res.render('index');
+     });*/
 
-    firebase.initializeApp({
-        serviceAccount: __dirname + "/mwtest.json"
-    });
-
-    app.get('/index', function (req, res) {
-        res.render('index');
-    });
-
-    app.get('/home', function (req, res) {
-        if(req.cookies.jwt) {
-            var decoded = jwt.verify(req.cookies.jwt, 'secret_sauce');
-            res.render('home', {sid: decoded._doc.shortid});
-        }else{
-            res.redirect('/login');
-        }
+    app.get('/home', passport.authenticate('jwt', {failureRedirect: '/login'}), function (req, res) {
+        res.render('home', {sid: req.user.shortid});
     });
 };
