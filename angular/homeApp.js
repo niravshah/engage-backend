@@ -1,7 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
     'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
-    'permission', 'permission.ui']);
+    'permission', 'permission.ui','ngTable']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');

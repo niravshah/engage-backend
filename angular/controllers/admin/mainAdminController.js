@@ -1,11 +1,15 @@
-app.controller('mainAdminController', function ($window, $http, $scope,Upload, notify,usSpinnerService) {
+app.controller('mainAdminController', function ($window, $http, $scope,Upload, notify,usSpinnerService,NgTableParams) {
 
     $scope.uploadUsers = function(){
-        $scope.upload(uploadedXls,{},'/api/upload/users',function(resp,err){
+        var files = [];
+        if(typeof $scope.uploadedXls == 'object'){
+            files.push($scope.uploadedXls);
+        }
+        $scope.upload(files,{},'/api/upload/users',function(resp,err){
            if(err){
                console.log('Error',err);
            } else{
-               console.log('Response',resp);
+               $scope.tableParams = new NgTableParams({}, { dataset: resp.data[0]});
            }
         });
     };

@@ -50,13 +50,6 @@ firebase.initializeApp({
     serviceAccount: "firebase_mwtest.json"
 });
 
-require('./routes/setup')(app,bcrypt);
-require('./routes/login')(app);
-require('./routes/index')(app,passport);
-require('./routes/api/authenticate')(app,bcrypt,firebase);
-require('./routes/api/user')(app,bcrypt);
-require('./routes/api/projects')(app);
-
 //Sub Domain Extractor
 app.use(function(req,res,next){
     var domain = req.headers.host,
@@ -69,6 +62,14 @@ app.use(function(req,res,next){
     req.body.tid = subDomain;
     next();
 });
+
+require('./routes/setup')(app,bcrypt);
+require('./routes/login')(app);
+require('./routes/index')(app,passport);
+require('./routes/api/authenticate')(app,bcrypt,firebase);
+require('./routes/api/user')(app,bcrypt);
+require('./routes/api/projects')(app);
+require('./routes/api/dataupload')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -57,7 +57,7 @@ module.exports = function (app, bcrypt) {
                         if (err) {
                             res.json({success: false, reason: "Error saving User." + err.message});
                         } else {
-                            res.json({success: true, avatar: av, nextUrl: '/profile/' + user.shortid});
+                            res.json({success: true, avatar: av, nextUrl: '/home'});
                         }
                     })
                 } else {
