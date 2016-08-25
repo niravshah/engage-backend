@@ -36,8 +36,8 @@ module.exports = function(app,bcrypt) {
             "avatar": "/img/avatars/roger.jpg",
             "password": bcrypt.hashSync("123456", 10),
             "userRoles": ['user'],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Team Member"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Team Member"},
             "badges": ["/img/badges/badge1.png"],
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
@@ -53,8 +53,8 @@ module.exports = function(app,bcrypt) {
             "password": bcrypt.hashSync('123456', 10),
             "userRoles": ['user'],
             "badges": ["/img/badges/badge3.png"],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Project Manager"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Project Manager"},
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
         }).save();
@@ -69,8 +69,8 @@ module.exports = function(app,bcrypt) {
             "password": bcrypt.hashSync("123456", 10),
             "userRoles": ['user'],
             "badges": ["/img/badges/badge2.png"],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Communications Manager"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Communications Manager"},
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
         }).save();
@@ -85,8 +85,8 @@ module.exports = function(app,bcrypt) {
             "password": bcrypt.hashSync("123456", 10),
             "userRoles": ['user'],
             "badges": ["/img/badges/badge1.png", "/img/badges/badge1.png"],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Team Member"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Team Member"},
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
         }).save();
@@ -101,8 +101,8 @@ module.exports = function(app,bcrypt) {
             "password": bcrypt.hashSync("123456", 10),
             "userRoles": ['user'],
             "badges": ["/img/badges/badge2.png"],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Team Member"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Team Member"},
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
         }).save();
@@ -117,8 +117,8 @@ module.exports = function(app,bcrypt) {
             "password": bcrypt.hashSync("123456", 10),
             "userRoles": ['user'],
             "badges": ["/img/badges/badge2.png"],
-            "memberships": ["demo-P1"],
-            "projectRoles": {"demo-P1": "Team Member"},
+            "memberships": ["localhost-P1"],
+            "projectRoles": {"localhost-P1": "Team Member"},
             "tid": req.body.tid,
             "aboutMe": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful."
         }).save();

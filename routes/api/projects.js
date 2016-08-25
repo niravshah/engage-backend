@@ -14,7 +14,7 @@ module.exports = function(app) {
                 res.status(500).json({success: false, err: err});
             } else {
                 users.forEach(function(user){
-                    user.role = user.projectRoles[membershipId]
+                    user.projectRoles = user.projectRoles[membershipId];
                 });
                 res.json({success: true, users: users})
             }
