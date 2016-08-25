@@ -1,7 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
     'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
-    'permission', 'permission.ui','ngTable']);
+    'permission', 'permission.ui']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -14,8 +14,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/header.html',
-                    controller: 'headerController'
+                    templateUrl: '/angular/partials/header.html'
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/profile/main.html',
@@ -38,7 +37,6 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             views: {
                 'projectHeader': {
                     templateUrl: '/angular/partials/header.html',
-                    controller: 'headerController'
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/project/main.html',
@@ -67,12 +65,14 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/header.html',
-                    controller: 'headerController'
+                    templateUrl: '/angular/partials/header.html'
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/admin/main.html',
                     controller:'mainAdminController'
+                },
+                'leftSidebar':{
+                    templateUrl:'/angular/partials/leftSidebar.html'
                 }
             }
         });

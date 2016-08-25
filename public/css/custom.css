@@ -346,10 +346,11 @@
 
 .rightbar-show #rightbar {
     right: 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .8);
 }
 
 .rightbar-hidden #rightbar {
-    right: -450px;
+    right: -550px;
 }
 
 .project-tasks ul[dnd-list],
@@ -474,4 +475,40 @@
 }
 .resultArea >img{
     vertical-align: middle;max-height: 200px;max-width: 200px;
+}
+
+#sidebar{
+    background-color: #57446d;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+    height: 100%;
+}
+
+#navigation{
+    background-color: #57446d;
+    padding-top: 50px;
+}
+.sidebar-show #sidebar {
+    position:fixed;
+    left: 0;
+    top:0;
+}
+
+.sidebar-hide #sidebar {
+    position:fixed;
+    left: -250px;
+    top:0;
+}
+
+.sidebar-show #mainView{
+    -webkit-transform: translateX(250px);
+    transform: translateX(250px);
+    -webkit-transition: .3s ease all;
+    transition: .3s ease all;
+
+}
+.sidebar-hide #mainView {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transition: .3s ease all;
+    transition: .3s ease all;
 }

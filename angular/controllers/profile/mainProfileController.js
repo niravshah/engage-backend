@@ -1,6 +1,8 @@
 app.controller('mainProfileController', function ($window, $http, $scope,Upload, notify,usSpinnerService) {
     $scope.init = function () {
 
+        angular.element('#contentw').removeClass('sidebar-show').addClass('sidebar-hide');
+        
         $scope.projects = [];
         $scope.currentSid = angular.element('#project-id').data('sid');;
         var url = '/api/user/sid/' + $scope.currentSid;

@@ -1,5 +1,8 @@
 app.controller('mainController', function ($window, $http, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService,$stateParams) {
     $scope.init = function () {
+
+        angular.element('#contentw').removeClass('sidebar-show').addClass('sidebar-hide');
+
         if ($localStorage.currentUser) {
 
             $scope.user = {};

@@ -1,4 +1,14 @@
-app.controller('mainAdminController', function ($window, $http, $scope,Upload, notify,usSpinnerService,NgTableParams) {
+app.controller('mainAdminController', function ($window, $http, $scope,Upload, notify,usSpinnerService) {
+
+    $scope.init = function(){
+        var $sidebar = angular.element('#contentw');
+        if(!$sidebar.hasClass('sidebar-show'))
+            $sidebar.removeClass('sidebar-hide');{
+            $sidebar.addClass('sidebar-show');
+        }
+    };
+
+    $scope.init();
 
     $scope.uploadUsers = function(){
         var files = [];

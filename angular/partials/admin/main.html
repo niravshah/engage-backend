@@ -3,14 +3,5 @@
 <a ngf-select="uploadUsers()"
    ng-model="uploadedXls" id="uploadedXls"
    ngf-pattern="'.xls,.csv,.xlsx'" accept=".xls,.csv,.xlsx"
-   name="uploadedXls"  ngf-max-size="2MB"
+   name="uploadedXls" ngf-max-size="2MB"
    class="btn btn-orange btn-border btn-rounded md-mt-30">Upload Users</a>
-
-<table ng-table="tableParams" class="table" show-filter="true">
-    <tr ng-repeat="user in $data">
-        <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
-            {[{user.name}]}</td>
-        <td title="'Age'" filter="{ value: 'text'}" sortable="'value'">
-            {[{user.value}]}</td>
-    </tr>
-</table>
