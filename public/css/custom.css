@@ -504,11 +504,15 @@
     transform: translateX(250px);
     -webkit-transition: .3s ease all;
     transition: .3s ease all;
-
+    width: 80vw;
 }
 .sidebar-hide #mainView {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     -webkit-transition: .3s ease all;
     transition: .3s ease all;
+}
+
+.pageheader .page-bar .page-breadcrumb > li:first-child {
+    background-color: #745BA7;
 }

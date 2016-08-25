@@ -1,7 +1,97 @@
-<h1>Admin</h1>
+<div class="page">
 
-<a ngf-select="uploadUsers()"
-   ng-model="uploadedXls" id="uploadedXls"
-   ngf-pattern="'.xls,.csv,.xlsx'" accept=".xls,.csv,.xlsx"
-   name="uploadedXls" ngf-max-size="2MB"
-   class="btn btn-orange btn-border btn-rounded md-mt-30">Upload Users</a>
+    <div class="pageheader">
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href=""><i class="fa fa-home"></i> Admin</a>
+                </li>
+                <li>
+                    <a href="">Projects</a>
+                </li>
+                <li>
+                    <a href="">Add New</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+        <wizard on-finish="finishedWizard()">
+            <wz-step wz-title="Starting">
+                <form role="form">
+                    <div class="form-group col-md-6">
+                        <label for="name">Event Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Event Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="contact">Contact</label>
+                        <input type="email" class="form-control" id="contact" placeholder="Enter NGO Contact's Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Event Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Enter Event Address">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Category</label>
+                        <selectize config='szCategoryConfig' options='szCategoryOptions'
+                                   ng-model="currentProject.contact"></selectize>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Start Date</label>
+                        <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.sDate |
+                            date:'yyyy-MM-dd HH:mm'}]}</a>
+                        <a href="bootstrap-elements.html" data-target="#"
+                           class="btn btn-sm btn-default btn-raised dropdown-toggle"
+                           data-toggle="dropdown"><span class="fa fa-calendar"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                            <datetimepicker data-ng-model="currentProject.sDate"
+                                            data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle' ,minView:'hour'}"></datetimepicker>
+                        </ul>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>End Date</label>
+                        <label class="control-label">End Date</label>
+                        <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.eDate |
+                            date:'yyyy-MM-dd HH:mm'}]}</a>
+                        <a href="bootstrap-elements.html" data-target="#"
+                           class="btn btn-sm btn-default btn-raised dropdown-toggle" data-toggle="dropdown"><span
+                                class="fa fa-calendar"></span></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="currentProject.eDate"
+                                            data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle',minView:'hour' }"></datetimepicker>
+                        </ul>
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        <summernote ng-model="currentProject.description" height="200">Enter Project Description Here
+                        </summernote>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <pre>{[{currentProject.description}]}</pre>
+                    </div>
+                </form>
+                <div class="cold-md-12 text-center">
+                    <input class="btn btn-success btn-lg" type="submit" wz-next value="Continue"/>
+                </div>
+            </wz-step>
+            <wz-step wz-title="Continuing">
+                <h1>Continuing</h1>
+                <p>You have continued here!</p>
+                <input type="submit" wz-next value="Go on"/>
+            </wz-step>
+            <wz-step wz-title="More steps">
+                <p>Even more steps!!</p>
+                <input type="submit" wz-next value="Finish now"/>
+            </wz-step>
+        </wizard>
+    </div>
+</div>
