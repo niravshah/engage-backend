@@ -1,4 +1,4 @@
-app.controller('messageStreamController', function ($scope, $compile, $firebaseArray) {
+app.controller('messageStreamController', function ($scope, $compile, $firebaseArray,$firebaseObject, notify) {
     $scope.currentMessage = "";
     $scope.showReplyBox = {};
 
@@ -10,6 +10,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
             likes: 0,
             message: message,
             replies: {},
+            created: $scope.user.shortid,
             timestamp: Date.now()
         };
 
@@ -17,7 +18,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
             console.log('Message Added', ref);
             $scope.currentMessage = "";
         }, function (err) {
-            console.log('Message Add Error', err);
+            notify("Could not add new Message." + err);
         });
     };
 
@@ -50,6 +51,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
             from: $scope.user.firstName + " " + $scope.user.lastName,
             likes: 0,
             message: message,
+            created: $scope.user.shortid,
             timestamp: Date.now()
         };
 
@@ -60,26 +62,28 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         repliesArr.$add(newReply).then(function (ref) {
             console.log('Message Added', ref);
         }, function (err) {
-            console.log('Message Add Error', err);
+            notify("Could not add Reply." + err);
         });
     };
 
     $scope.deleteMessage = function(mid, isReply, parentMid){
         if(isReply) {
-            console.log('Delete Message', mid);
             var repliesRef = $scope.fbMessages.$ref().path.toString();
-            var childRef = repliesRef + "/" + parentMid + "/" + "replies";
-            var db = firebase.database().ref(childRef);
-            var repliesArr = $firebaseArray(db);
-            var index = repliesArr.$indexFor(mid);
-            repliesArr.$remove(index).then(function(ref){
+            var childRef = repliesRef + "/" + parentMid + "/" + "replies" + "/" + mid;
+            var child = firebase.database().ref(childRef);
+            var childdb = $firebaseObject(child);
+            childdb.$remove().then(function(ref){
                 console.log('Message Deleted',ref);
-            })
+            },function(err){
+                notify("Could not delete message." + err);
+            });
 
         }else{
             var index = $scope.fbMessages.$indexFor(mid);
             $scope.fbMessages.$remove(index).then(function(ref){
                 console.log('Message Deleted',ref);
+            },function(err){
+                notify("Could not delete message." + err);
             });
         }
     }

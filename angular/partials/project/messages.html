@@ -11,7 +11,7 @@
                     <div class="panel-heading bg-white">
                         {[{m.from}]}
 
-                        <span ng-click="deleteMessage(m.$id,false,null)" class="text-muted pull-right md-ml-15">
+                        <span ng-if="m.created == user.shortid" ng-click="deleteMessage(m.$id,false,null)" class="text-muted pull-right md-ml-15">
                         <a href=""><i class="fa fa-trash"></i><span></span></a>
                         </span>
 
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <ul id="message{[{m.$id}]}" class="list-unstyled post-replies">
-                    <li ng-repeat="r in m.replies">
+                    <li ng-repeat="(key,r) in m.replies">
                         <aside>
                             <div class="thumb thumb-sm">
                                 <img class="img-circle" ng-src="{[{r.avatar}]}" alt="">
@@ -42,13 +42,12 @@
                                 <div class="panel-body">
                                     <p>
                                         <strong>{[{r.from}]}</strong>
-                                        <span ng-click="deleteMessage(r.$id,true,m.$id)" class="text-muted pull-right md-ml-15">
+                                        <span ng-if="r.created == user.shortid" ng-click="deleteMessage(key,true,m.$id)" class="text-muted pull-right md-ml-15">
                                         <a href=""><i class="fa fa-trash"></i><span></span></a>
                                         </span>
                                         <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i><span
                                                 am-time-ago="m.timestamp"></span></span>
                                     </p>
-
                                     <p class="mb-0 text-small">{[{r.message}]}</p>
                                 </div>
                             </div>
