@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
 
     var XLSX = require('xlsx');
     var multer = require('multer');
@@ -12,18 +12,24 @@ module.exports = function(app) {
         }
     });
 
-    var upload = multer({ storage: storage });
+    var upload = multer({storage: storage});
 
-    app.post('/api/upload/users',upload.any(), function (req, res) {
+    app.post('/api/upload/users', upload.any(), function (req, res) {
         var values = [];
-        for(var i=0;i<req.files.length;i++)
-        {
-            var workbook = XLSX.readFile(req.files[i].path);
-            workbook.SheetNames.forEach(function(sheetName) {
-                var json = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-                values.push(json);
+        req.files.forEach(function (file) {
+            console.log(file);
+            var workbook = XLSX.readFile(file.path);
+            workbook.SheetNames.forEach(function (sheetName) {
+                var ws = workbook.Sheets[sheetName];
+                var json = XLSX.utils.sheet_to_json(ws);
+                if (json.length > 0) {
+                    values.push(json);
+                    res.json({success: true, message: 'Created ' + json.length + ' Users.'})
+                } else {
+                    res.json({success: false, message: 'No records found'})
+                }
             });
-        }
-        res.json(values);
+        });
+
     });
 };

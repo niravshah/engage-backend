@@ -7,9 +7,13 @@ app.controller('mainAdminController', function ($window, $http, $scope,Upload, n
         }
         $scope.upload(files,{},'/api/upload/users',function(resp,err){
            if(err){
-               console.log('Error',err);
+               notify('Error uploading users' + err.message);
            } else{
-               $scope.tableParams = new NgTableParams({}, { dataset: resp.data[0]});
+               if(resp.data.success == true) {
+                   notify('Users Upload Successful.' + resp.data.message);
+               }else{
+                   notify('Users Upload Failed.' + resp.data.message);
+               }
            }
         });
     };

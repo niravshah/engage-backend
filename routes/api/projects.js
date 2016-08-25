@@ -1,6 +1,8 @@
 module.exports = function(app) {
     var User = require('../../models/user');
     var Project = require('../../models/project');
+    var request = require('request');
+    var ENGAGE_SITE_URL = "http://localhost:9000";
 
     app.get('/api/projects/:id/members', function (req, res) {
         var membershipId = req.body.tid + "-" + req.params.id;
@@ -27,4 +29,15 @@ module.exports = function(app) {
         });
 
     });
-}
+
+    app.get('/api/projects/available',function(req,res){
+        request
+            .get(ENGAGE_SITE_URL + "/api/projects/available")
+            .on('response',function(res){
+                console.log(res);
+            })
+            .on('error',function(err){
+                console.log(err);
+            })
+    });
+};

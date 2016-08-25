@@ -127,8 +127,11 @@ module.exports = function (app, bcrypt) {
 
     });
 
-    app.post('/api/user/:id', upload.any(), function (req, res) {
+    app.get('/api/users',function(req,res){
 
+    });
+
+    app.post('/api/user/:id', upload.any(), function (req, res) {
         if (req.files.length > 0) {
             req.body.addData.avatar = getSavedFilePath(req, 0);
         }
@@ -145,8 +148,6 @@ module.exports = function (app, bcrypt) {
             }
 
         });
-
-
     });
 
 };
