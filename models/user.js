@@ -10,7 +10,7 @@ var userSchema = new Schema({
     title: {type: String},
     userRoles: {type: Array, default: ['USER']},
     memberships: {type: Array, default: []},
-    projectRoles:{type:Array, default:[]},
+    projectRoles:{type:Schema.Types.Mixed},
     badges:{type:Array, default:[]},
     profileSet: {type:Boolean, default:false},
     resetPassword: {type:Boolean, default:true},
