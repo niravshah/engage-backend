@@ -1,7 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
     'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
-    'permission', 'permission.ui','mgo-angular-wizard','summernote','ngLodash']);
+    'permission', 'permission.ui','mgo-angular-wizard','summernote','ngLodash','ngRaty']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -28,6 +28,9 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 },
                 'settings@profile': {
                     templateUrl: '/angular/partials/profile/settings.html'
+                },
+                'skills@profile': {
+                    templateUrl: '/angular/partials/profile/skills.html'
                 }
             }
         })

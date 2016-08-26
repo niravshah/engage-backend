@@ -13,20 +13,19 @@
                                     <div class="tile-body p-0">
                                         <div role="tabpanel">
                                             <ul class="nav nav-tabs tabs-dark" role="tablist">
-                                                <li role="presentation" class="active"><a href="#projectsTab"
-                                                                                          aria-controls="projectsTab"
-                                                                                          role="tab"
-                                                                                          data-toggle="tab">Projects</a>
+                                                <li role="presentation" class="active">
+                                                    <a href="#projectsTab" aria-controls="projectsTab" role="tab" data-toggle="tab">Projects</a>
                                                 </li>
-
-                                                <li ng-if="user.shortid == currentSid" class="" role="presentation"><a href="#settingsTab"
-                                                                                                                       aria-controls="settingsTab"
-                                                                                                                       role="tab"
-                                                                                                                       data-toggle="tab">Edit Profile</a></li>
+                                                <li ng-if="user.shortid == currentSid" class="" role="presentation">
+                                                    <a href="#settingsTab" aria-controls="settingsTab" role="tab" data-toggle="tab">Edit Profile</a></li>
+                                                <li ng-if="user.shortid == currentSid" class="" role="presentation">
+                                                    <a href="#skillsTab" aria-controls="skillsTab" role="tab" data-toggle="tab">Edit Skills</a>
+                                                </li>
                                             </ul>
                                             <div class="tab-content">
                                                 <div role="tabpanel" class="tab-pane active" id="projectsTab" ui-view="projects"></div>
                                                 <div ng-if="user.shortid == currentSid" role="tabpanel" class="tab-pane" id="settingsTab" ui-view="settings"></div>
+                                                <div ng-if="user.shortid == currentSid" role="tabpanel" class="tab-pane" id="skillsTab" ui-view="skills"></div>
                                             </div>
                                         </div>
                                     </div>

@@ -15,7 +15,6 @@ app.controller('WelcomeController', function Controller($scope, $http, $location
     };
 
     $scope.uploadImage = function () {
-
         var files = [];
         var canvas = angular.element(document.querySelector( '.default-profile-photo canvas'))[0];
 

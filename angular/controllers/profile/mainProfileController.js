@@ -63,4 +63,19 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
             cb(null, err);
         });
     };
+
+    $scope.rating = {
+        current: 0,
+        over: 0,
+        out: 0
+    };
+    $scope.ratyOptions = {
+        half: true,
+        cancel: false,
+        cancelOn: '/img/raty/cancel-off.png',
+        cancelOff: '/img/raty/cancel-on.png',
+        starHalf: '/img/raty/star-half.png',
+        starOff: '/img/raty/star-off.png',
+        starOn: '/img/raty/star-on.png'
+    };
 });

@@ -352,7 +352,7 @@
 }
 
 .rightbar-hidden #rightbar {
-    right: -550px;
+    right: -600px;
 }
 
 .project-tasks ul[dnd-list],
