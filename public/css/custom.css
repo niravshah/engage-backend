@@ -296,9 +296,28 @@
     text-align: center;
 }
 
+.task .new-desc {
+    border-left: 10px solid #FFC107;
+}
+
 .task .progress {
-    color: #00c875 !important;
+    color: #3F51B5 !important;
     text-align: center;
+}
+
+.task .progress-desc {
+    border-left: 10px solid #3F51B5;
+}
+
+.task .complete {
+    color: #00c875 !important;
+
+    text-align: center;
+}
+
+.task .complete-desc {
+    border-left: 10px solid #00c875;
+
 }
 
 .task .blocked {
@@ -306,25 +325,8 @@
     text-align: center;
 }
 
-.task .complete {
-    color: #3F51B5 !important;
-    text-align: center;
-}
-
-.task .new-desc {
-    border-left: 10px solid #FFC107;
-}
-
-.task .progress-desc {
-    border-left: 10px solid #00c875;
-}
-
 .task .blocked-desc {
     border-left: 10px solid #f44336;
-}
-
-.task .complete-desc {
-    border-left: 10px solid #3F51B5;
 }
 
 @media (min-width: 768px) {

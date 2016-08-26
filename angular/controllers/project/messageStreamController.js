@@ -24,25 +24,27 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
 
     $scope.showReplyBox = function (index) {
 
-        var rep = document.createElement('chat-reply');
-
-        var att = document.createAttribute("post");
-        att.value = "postReply(index, chatReply)";
-        rep.setAttributeNode(att);
-
-        var att2 = document.createAttribute("avatar");
-        att2.value = $scope.user.avatar;
-        rep.setAttributeNode(att2);
-
-        var att3 = document.createAttribute("index");
-        att3.value = index;
-        rep.setAttributeNode(att3);
-
-        var reply = angular.element(rep);
-        $compile(reply)($scope);
-
         var repliesBoxId = '#message' + index;
-        angular.element(repliesBoxId).after(reply);
+        var existingChatReply = angular.element(repliesBoxId).parent().find('chat-reply');
+        if(existingChatReply.length == 0) {
+            var rep = document.createElement('chat-reply');
+            var att = document.createAttribute("post");
+            att.value = "postReply(index, chatReply)";
+
+            rep.setAttributeNode(att);
+            var att2 = document.createAttribute("avatar");
+            att2.value = $scope.user.avatar;
+
+            rep.setAttributeNode(att2);
+            var att3 = document.createAttribute("index");
+            att3.value = index;
+
+            rep.setAttributeNode(att3);
+            var reply = angular.element(rep);
+
+            $compile(reply)($scope);
+            angular.element(repliesBoxId).after(reply);
+        }
     };
 
     $scope.postReply = function (key, message) {

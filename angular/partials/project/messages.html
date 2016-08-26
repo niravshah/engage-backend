@@ -61,7 +61,7 @@
             </div>
             <form>
                 <div class="input-group">
-                    <input ng-model="currentMessage" type="text" class="form-control" placeholder="Write your comment here...">
+                    <input eg-enter="postMessage(currentMessage)" ng-model="currentMessage" type="text" class="form-control" placeholder="Write your comment here...">
                       <span class="input-group-btn">
                         <button ng-click="postMessage(currentMessage)" class="btn btn-default" type="button">Post</button>
                       </span>

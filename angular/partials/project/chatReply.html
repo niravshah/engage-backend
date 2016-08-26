@@ -2,9 +2,9 @@
     <div class='thumb thumb-sm'><img class='img-circle' ng-src='{[{avatar}]}' alt=''></div>
     <form>
         <div class='input-group'>
-            <input ng-model="chatReply" type='text' class='form-control' placeholder='Reply here...'/>
+            <input eg-enter='post({index:index, chatReply:chatReply});chatReply=""' ng-model="chatReply" type='text' class='form-control' placeholder='Reply here...'/>
             <span class='input-group-btn'>
-            <button ng-click='post({index:index, chatReply:chatReply})' class='btn btn-default' type='button'>Post</button>
+            <button ng-click='post({index:index, chatReply:chatReply});chatReply=""' class='btn btn-default' type='button'>Post</button>
             </span>
         </div>
     </form>
