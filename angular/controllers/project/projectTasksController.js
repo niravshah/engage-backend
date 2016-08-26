@@ -1,4 +1,4 @@
-app.controller('projectTasksController', function ($scope, notify) {
+app.controller('projectTasksController', function ($scope, notify, $localStorage,$firebaseArray,$firebaseObject) {
 
     var $controls = $('#controls');
     $scope.tasks = [];
@@ -131,6 +131,44 @@ app.controller('projectTasksController', function ($scope, notify) {
         $scope.models.selected = task;
         $scope.models.selectedAction = 'Edit';
         $scope.openRightSidebar();
+        $scope.models.selectedTaskConversation = $scope.getSelectedTaskComments(task);
+    };
+
+    $scope.getSelectedTaskComments = function(task){
+        var dataId = $localStorage.currentUser.tenant + "-" + $scope.projectId;
+        var commentsRef = firebase.database().ref().child(dataId).child("comments").child(task.$id);
+        return $firebaseArray(commentsRef);
+    };
+
+    $scope.addTaskComment = function(task,comment){
+
+        var dataId = $localStorage.currentUser.tenant + "-" + $scope.projectId;
+        var commentsRef = firebase.database().ref().child(dataId).child("comments").child(task.$id);
+        var comments = $firebaseArray(commentsRef);
+
+        var newComment = {
+            message: comment,
+            created: $scope.user.shortid,
+            timestamp: Date.now()
+        };
+
+        comments.$add(newComment).then(function (ref) {
+            console.log('Comment Added', ref);
+        }, function (err) {
+            notify("Could not add comment." + err);
+        });
+    };
+
+    $scope.deleteTaskComment = function(commentKey,taskId){
+
+        var dataId = $localStorage.currentUser.tenant + "-" + $scope.projectId;
+        var commentRef = firebase.database().ref().child(dataId).child("comments").child(taskId).child(commentKey);
+        var comment = $firebaseObject(commentRef);
+        comment.$remove().then(function(ref){
+            console.log('Comment Deleted',ref);
+        },function(err){
+            notify("Could not delete comment." + err);
+        });
     };
 
     $scope.editTask = function () {

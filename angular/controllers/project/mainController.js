@@ -20,7 +20,7 @@ app.controller('mainController', function ($window, $http, $scope, $localStorage
                 usSpinnerService.spin('spin1');
                 var tasksRef = firebase.database().ref().child(dataId).child("tasks");
                 var messagesRef = firebase.database().ref().child(dataId).child("messages").limitToLast(30);
-
+                                
                 var tasksData = $firebaseArray(tasksRef);
                 tasksData.$loaded().then(function (tasks) {
                     $scope.fbTasks = tasks;

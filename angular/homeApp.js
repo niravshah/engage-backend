@@ -1,7 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
     'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
-    'permission', 'permission.ui','mgo-angular-wizard','summernote']);
+    'permission', 'permission.ui','mgo-angular-wizard','summernote','ngLodash']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -104,6 +104,14 @@ app.filter('startFrom', function () {
     }
 });
 
+app.filter('sidToUname', ['lodash', function (lodash) {
+    return function (shortid,users) {
+        var user = lodash.find(users,function(t){return t.shortid == shortid});
+        return user.firstName + ' ' + user.lastName;
+    }
+}]);
+
+
 app.directive('activeToggle', function () {
     return {
         restrict: 'A',
@@ -124,6 +132,18 @@ app.directive('activeToggle', function () {
         }
     };
 });
+
+app.directive('engageAvatar',['lodash', function (lodash) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var user = lodash.find(scope.team,function(user){return user.shortid == attrs.engageAvatar;});
+            if(typeof user != 'undefined') {
+                attrs.$set('src', user.avatar);
+            }
+        }
+    };
+}]);
 
 app.directive('chatReply', function () {
     return {

@@ -9,7 +9,7 @@ module.exports = function(app) {
         User.find({
             memberships: membershipId,
             tid: req.body.tid
-        }, 'firstName lastName email avatar badges projectRoles', function (err, users) {
+        }, 'firstName lastName email avatar badges projectRoles shortid', function (err, users) {
             if (err) {
                 res.status(500).json({success: false, err: err});
             } else {

@@ -123,6 +123,43 @@
                     <button ng-click="cancelEditItem()" class="btn btn-warning">Cancel</button>
                 </div>
             </div>
+
+            <ul id="task{[{models.selected.$id}]}" class="list-unstyled post-replies">
+                <li ng-repeat="r in models.selectedTaskConversation">
+                    <aside>
+                        <div class="thumb thumb-sm">
+                            <img engage-avatar="{[{r.created}]}" class="img-circle" src="/img/avatars/ma1.png" alt="avatar">
+                        </div>
+                    </aside>
+                    <div class="reply-container">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>
+                                    <strong>{[{r.created|sidToUname:team}]}</strong>
+                                        <span ng-if="r.created == user.shortid" ng-click="deleteTaskComment(r.$id,models.selected.$id)" class="text-muted pull-right md-ml-15">
+                                        <a href=""><i class="fa fa-trash"></i><span></span></a>
+                                        </span>
+                                        <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i><span am-time-ago="r.timestamp"></span></span>
+                                </p>
+                                <p class="mb-0 text-small">{[{r.message}]}</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="streamline-form md-mt-20">
+                <div class="thumb thumb-sm"><img style="width: 40px; height: 40px;" class="img-circle" ng-src="{[{user.avatar}]}" alt="">
+                </div>
+                <form>
+                    <div class="input-group">
+                        <input eg-enter="addTaskComment(models.selected, newComment)" ng-model="newComment" type="text" class="form-control" placeholder="Write your comment here...">
+                      <span class="input-group-btn">
+                        <button ng-click="addTaskComment(models.selected, newComment)" class="btn btn-default" type="button">Add Comment</button>
+                      </span>
+                    </div>
+                </form>
+            </div>
         </div>
     </aside>
 </div>
