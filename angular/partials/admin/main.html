@@ -24,7 +24,7 @@
     <div class="pagecontent">
 
         <wizard on-finish="finishedWizard()">
-            <wz-step wz-title="Starting">
+            <wz-step wz-title="Event Info">
                 <form role="form">
                     <div class="form-group col-md-6">
                         <label for="name">Event Name</label>
@@ -45,52 +45,48 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Start Date</label>
-                        <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.sDate |
-                            date:'yyyy-MM-dd HH:mm'}]}</a>
-                        <a href="bootstrap-elements.html" data-target="#"
-                           class="btn btn-sm btn-default btn-raised dropdown-toggle"
-                           data-toggle="dropdown"><span class="fa fa-calendar"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
-                            <datetimepicker data-ng-model="currentProject.sDate"
-                                            data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle' ,minView:'hour'}"></datetimepicker>
-                        </ul>
+                        <div>
+                            <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.sDate |
+                                date:'yyyy-MM-dd HH:mm'}]}</a>
+                            <a href="bootstrap-elements.html" data-target="#"
+                               class="btn btn-sm btn-default btn-raised dropdown-toggle"
+                               data-toggle="dropdown"><span class="fa fa-calendar"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                                <datetimepicker data-ng-model="currentProject.sDate"
+                                                data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle' ,minView:'hour'}"></datetimepicker>
+                            </ul>
+                        </div>
 
                     </div>
                     <div class="form-group col-md-6">
                         <label>End Date</label>
-                        <label class="control-label">End Date</label>
-                        <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.eDate |
-                            date:'yyyy-MM-dd HH:mm'}]}</a>
-                        <a href="bootstrap-elements.html" data-target="#"
-                           class="btn btn-sm btn-default btn-raised dropdown-toggle" data-toggle="dropdown"><span
-                                class="fa fa-calendar"></span></a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            <datetimepicker data-ng-model="currentProject.eDate"
-                                            data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle',minView:'hour' }"></datetimepicker>
-                        </ul>
+                        <div>
+                            <a href="javascript:void(0)" class="btn btn-default btn-raised">{[{currentProject.eDate |
+                                date:'yyyy-MM-dd HH:mm'}]}</a>
+                            <a href="bootstrap-elements.html" data-target="#"
+                               class="btn btn-sm btn-default btn-raised dropdown-toggle" data-toggle="dropdown"><span
+                                    class="fa fa-calendar"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <datetimepicker data-ng-model="currentProject.eDate"
+                                                data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle',minView:'hour' }"></datetimepicker>
+                            </ul>
+                        </div>
 
                     </div>
                     <div class="form-group col-md-12">
-                        <summernote ng-model="currentProject.description" height="200">Enter Project Description Here
-                        </summernote>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <pre>{[{currentProject.description}]}</pre>
+                        <label>Project Description</label>
+                        <summernote ng-model="currentProject.description" height="200"></summernote>
                     </div>
                 </form>
                 <div class="cold-md-12 text-center">
-                    <input class="btn btn-success btn-lg" type="submit" wz-next value="Continue"/>
+                    <input class="btn btn-success" type="submit" wz-next value="Save"/>
                 </div>
             </wz-step>
-            <wz-step wz-title="Continuing">
+            <wz-step wz-title="Team Skills">
                 <h1>Continuing</h1>
                 <p>You have continued here!</p>
-                <input type="submit" wz-next value="Go on"/>
-            </wz-step>
-            <wz-step wz-title="More steps">
-                <p>Even more steps!!</p>
-                <input type="submit" wz-next value="Finish now"/>
+                <input type="submit" wz-next value="Save"/>
             </wz-step>
         </wizard>
     </div>
