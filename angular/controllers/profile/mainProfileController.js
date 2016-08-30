@@ -64,11 +64,6 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         });
     };
 
-    $scope.rating = {
-        current: 0,
-        over: 0,
-        out: 0
-    };
     $scope.ratyOptions = {
         half: true,
         cancel: false,
@@ -78,4 +73,14 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         starOff: '/img/raty/star-off.png',
         starOn: '/img/raty/star-on.png'
     };
+
+    $scope.saveSkills = function(){
+        console.log($scope.skills);
+        var url = '/api/user/' + $scope.user._id + '/profile';
+        $http.post(url,{data: $scope.skills}).then(function(res){
+            console.log('Response',res);
+        },function(err){
+            console.log('Error', err);
+        })
+    }
 });

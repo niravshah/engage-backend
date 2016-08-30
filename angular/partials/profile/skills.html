@@ -1,8 +1,110 @@
 <div class="wrap-reset">
-    <h3>What are your top 5 Strengths?</h3>
 
-    <div ng-raty="ratyOptions" ng-model="rating.current"></div>
-    <h3>What are the top 5 Skills you want to develop?</h3>
+
+    <section class="tile tile-simple">
+        <div class="tile-header">
+            <h1 class="custom-font">Your <strong>Top 5 </strong>Strengths</h1>
+        </div>
+        <div class="tile-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row md-mt-20">
+                        <div class="col-md-6">
+                            <input ng-model="skills.primarySkills.skill1" type="text" class="form-control" id="skill1" placeholder="Skill 1">
+                        </div>
+                        <div class="col-md-6">
+                            <div ng-raty="ratyOptions" ng-model="skills.primarySkills.ratings1"></div>
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-6">
+                            <input ng-model="skills.primarySkills.skill2" type="text" class="form-control" id="skill2" placeholder="Skill 2">
+                        </div>
+                        <div class="col-md-6">
+                            <div ng-raty="ratyOptions" ng-model="skills.primarySkills.ratings2"></div>
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-6">
+                            <input ng-model="skills.primarySkills.skill3" type="text" class="form-control" id="skill3" placeholder="Skill 3">
+                        </div>
+                        <div class="col-md-6">
+                            <div ng-raty="ratyOptions" ng-model="skills.primarySkills.ratings3"></div>
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-6">
+                            <input ng-model="skills.primarySkills.skill4" type="text" class="form-control" id="skill4" placeholder="Skill 4">
+                        </div>
+                        <div class="col-md-6">
+                            <div ng-raty="ratyOptions" ng-model="skills.primarySkills.ratings4"></div>
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-6">
+                            <input ng-model="skills.primarySkills.skill5" type="text" class="form-control" id="skill5" placeholder="Skill 5">
+                        </div>
+                        <div class="col-md-6">
+                            <div ng-raty="ratyOptions" ng-model="skills.primarySkills.ratings5"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-primary panel-filled">
+                        <div class="panel-heading">
+                            <h3 class="panel-title custom-font">Top Strengths</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Use this section to list the skills you think you can use to help others.</p>
+                            <p>We'll use your answers to match you to projects that are in need of these skills</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tile tile-simple">
+        <div class="tile-header">
+            <h1 class="custom-font">Your <strong>Top 3</strong> desired Skills</h1>
+        </div>
+        <div class="tile-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row md-mt-20">
+                        <div class="col-md-8">
+                            <input ng-model="skills.desired.skill1" type="text" class="form-control" id="dskill1" placeholder="Skill 1">
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-8">
+                            <input ng-model="skills.desired.skill2" type="text" class="form-control" id="dskill2" placeholder="Skill 2">
+                        </div>
+                    </div>
+                    <div class="row md-mt-20">
+                        <div class="col-md-8">
+                            <input ng-model="skills.desired.skill3" type="text" class="form-control" id="dskill3" placeholder="Skill 3">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-greensea panel-filled">
+                        <div class="panel-heading">
+                            <h3 class="panel-title custom-font">Desired Skills</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>Use this section to list areas you aspire to develop and grow in.</p>
+                            <p>We'll use your answers to match you to projects that give you a chance to develop and learn these skills</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="row">
         <div class="col-md-offset-6 col-md-6 md-mt-50">

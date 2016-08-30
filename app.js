@@ -70,6 +70,7 @@ require('./routes/api/authenticate')(app,bcrypt,firebase);
 require('./routes/api/user')(app,bcrypt);
 require('./routes/api/projects')(app);
 require('./routes/api/dataupload')(app);
+require('./routes/api/userprofile')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
