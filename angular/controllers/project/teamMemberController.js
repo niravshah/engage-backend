@@ -4,12 +4,12 @@ app.controller('teamMemberController', function ($scope, $http,$rootScope) {
             if (response.data.success == true) {
                 $scope.team = response.data.users;
                 $rootScope.team =response.data.users;
+
             } else {
                 notify('Could not retrieve Team Members.' + err.message);
             }
         });
     };
 
-    $scope.init();
-
+   // $scope.init();
 });

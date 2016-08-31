@@ -1,7 +1,7 @@
 var app = angular.module('engageApp', ['ngStorage', 'ui.router', 'dndLists', 'angularUtils.directives.dirPagination',
     'firebase', 'cgNotify', 'angularSpinner', 'angular-jwt', 'selectize',
     'angularMoment', 'ui.bootstrap.datetimepicker', 'ngSanitize', 'ngFileUpload',
-    'permission', 'permission.ui','mgo-angular-wizard','summernote','ngLodash','ngRaty']);
+    'permission', 'permission.ui', 'mgo-angular-wizard', 'summernote', 'ngLodash', 'ngRaty']);
 
 app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -18,7 +18,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/profile/main.html',
-                    controller:'mainProfileController'
+                    controller: 'mainProfileController'
                 },
                 'about@profile': {
                     templateUrl: '/angular/partials/profile/about.html'
@@ -44,9 +44,20 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 'projectHeader': {
                     templateUrl: '/angular/partials/header.html'
                 },
-                'mainView': {
+                'rootView': {
+                    templateUrl: '/angular/partials/project/root.html',
+                    controller: 'rootViewController'
+                },
+                'mainView@project': {
                     templateUrl: '/angular/partials/project/main.html',
-                    controller:'mainController'
+                    controller: 'mainController'
+                },
+                'badgeModalView@project': {
+                    templateUrl: '/angular/partials/project/badgeModal.html',
+                    controller: 'badgeModalController'
+                },
+                'reviewModalView@project': {
+                    templateUrl: '/angular/partials/project/reviewModal.html'
                 },
                 'teamMembers@project': {
                     templateUrl: '/angular/partials/project/team.html',
@@ -75,10 +86,10 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/admin/main.html',
-                    controller:'mainAdminController'
+                    controller: 'mainAdminController'
                 },
-                'leftSidebar':{
-                    templateUrl:'/angular/partials/leftSidebar.html'
+                'leftSidebar': {
+                    templateUrl: '/angular/partials/leftSidebar.html'
                 }
             }
         });
@@ -92,7 +103,7 @@ app.run(['$rootScope', '$state', 'AuthService', '$window', 'PermissionStore', '$
         }
         if (toState.redirectTo) {
             event.preventDefault();
-            $state.go(toState.redirectTo, toParams, {location: 'replace'})
+            $state.go(toState.redirectTo, toParams, { location: 'replace' })
         }
     });
 
@@ -111,12 +122,13 @@ app.filter('startFrom', function () {
 });
 
 app.filter('sidToUname', ['lodash', function (lodash) {
-    return function (shortid,users) {
-        var user = lodash.find(users,function(t){return t.shortid == shortid});
+    return function (shortid, users) {
+        var user = lodash.find(users, function (t) {
+            return t.shortid == shortid
+        });
         return user.firstName + ' ' + user.lastName;
     }
 }]);
-
 
 app.directive('activeToggle', function () {
     return {
@@ -139,12 +151,14 @@ app.directive('activeToggle', function () {
     };
 });
 
-app.directive('engageAvatar',['lodash', function (lodash) {
+app.directive('engageAvatar', ['lodash', function (lodash) {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
-            var user = lodash.find(scope.team,function(user){return user.shortid == attrs.engageAvatar;});
-            if(typeof user != 'undefined') {
+        link: function (scope, element, attrs) {
+            var user = lodash.find(scope.team, function (user) {
+                return user.shortid == attrs.engageAvatar;
+            });
+            if (typeof user != 'undefined') {
                 attrs.$set('src', user.avatar);
             }
         }

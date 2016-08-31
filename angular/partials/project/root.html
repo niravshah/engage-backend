@@ -1,0 +1,15 @@
+<section id="contentw" class="sidebar-hide rightbar-show">
+    <span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spin1"></span>
+    <div ui-view="leftSidebar"></div>
+    <div id="mainView" ui-view="mainView">
+    </div>
+</section>
+<div class="modal fade" id="badgeModal" tabindex="-1" role="dialog" aria-labelledby="badgeModal"
+     aria-hidden="true" style="display: none;">
+    <div ui-view="badgeModalView"></div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModal"
+     aria-hidden="true" style="display: none;">
+    <div ui-view="reviewModalView"></div>
+</div>

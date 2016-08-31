@@ -11,7 +11,7 @@ app.directive('afterRender', ['$timeout', function ($timeout) {
 }]);
 
 
-app.controller('headerController', function ($window, $scope, $localStorage) {
+app.controller('headerController', function ($window, $scope, $rootScope, $localStorage) {
 
     $scope.logout = function () {
         delete $localStorage.currentUser;
@@ -88,7 +88,6 @@ app.controller('headerController', function ($window, $scope, $localStorage) {
         if ($localStorage.currentUser) {
             $scope.user = $localStorage.currentUser;
         }
-
         $scope.showLeftBarToggle = true;
     };
 
