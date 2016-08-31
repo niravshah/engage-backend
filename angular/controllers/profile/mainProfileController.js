@@ -1,11 +1,15 @@
 app.controller('mainProfileController', function ($window, $http, $scope,Upload, notify,usSpinnerService) {
     $scope.init = function () {
 
-        angular.element('#contentw').removeClass('sidebar-show').addClass('sidebar-hide');
+        $scope.disableLeftBar();
+
         $scope.skills = {};
         $scope.skills.primarySkills = [];
+        $scope.skills.desiredSkills = [];
         $scope.projects = [];
         $scope.currentSid = angular.element('#project-id').data('sid');
+        $scope.headerSideBarToggle = false;
+
         var url = '/api/user/sid/' + $scope.currentSid;
 
         $http.get(url).then(function (resp) {
@@ -26,7 +30,7 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
                 var profileUrl = '/api/user/' + $scope.user._id + '/profile';
 
                 $http.get(profileUrl).then(function (res) {
-                    $scope.user.skills = res.data.profile;
+                    $scope.skills = res.data.profile;
                 }, function (err) {
                     console.log('Error ', err);
                 });

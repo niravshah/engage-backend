@@ -33,7 +33,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/profile/viewSkills.html'
                 },
                 'skills@profile': {
-                    templateUrl: '/angular/partials/profile/skills.html'
+                    templateUrl: '/angular/partials/profile/editSkills.html'
                 }
             }
         })
@@ -42,7 +42,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
             authenticate: true,
             views: {
                 'projectHeader': {
-                    templateUrl: '/angular/partials/header.html',
+                    templateUrl: '/angular/partials/header.html'
                 },
                 'mainView': {
                     templateUrl: '/angular/partials/project/main.html',

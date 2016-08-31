@@ -29,6 +29,11 @@ app.controller('headerController', function ($window, $scope, $localStorage) {
         }
     };
 
+    $scope.disableLeftBar = function(){
+        angular.element('#contentw').removeClass('sidebar-show').addClass('sidebar-hide');
+        $scope.showLeftBarToggle = false;
+    };
+
     $scope.sidebarToggle2 = function(){
         var $navigation = $('#navigation'),
             $dropdowns = $navigation.find('ul').parent('li'),
@@ -84,6 +89,7 @@ app.controller('headerController', function ($window, $scope, $localStorage) {
             $scope.user = $localStorage.currentUser;
         }
 
+        $scope.showLeftBarToggle = true;
     };
 
     $scope.init();

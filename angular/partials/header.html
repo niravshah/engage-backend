@@ -7,7 +7,7 @@
             <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline"><i class="fa fa-bars"></i></a>
         </div>
 
-        <ul class="nav-left pull-left list-unstyled list-inline">
+        <ul ng-show="showLeftBarToggle" class="nav-left pull-left list-unstyled list-inline">
             <li class="sidebar-collapse divided-right">
                 <a ng-click="sidebarToggle()" class="collapse-sidebar">
                     <i class="fa fa-outdent"></i>
@@ -17,7 +17,6 @@
 
         <ul class="nav-right pull-right list-inline">
             <li class="dropdown nav-profile">
-
                 <a href class="dropdown-toggle" data-toggle="dropdown">
                     <img ng-src="{[{user.avatar}]}" alt="EW" class="img-circle size-40x40">
                     <span>{[{user.firstName}]} {[{user.lastName}]}<i class="fa fa-angle-down"></i></span>

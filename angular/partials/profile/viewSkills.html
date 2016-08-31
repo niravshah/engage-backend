@@ -1,16 +1,21 @@
 <div class="wrap-reset">
-    <pre>{[{user.skills}]}</pre>
-    <div class="col-md-6">
-    <p class="text-small text-strong text-uppercase custom-font">Primary Skills</p>
-    <ul>
-        <li ng-repeat="(key,value) in user.skills.primarySkills">{[{key}]}</li>
-    </ul>
+    <div class="col-md-5">
+        <h4 class="custom-font"><strong>Primary Skills</strong></h4>
+        <div class="row md-mt-40">
+            <div ng-repeat="(key,value) in skills.primarySkills track by $index">
+                <div class="col-md-6">
+                    {[{value.skill}]}
+                </div>
+                <div class="col-md-6">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <p class="text-small text-strong text-uppercase custom-font">Skills Desired</p>
-        <ul>
-            <li ng-repeat="(key,value) in user.skills.desiredSkills">{[{value.skill}]}</li>
-        </ul>
+    <div class="col-md-offset-2 col-md-5">
+        <h4 class="custom-font"><strong>Desired Skills</strong></h4>
+        <div class="row md-mt-40">
+            <div ng-repeat="skill in skills.desiredSkills track by $index">{[{skill}]}</div>
+        </div>
     </div>
-
 </div>
