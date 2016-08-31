@@ -61,6 +61,7 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
             }else{
                 usSpinnerService.stop('spin1');
                 notify('User profile updated. Please logout and log back in.');
+                $(".nav-tabs a[href='#projectsTab']").tab('show');
             }
         });
     };
@@ -88,11 +89,12 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         starOn: '/img/raty/star-on.png'
     };
 
-    $scope.saveSkills = function(skills){
+    $scope.saveSkills = function(){
         var url = '/api/user/' + $scope.user._id + '/profile';
-        $http.post(url,{data: skills}).then(function(res){
+        $http.post(url,{data: $scope.skills}).then(function(res){
             if(res.data.success == true){
                 notify('User skills updated.');
+                $(".nav-tabs a[href='#viewSkillsTab']").tab('show');
             }else{
                 notify('Could not update user skills updated.' + res.data.message);
             }

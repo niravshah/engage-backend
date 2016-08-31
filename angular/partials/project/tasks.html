@@ -73,7 +73,7 @@
         <div class="row aside-header">
             <div class="col-md-12">
                 <a role="button" tabindex="0" class="tile-close" style="float: right;color: #ffffff;"
-                   ng-click="closeRightSidebar()"><i
+                   ng-click="closeRightSidebar('controls')"><i
                         class="fa fa-times"></i></a>
                 <p class="custom-font aside-title"><strong>{[{models.selectedAction}]}</strong> Task</p>
             </div>
@@ -88,7 +88,7 @@
             <div class="row md-pt-20">
                 <div class="col-md-12">
                     <label>Assigned To</label>
-                    <selectize config='myConfig' options='myOptions' ng-model="models.selected.ownerEmail"></selectize>
+                    <selectize config='teamSelectConfig' options='teamSelectOptions' ng-model="models.selected.ownerEmail"></selectize>
                 </div>
             </div>
             <div class="row md-pt-20">

@@ -518,3 +518,7 @@
 .pageheader .page-bar .page-breadcrumb > li:first-child {
     background-color: #745BA7;
 }
+
+.badgeSelected{
+    background-color: #b8a4b8;
+}

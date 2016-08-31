@@ -16,8 +16,8 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 'projectHeader': {
                     templateUrl: '/angular/partials/header.html'
                 },
-                'mainView': {
-                    templateUrl: '/angular/partials/profile/main.html',
+                'rootView': {
+                    templateUrl: '/angular/partials/profile/root.html',
                     controller: 'mainProfileController'
                 },
                 'about@profile': {
@@ -48,20 +48,9 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/project/root.html',
                     controller: 'rootViewController'
                 },
-                'mainView@project': {
-                    templateUrl: '/angular/partials/project/main.html',
-                    controller: 'mainController'
-                },
-                'badgeModalView@project': {
-                    templateUrl: '/angular/partials/project/badgeModal.html',
-                    controller: 'badgeModalController'
-                },
-                'reviewModalView@project': {
-                    templateUrl: '/angular/partials/project/reviewModal.html'
-                },
                 'teamMembers@project': {
                     templateUrl: '/angular/partials/project/team.html',
-                    controller: 'teamMemberController'
+                    controller:'teamController'
                 },
                 'messageStream@project': {
                     templateUrl: '/angular/partials/project/messages.html',
@@ -72,8 +61,7 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     controller: 'projectTasksController'
                 },
                 'projectInfo@project': {
-                    templateUrl: '/angular/partials/project/info.html',
-                    controller: 'projectInfoController'
+                    templateUrl: '/angular/partials/project/info.html'
                 }
             }
         })

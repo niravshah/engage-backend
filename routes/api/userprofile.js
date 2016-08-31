@@ -26,7 +26,7 @@ module.exports = function(app) {
                 if(profile){
                     res.json({success:true, profile:profile});
                 }else {
-                    res.json({success:false, message:"Created new profile for the user"});
+                    res.json({success:true, message:"Created new profile for the user"});
                 }
             }
         });

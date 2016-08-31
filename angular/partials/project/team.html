@@ -7,25 +7,125 @@
             </li>
         </ul>
     </div>
+    <div class="tile-widget">
+        <button ng-click="awardBadge()"
+                class="btn btn-sm btn-border btn-amethyst"><i class="fa fa-certificate"></i>&nbsp;Award
+            Badge
+        </button>
+        <button ng-click="writeReview()" class="btn btn-sm btn-border btn-blue"><i
+                class="fa fa-bullhorn"></i>&nbsp;Write Review
+        </button>
+    </div>
     <div class="tile-body fixed-height-450">
-        <div ng-repeat="member in team">
-        <div class="media">
-            <div class="pull-left thumb">
-                <img style="width: 50px;height: 50px;" class="media-object img-circle" ng-src="{[{member.avatar}]}" alt="">
+        <div class="md-mt-20" ng-repeat="member in team">
+            <div class="media">
+                <div class="pull-left thumb">
+                    <img style="width: 50px;height: 50px;" class="media-object img-circle" ng-src="{[{member.avatar}]}"
+                         alt="">
+                </div>
+                <div class="pull-right mt-10">
+                    <img ng-repeat="badge in member.badges track by $index" class="media-object badge-img"
+                         ng-src="{[{badge}]}" alt="">
+                </div>
+                <div class="media-body">
+                    <p class="media-heading mb-0 mt-10">{[{member.firstName}]} <strong>{[{member.lastName}]}</strong>
+                    </p>
+                    <small class="text-blue">{[{member.projectRoles}]}</small>
+                </div>
             </div>
-            <div class="pull-right mt-10">
-                <img ng-repeat="badge in member.badges track by $index" class="media-object badge-img" ng-src="{[{badge}]}" alt="">
-            </div>
-            <div class="media-body">
-                <p class="media-heading mb-0 mt-10">{[{member.firstName}]} <strong>{[{member.lastName}]}</strong></p>
-                <small class="text-blue">{[{member.projectRoles}]}</small>
-            </div>
-            <div class="media-bottom md-mt-20">
-                <button data-toggle="modal" data-target="#badgeModal" class="btn btn-xs btn-border btn-amethyst"><i class="fa fa-certificate"></i>&nbsp;Award Badge</button>
-                <button data-toggle="modal" data-target="#reviewModal" class="btn btn-xs btn-border btn-blue"><i class="fa fa-bullhorn"></i>&nbsp;Write Review</button>
-            </div>
-        </div>
-        <hr/>
         </div>
     </div>
 </section>
+
+<div id="badge-sidebar" class="rightbar-hidden">
+    <aside id="rightbar">
+        <div class="row aside-header">
+            <div class="col-md-12">
+                <a role="button" tabindex="0" class="tile-close" style="float: right;color: #ffffff;"
+                   ng-click="closeRightSidebar('badge-sidebar')"><i
+                        class="fa fa-times"></i></a>
+                <p class="custom-font aside-title"><strong>Award</strong> Badge</p>
+            </div>
+        </div>
+        <div class="aside-container">
+
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Select Team Member</label>
+                    <selectize config='teamSelectConfig' options='teamSelectOptions'
+                               ng-model="models.selected.receiver"></selectize>
+                </div>
+            </div>
+
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Select Badge</label>
+                    <selectize config='badgeSelectConfig' options='badgeSelectOptions'
+                               ng-model="models.selected.badge"></selectize>
+                </div>
+            </div>
+
+            <div class="row md-pt-50">
+                <div class="col-md-12">
+                    <button ng-click="saveAward(models.selected)" class="btn btn-primary">Award Badge</button>
+                    <button ng-click="closeRightSidebar('badge-sidebar')" class="btn btn-warning">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+</div>
+
+<div id="review-sidebar" class="rightbar-hidden">
+    <aside id="rightbar">
+        <div class="row aside-header">
+            <div class="col-md-12">
+                <a role="button" tabindex="0" class="tile-close" style="float: right;color: #ffffff;"
+                   ng-click="closeRightSidebar('review-sidebar')"><i
+                        class="fa fa-times"></i></a>
+                <p class="custom-font aside-title"><strong>Write</strong> Review</p>
+            </div>
+        </div>
+        <div class="aside-container">
+
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Select Team Member</label>
+                    <selectize config='teamSelectConfig' options='teamSelectOptions'
+                               ng-model="models.selected.ownerEmail"></selectize>
+                </div>
+            </div>
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Review</label>
+                    <textarea rows="10" style="width: 100%"></textarea>
+                </div>
+            </div>
+            <div class="row md-pt-20">
+                <div class="col-md-4">
+                    <label>Make Review Private</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="onoffswitch lightred inline-block">
+                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch03">
+                        <label class="onoffswitch-label" for="switch03">
+                            <span class="onoffswitch-inner"></span>
+                            <span class="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p class="text-muted text-small">Private Reviews are not shared with the receiver.<br/>
+                        They will be sent to your HR coordinator, who may choose to share them with the receivers line-manager.</p>
+                </div>
+            </div>
+            <div class="row md-pt-50">
+                <div class="col-md-12">
+                    <button ng-click="saveReview(models.selected)" class="btn btn-primary">Submit Review</button>
+                    <button ng-click="closeRightSidebar('review-sidebar')" class="btn btn-warning">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+</div>
