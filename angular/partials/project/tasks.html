@@ -129,14 +129,17 @@
                     <article ng-repeat="r in models.selectedTaskConversation" class="streamline-post">
                         <aside>
                             <div class="thumb thumb-sm">
-                                <img class="img-circle" engage-avatar="{[{r.created}]}" class="img-circle" src="/img/avatars/ma1.png" alt="avatar">
+                                <img class="img-circle" engage-avatar="{[{r.created}]}" class="img-circle"
+                                     src="/img/avatars/ma1.png" alt="avatar">
                             </div>
                         </aside>
                         <div class="post-container">
                             <div class="panel panel-default">
                                 <div class="panel-heading bg-white">
                                     {[{r.created|sidToUname:team}]}
-                                    <span ng-if="r.created == user.shortid" ng-click="deleteTaskComment(r.$id,models.selected.$id)" class="text-muted pull-right md-ml-15">
+                                    <span ng-if="r.created == user.shortid"
+                                          ng-click="deleteTaskComment(r.$id,models.selected.$id)"
+                                          class="text-muted pull-right md-ml-15">
                                         <a href=""><i class="fa fa-trash"></i><span></span></a>
                                     </span>
                                     <span class="text-muted pull-right">
@@ -151,14 +154,18 @@
                     </article>
                     <div class="streamline-form md-mt-20">
                         <div class="thumb thumb-sm">
-                            <img style="width: 40px; height: 40px;" class="img-circle" ng-src="{[{user.avatar}]}" alt="">
+                            <img style="width: 40px; height: 40px;" class="img-circle" ng-src="{[{user.avatar}]}"
+                                 alt="">
                         </div>
                         <form>
-                            <div class="input-group">
-                                <input eg-enter="addTaskComment(models.selected, newComment)" ng-model="newComment" type="text" class="form-control" placeholder="Write your comment here...">
-                                <span class="input-group-btn">
-                                    <button ng-click="addTaskComment(models.selected, newComment)" class="btn btn-default" type="button">Add Comment</button>
-                                </span>
+                            <div class="input-group" style="width:100%">
+                                <textarea eg-enter="addTaskComment(models.selected, newComment)" ng-model="newComment"
+                                          type="text" class="form-control"
+                                          placeholder="Write your comment here..."></textarea>
+                                <button ng-click="addTaskComment(models.selected, newComment)" class="md-mt-5 btn  btn btn-default"
+                                        type="button">Add Comment
+                                </button>
+
                             </div>
                         </form>
                     </div>

@@ -11,7 +11,8 @@
                     <div class="panel-heading bg-white">
                         {[{m.from}]}
 
-                        <span ng-if="m.created == user.shortid" ng-click="deleteMessage(m.$id,false,null)" class="text-muted pull-right md-ml-15">
+                        <span ng-if="m.created == user.shortid" ng-click="deleteMessage(m.$id,false,null)"
+                              class="text-muted pull-right md-ml-15">
                         <a href=""><i class="fa fa-trash"></i><span></span></a>
                         </span>
 
@@ -42,7 +43,8 @@
                                 <div class="panel-body">
                                     <p>
                                         <strong>{[{r.from}]}</strong>
-                                        <span ng-if="r.created == user.shortid" ng-click="deleteMessage(key,true,m.$id)" class="text-muted pull-right md-ml-15">
+                                        <span ng-if="r.created == user.shortid" ng-click="deleteMessage(key,true,m.$id)"
+                                              class="text-muted pull-right md-ml-15">
                                         <a href=""><i class="fa fa-trash"></i><span></span></a>
                                         </span>
                                         <span class="text-muted pull-right"><i class="fa fa-clock-o mr-5"></i><span
@@ -57,14 +59,16 @@
             </div>
         </article>
         <div class="streamline-form md-mt-20">
-            <div class="thumb thumb-sm"><img style="width: 40px; height: 40px;" class="img-circle" ng-src="{[{user.avatar}]}" alt="">
+            <div class="thumb thumb-sm"><img style="width: 40px; height: 40px;" class="img-circle"
+                                             ng-src="{[{user.avatar}]}" alt="">
             </div>
             <form>
-                <div class="input-group">
-                    <input eg-enter="postMessage(currentMessage)" ng-model="currentMessage" type="text" class="form-control" placeholder="Write your comment here...">
-                      <span class="input-group-btn">
-                        <button ng-click="postMessage(currentMessage)" class="btn btn-default" type="button">Post</button>
-                      </span>
+                <div class="input-group" style="width:100%">
+                    <textarea eg-enter="postMessage(currentMessage)" ng-model="currentMessage" type="text"
+                              class="form-control" placeholder="Write your comment here..."></textarea>
+                    <button ng-click="postMessage(currentMessage)" class="md-mt-5 btn btn-default" type="button"
+                            style="float:right">Post
+                    </button>
                 </div>
             </form>
         </div>
