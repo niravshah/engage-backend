@@ -2,25 +2,35 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
     $scope.init = function () {
 
         angular.element('#contentw').removeClass('sidebar-show').addClass('sidebar-hide');
-        
+        $scope.skills = {};
+        $scope.skills.primarySkills = [];
         $scope.projects = [];
-        $scope.currentSid = angular.element('#project-id').data('sid');;
+        $scope.currentSid = angular.element('#project-id').data('sid');
         var url = '/api/user/sid/' + $scope.currentSid;
 
         $http.get(url).then(function (resp) {
-            $scope.user = resp.data.user;
-            var memberships = $scope.user.memberships;
-            angular.forEach(memberships, function (membership) {
-                var pid = membership.split("-")[1];
-                var url = '/api/projects/' + pid + '/info';
-                $http.get(url).then(function (resp) {
-                    if (resp.data.success == true) {
-                        $scope.projects.push(resp.data.project)
-                    }
-                }, function (err) {
+            if(resp.data) {
+                $scope.user = resp.data.user;
+                var memberships = $scope.user.memberships;
+                angular.forEach(memberships, function (membership) {
+                    var pid = membership.split("-")[1];
+                    var url = '/api/projects/' + pid + '/info';
+                    $http.get(url).then(function (resp) {
+                        if (resp.data.success == true) {
+                            $scope.projects.push(resp.data.project)
+                        }
+                    }, function (err) {
+                    });
                 });
-            });
 
+                var profileUrl = '/api/user/' + $scope.user._id + '/profile';
+
+                $http.get(profileUrl).then(function (res) {
+                    $scope.user.skills = res.data.profile;
+                }, function (err) {
+                    console.log('Error ', err);
+                });
+            }
         }, function (err) {
         });
 
@@ -32,15 +42,15 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         delete $scope.user.uploadedAvatar;
     };
 
-    $scope.saveProfileUpdates = function(){
+    $scope.saveProfileUpdates = function(user){
         usSpinnerService.spin('spin1');
         var files=[];
-        if(typeof $scope.user.uploadedAvatar == 'object'){
-            files.push($scope.user.uploadedAvatar);
-            delete $scope.user.uploadedAvatar;
+        if(typeof user.uploadedAvatar == 'object'){
+            files.push(user.uploadedAvatar);
+            delete user.uploadedAvatar;
         }
 
-        $scope.upload(files,$scope.user,'/api/user/' + $scope.user._id,function(resp,err){
+        $scope.upload(files,user,'/api/user/' + $scope.user._id,function(resp,err){
             if(err){
                 usSpinnerService.stop('spin1');
                 notify("Error updating user profile" + err.message);
@@ -74,13 +84,17 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         starOn: '/img/raty/star-on.png'
     };
 
-    $scope.saveSkills = function(){
-        console.log($scope.skills);
+    $scope.saveSkills = function(skills){
         var url = '/api/user/' + $scope.user._id + '/profile';
-        $http.post(url,{data: $scope.skills}).then(function(res){
-            console.log('Response',res);
+        $http.post(url,{data: skills}).then(function(res){
+            if(res.data.success == true){
+                notify('User skills updated.');
+            }else{
+                notify('Could not update user skills updated.' + res.data.message);
+            }
+
         },function(err){
-            console.log('Error', err);
+            notify('Could not update user skills updated.' + err.message);
         })
     }
 });

@@ -27,12 +27,13 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/profile/projects.html'
                 },
                 'settings@profile': {
-                    templateUrl: '/angular/partials/profile/settings.html',
-                    controller:'mainProfileController'
+                    templateUrl: '/angular/partials/profile/settings.html'
+                },
+                'viewSkills@profile': {
+                    templateUrl: '/angular/partials/profile/viewSkills.html'
                 },
                 'skills@profile': {
-                    templateUrl: '/angular/partials/profile/skills.html',
-                    controller:'mainProfileController'
+                    templateUrl: '/angular/partials/profile/skills.html'
                 }
             }
         })

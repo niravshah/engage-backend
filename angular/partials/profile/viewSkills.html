@@ -1,0 +1,16 @@
+<div class="wrap-reset">
+    <pre>{[{user.skills}]}</pre>
+    <div class="col-md-6">
+    <p class="text-small text-strong text-uppercase custom-font">Primary Skills</p>
+    <ul>
+        <li ng-repeat="(key,value) in user.skills.primarySkills">{[{key}]}</li>
+    </ul>
+    </div>
+    <div class="col-md-6">
+        <p class="text-small text-strong text-uppercase custom-font">Skills Desired</p>
+        <ul>
+            <li ng-repeat="(key,value) in user.skills.desiredSkills">{[{value.skill}]}</li>
+        </ul>
+    </div>
+
+</div>
