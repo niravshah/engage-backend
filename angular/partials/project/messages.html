@@ -31,8 +31,18 @@
                         </p>
                     </div>
                 </div>
+                <a ng-if="m.replies"
+                   class="text-small md-mb-5"
+                   ng-class="keys(m.replies).length > 2 ? 'show':'hide'"
+                   href=""
+                   ng-click="toggleComments(m.$id)"
+                   style="text-align: right">
+                    Toggle previous replies ({[{keys(m.replies).length - 2}]})
+                </a>
+
                 <ul id="message{[{m.$id}]}" class="list-unstyled post-replies">
-                    <li ng-repeat="(key,r) in m.replies">
+                    <li ng-class="keys(m.replies).length <= 2 || $index >= keys(m.replies).length - 2  ? 'show':'hide'"
+                        ng-repeat="(key,r) in m.replies">
                         <aside>
                             <div class="thumb thumb-sm">
                                 <img class="img-circle" ng-src="{[{r.avatar}]}" alt="">

@@ -1,4 +1,4 @@
-app.controller('mainController', function ($window, $http, $scope, $localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService,$stateParams) {
+app.controller('mainController', function ($window, $http, $scope, $rootScope,$localStorage, $firebaseAuth, $firebaseArray, notify, usSpinnerService,$stateParams) {
     $scope.init = function () {
 
 
@@ -13,6 +13,8 @@ app.controller('mainController', function ($window, $http, $scope, $localStorage
             $scope.user.shortid = $localStorage.currentUser.shortid;
             $scope.token = $localStorage.currentUser.token;
             $scope.projectId = $stateParams.id;
+
+            $rootScope.keys = Object.keys;
 
             $scope.firebaseToken = $localStorage.currentUser.firebaseToken;
             var dataId = $localStorage.currentUser.tenant + "-" + $scope.projectId;

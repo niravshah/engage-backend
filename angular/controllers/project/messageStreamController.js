@@ -1,4 +1,4 @@
-app.controller('messageStreamController', function ($scope, $compile, $firebaseArray,$firebaseObject, notify) {
+app.controller('messageStreamController', function ($scope, $compile, $firebaseArray, $firebaseObject, notify) {
     $scope.currentMessage = "";
     $scope.showReplyBox = {};
 
@@ -26,7 +26,7 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
 
         var repliesBoxId = '#message' + index;
         var existingChatReply = angular.element(repliesBoxId).parent().find('chat-reply');
-        if(existingChatReply.length == 0) {
+        if (existingChatReply.length == 0) {
             var rep = document.createElement('chat-reply');
             var att = document.createAttribute("post");
             att.value = "postReply(index, chatReply)";
@@ -68,26 +68,46 @@ app.controller('messageStreamController', function ($scope, $compile, $firebaseA
         });
     };
 
-    $scope.deleteMessage = function(mid, isReply, parentMid){
-        if(isReply) {
+    $scope.deleteMessage = function (mid, isReply, parentMid) {
+        if (isReply) {
             var repliesRef = $scope.fbMessages.$ref().path.toString();
             var childRef = repliesRef + "/" + parentMid + "/" + "replies" + "/" + mid;
             var child = firebase.database().ref(childRef);
             var childdb = $firebaseObject(child);
-            childdb.$remove().then(function(ref){
-                console.log('Message Deleted',ref);
-            },function(err){
+            childdb.$remove().then(function (ref) {
+                console.log('Message Deleted', ref);
+            }, function (err) {
                 notify("Could not delete message." + err);
             });
 
-        }else{
+        } else {
             var index = $scope.fbMessages.$indexFor(mid);
-            $scope.fbMessages.$remove(index).then(function(ref){
-                console.log('Message Deleted',ref);
-            },function(err){
+            $scope.fbMessages.$remove(index).then(function (ref) {
+                console.log('Message Deleted', ref);
+            }, function (err) {
                 notify("Could not delete message." + err);
             });
         }
-    }
+    };
+
+    $scope.toggleComments = function (ulId) {
+        console.log(ulId);
+        var el = '#message' + ulId;
+        var ul = angular.element(el);
+        if (ul.hasClass('commentsCollapsed')) {
+
+            ul.children('li').removeClass('show');
+            ul.children('li').addClass('hide');
+
+            ul.children('li:nth-last-child(-n+2)').removeClass('hide');
+            ul.children('li:nth-last-child(-n+2)').addClass('show');
+
+            ul.removeClass('commentsCollapsed');
+        } else {
+            ul.addClass('commentsCollapsed');
+            ul.children('li').addClass('show');
+            ul.children('li').removeClass('hide');
+        }
+    };
 
 });
