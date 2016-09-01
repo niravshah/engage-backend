@@ -52,8 +52,8 @@
             <div class="row md-pt-20">
                 <div class="col-md-12">
                     <label>Select Team Member</label>
-                    <selectize config='teamSelectConfig' options='teamSelectOptions'
-                               ng-model="models.selected.receiver"></selectize>
+                    <selectize config='teamSelectConfigTeamCtrl' options='teamSelectOptions'
+                               ng-model="currentReceiver.receiver"></selectize>
                 </div>
             </div>
 
@@ -61,13 +61,13 @@
                 <div class="col-md-12">
                     <label>Select Badge</label>
                     <selectize config='badgeSelectConfig' options='badgeSelectOptions'
-                               ng-model="models.selected.badge"></selectize>
+                               ng-model="currentAward.badge"></selectize>
                 </div>
             </div>
 
             <div class="row md-pt-50">
                 <div class="col-md-12">
-                    <button ng-click="saveAward(models.selected)" class="btn btn-primary">Award Badge</button>
+                    <button ng-click="saveAward(currentAward)" class="btn btn-primary">Award Badge</button>
                     <button ng-click="closeRightSidebar('badge-sidebar')" class="btn btn-warning">Cancel</button>
                 </div>
             </div>
@@ -91,14 +91,14 @@
             <div class="row md-pt-20">
                 <div class="col-md-12">
                     <label>Select Team Member</label>
-                    <selectize config='teamSelectConfig' options='teamSelectOptions'
-                               ng-model="models.selected.ownerEmail"></selectize>
+                    <selectize config='teamSelectConfigTeamCtrl' options='teamSelectOptions'
+                               ng-model="currentReceiver.receiver"></selectize>
                 </div>
             </div>
             <div class="row md-pt-20">
                 <div class="col-md-12">
                     <label>Review</label>
-                    <textarea rows="10" style="width: 100%"></textarea>
+                    <textarea ng-model="currentReview.review" rows="10" style="width: 100%"></textarea>
                 </div>
             </div>
             <div class="row md-pt-20">
@@ -107,16 +107,17 @@
                 </div>
                 <div class="col-md-8">
                     <div class="onoffswitch lightred inline-block">
-                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch03">
+                        <input ng-model="currentReview.private" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="switch03">
                         <label class="onoffswitch-label" for="switch03">
                             <span class="onoffswitch-inner"></span>
                             <span class="onoffswitch-switch"></span>
                         </label>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <p class="text-muted text-small">Private Reviews are not shared with the receiver.<br/>
-                        They will be sent to your HR coordinator, who may choose to share them with the receivers line-manager.</p>
+                <div class="col-md-12 md-mt-20">
+                    <p class="text-muted text-small">Public Reviews appear on receivers profile. Private Reviews do not.
+                        Private Reviews are not shared with the receiver.
+                        They are sent directly to the HR admin, who may choose to share them with the receivers line-manager.</p>
                 </div>
             </div>
             <div class="row md-pt-50">
