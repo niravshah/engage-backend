@@ -1,0 +1,79 @@
+<section id="contentw" class="sidebar-hide rightbar-show">
+    <div class="row md-mt-20">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="row md-mt-40" ng-repeat="member in team">
+                <div class="col-md-2">
+                    <div class="media">
+                        <div class="pull-left thumb">
+                            <img style="width: 50px;height: 50px;" class="media-object img-circle"
+                                 ng-src="{[{member.avatar}]}"
+                                 alt="">
+                        </div>
+                        <div class="media-body">
+                            <p class="media-heading mb-0 mt-10">{[{member.firstName}]}
+                                <strong>{[{member.lastName}]}</strong>
+                            </p>
+                            <small class="text-blue">{[{member.projectRoles}]}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
+                </div>
+                <div class="col-md-2">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
+                </div>
+                <div class="col-md-2">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
+                </div>
+                <div class="col-md-2">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
+                </div>
+                <div class="col-md-2">
+                    <button ng-click="addDetails()"
+                            class="btn btn-sm btn-border btn-amethyst"><i class="fa fa-pencil"></i>&nbsp;Add Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<div id="survey-sidebar" class="rightbar-hidden">
+    <aside id="rightbar">
+        <div class="row aside-header">
+            <div class="col-md-12">
+                <a role="button" tabindex="0" class="tile-close" style="float: right;color: #ffffff;"
+                   ng-click="closeRightSidebar('survey-sidebar')"><i
+                        class="fa fa-times"></i></a>
+                <p class="custom-font aside-title"><strong>Award</strong> Badge</p>
+            </div>
+        </div>
+        <div class="aside-container">
+
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Select Team Member</label>
+                    <selectize config='teamSelectConfigTeamCtrl' options='teamSelectOptions'
+                               ng-model="currentReceiver.receiver"></selectize>
+                </div>
+            </div>
+
+            <div class="row md-pt-20">
+                <div class="col-md-12">
+                    <label>Select Badge</label>
+                    <selectize config='badgeSelectConfig' options='badgeSelectOptions'
+                               ng-model="currentAward.badge"></selectize>
+                </div>
+            </div>
+
+            <div class="row md-pt-50">
+                <div class="col-md-12">
+                    <button ng-click="saveAward(currentAward)" class="btn btn-primary">Award Badge</button>
+                    <button ng-click="closeRightSidebar('survey-sidebar')" class="btn btn-warning">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </aside>
+</div>

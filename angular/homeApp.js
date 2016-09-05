@@ -83,6 +83,19 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                     templateUrl: '/angular/partials/leftSidebar.html'
                 }
             }
+        })
+        .state('survey', {
+            url: '/:id/survey',
+            authenticate: true,
+            views: {
+                'projectHeader': {
+                    templateUrl: '/angular/partials/header.html'
+                },
+                'rootView': {
+                    templateUrl: '/angular/partials/survey/root.html',
+                    controller: 'mainSurveyController'
+                }
+            }
         });
 });
 
