@@ -111,8 +111,9 @@ module.exports = function (app, bcrypt) {
     });
 
     app.get('/api/user/sid/:id', function (req, res) {
-        User.findOne({shortid: req.params.id}, function (err, user) {
-
+        User.findOne({shortid: req.params.id})
+            .populate({path: 'profile', match: {tid: req.body.tid}, select: 'badges -_id'})
+            .exec(function (err, user) {
             if (err) {
                 res.status(500).json({success: false, err: err});
             } else {
@@ -124,10 +125,6 @@ module.exports = function (app, bcrypt) {
                 }
             }
         });
-
-    });
-
-    app.get('/api/users',function(req,res){
 
     });
 

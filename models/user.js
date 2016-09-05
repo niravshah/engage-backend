@@ -13,6 +13,7 @@ var userSchema = new Schema({
     projectRoles:{type:Schema.Types.Mixed},
     badges:{type:Array, default:[]},
     profileSet: {type:Boolean, default:false},
+    profile:{type: mongoose.Schema.ObjectId, ref: 'Profile'},
     resetPassword: {type:Boolean, default:true},
     aboutMe:{type:String}
 });

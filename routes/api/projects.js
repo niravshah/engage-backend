@@ -1,6 +1,7 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var User = require('../../models/user');
     var Project = require('../../models/project');
+    var Profile = require('../../models/userprofile');
     var request = require('request');
     var ENGAGE_SITE_URL = "http://localhost:9000";
 
@@ -9,16 +10,19 @@ module.exports = function(app) {
         User.find({
             memberships: membershipId,
             tid: req.body.tid
-        }, 'firstName lastName email avatar badges projectRoles shortid', function (err, users) {
-            if (err) {
-                res.status(500).json({success: false, err: err});
-            } else {
-                users.forEach(function(user){
-                    user.projectRoles = user.projectRoles[membershipId];
-                });
-                res.json({success: true, users: users})
-            }
-        });
+        })
+            .select('firstName lastName email avatar projectRoles shortid profile')
+            .populate({path: 'profile', match: {tid: req.body.tid}, select: 'badges -_id'})
+            .exec(function (err, users) {
+                if (err) {
+                    res.status(500).json({success: false, err: err});
+                } else {
+                    users.forEach(function (user) {
+                        user.projectRoles = user.projectRoles[membershipId];
+                    });
+                    res.json({success: true, users: users})
+                }
+            });
     });
 
     app.get('/api/projects/:id/info', function (req, res) {
@@ -33,13 +37,13 @@ module.exports = function(app) {
 
     });
 
-    app.get('/api/projects/available',function(req,res){
+    app.get('/api/projects/available', function (req, res) {
         request
             .get(ENGAGE_SITE_URL + "/api/projects/available")
-            .on('response',function(res){
+            .on('response', function (res) {
                 console.log(res);
             })
-            .on('error',function(err){
+            .on('error', function (err) {
                 console.log(err);
             })
     });

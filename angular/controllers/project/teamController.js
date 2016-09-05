@@ -1,6 +1,10 @@
-app.controller('teamController', function ( $http, $scope, $rootScope, $localStorage) {
+app.controller('teamController', function ($http, $scope, $rootScope, notify) {
 
-    $scope.init = function(){
+    $scope.init = function () {
+        $scope.initScopeVars();
+    };
+
+    $scope.initScopeVars = function () {
         $scope.currentReceiver = {};
         $scope.currentAward = {};
         $scope.currentReview = {};
@@ -18,19 +22,61 @@ app.controller('teamController', function ( $http, $scope, $rootScope, $localSto
     };
 
     $scope.saveReview = function () {
-        console.log($scope.currentReceiver, $scope.currentReview,$scope.user);
+        //console.log($scope.currentReceiver, $scope.currentReview,$scope.user);
+        var payload = {};
+        payload.receiver = $scope.currentReceiver.receiver;
+        payload.review = $scope.currentReview;
+        payload.date = new Date();
+        payload.from = {};
+        payload.from.firstName = $scope.user.firstName;
+        payload.from.lastName = $scope.user.lastName;
+        payload.project = $scope.info.name;
+        var url = '/api/user/' + $scope.currentReceiver.receiver + '/review';
+        $http.post(url, payload).then(function (res) {
+            console.log('Response', res);
+            if (res.data.success == true) {
+                $scope.initScopeVars();
+                $scope.closeRightSidebar('review-sidebar');
+                notify("Review Added. Thanks.");
+            } else {
+                notify("Error  Adding Review. " + res.data.message);
+            }
+        }, function (err) {
+            console.log('Error', err);
+            notify("Error Adding Review. " + err.message);
+        });
+
     };
 
     $scope.saveAward = function () {
-        console.log($scope.currentReceiver, $scope.currentAward,$scope.user);
+        //console.log($scope.currentReceiver, $scope.currentAward,$scope.user);
+        var payload = {};
+        payload.receiver = $scope.currentReceiver.receiver;
+        payload.award = $scope.currentAward.badge;
+        payload.from = $scope.user.shortid;
+        var url = '/api/user/' + $scope.currentReceiver.receiver + '/badge';
+        $http.post(url, payload).then(function (res) {
+            console.log('Response', res);
+            if (res.data.success == true) {
+                $scope.initScopeVars();
+                $scope.closeRightSidebar('badge-sidebar');
+                notify("Badge Awarded. Thanks.");
+            } else {
+                notify("Error Awarding Badge. " + res.data.message);
+            }
+        }, function (err) {
+            console.log('Error', err);
+            notify("Error Awarding Badge. " + err.message);
+        });
+
     };
 
-    $rootScope.badgeSelectOptions = [{name:'badge1',img:'/img/badges/badge1.png'}];
+    $rootScope.badgeSelectOptions = [{id: '1', name: 'badge1', img: '/img/badges/badge1.png'}];
 
     $rootScope.badgeSelectConfig = {
         create: false,
         persist: false,
-        valueField: 'name',
+        valueField: 'id',
         labelField: 'name',
         searchField: ['name'],
         delimiter: '|',
@@ -56,7 +102,7 @@ app.controller('teamController', function ( $http, $scope, $rootScope, $localSto
         },
         onChange: function (value) {
             angular.forEach($scope.badgeSelectOptions, function (option) {
-                if (option.name == value) {
+                if (option.id == value) {
                     $scope.currentAward.badgeImg = option.img;
                     $scope.currentAward.badgeName = option.name;
                 }
@@ -68,7 +114,7 @@ app.controller('teamController', function ( $http, $scope, $rootScope, $localSto
     $rootScope.teamSelectConfigTeamCtrl = {
         create: false,
         persist: false,
-        valueField: 'email',
+        valueField: 'shortid',
         labelField: 'firstName' + 'lastName',
         searchField: ['name', 'email'],
         delimiter: '|',
@@ -94,7 +140,7 @@ app.controller('teamController', function ( $http, $scope, $rootScope, $localSto
         },
         onChange: function (value) {
             angular.forEach($scope.teamSelectOptions, function (option) {
-                if (option.email == value) {
+                if (option.shortid == value) {
                     $scope.currentReceiver.receiverName = option.firstName + ' ' + option.lastName;
                     $scope.currentReceiver.receiverImage = option.avatar;
                     $scope.currentReceiver.receiverEmail = option.email;

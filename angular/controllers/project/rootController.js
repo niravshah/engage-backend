@@ -5,6 +5,8 @@ app.controller('rootViewController', function ($window, $http, $scope, $rootScop
 
         $scope.disableLeftBar();
 
+        $scope.badges=[{id:1,url:'/img/badges/badge1.png'}];
+
         if ($localStorage.currentUser) {
 
             $rootScope.team = [];

@@ -34,6 +34,9 @@ app.config(function ($interpolateProvider, $stateProvider, $urlRouterProvider) {
                 },
                 'skills@profile': {
                     templateUrl: '/angular/partials/profile/editSkills.html'
+                },
+                'reviewsTab@profile':{
+                    templateUrl: '/angular/partials/profile/reviews.html'
                 }
             }
         })
@@ -117,6 +120,16 @@ app.filter('sidToUname', ['lodash', function (lodash) {
         return user.firstName + ' ' + user.lastName;
     }
 }]);
+
+app.filter('idToBadgeImg', ['lodash', function (lodash) {
+    return function (id, badges) {
+        var badge = lodash.find(badges, function (t) {
+            return t.id == id
+        });
+        return badge.url;
+    }
+}]);
+
 
 app.directive('activeToggle', function () {
     return {

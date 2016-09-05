@@ -10,6 +10,8 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         $scope.currentSid = angular.element('#project-id').data('sid');
         $scope.headerSideBarToggle = false;
 
+        $scope.badges=[{id:1,url:'/img/badges/badge1.png'}];
+
         var url = '/api/user/sid/' + $scope.currentSid;
 
         $http.get(url).then(function (resp) {

@@ -1,0 +1,6 @@
+<div class="wrap-reset">
+    <blockquote ng-repeat="r in skills.reviews | filter: r.private == false ">
+        <p>{[{r.review.review}]}</p>
+        <small>{[{r.from.firstName}]}  {[{r.from.lastName}]} for {[{r.project}]} on {[{r.date | date:'mediumDate'}]}</small>
+    </blockquote>
+</div>

@@ -27,8 +27,8 @@
     </div>
     <div class="tile-body">
         <p>
-            <span class="md-mr-10 md-ml-10" ng-repeat="badge in user.badges">
-                <img style="height:75px" ng-src="{[{badge}]}"/>
+            <span class="md-mr-10 md-ml-10" ng-repeat="badge in user.profile.badges">
+                <img style="height:75px" ng-src="{[{badge.award | idToBadgeImg:badges}]}" alt="badge"/>
             </span>
         </p>
     </div>
