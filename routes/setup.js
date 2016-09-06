@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var Project = require('../models/project');
 var Profile = require('../models/userprofile');
+var Misc = require('../models/misc');
 var shortid = require('shortid');
 
 module.exports = function(app,bcrypt) {
@@ -199,4 +200,42 @@ module.exports = function(app,bcrypt) {
         res.json({"message": "done"});
     });
 
-}
+    app.post("/setup/badges",function(req,res){
+
+        new Misc({
+            sid: shortid.generate(),
+            tid:req.body.tid,
+            type: "badge",
+            name:"Badge 1",
+            url:"/img/badges/badge1.png",
+            description:"Badge 1"
+        }).save(function(err){
+            if(err) console.log(err)
+        });
+
+        new Misc({
+            sid: shortid.generate(),
+            tid:req.body.tid,
+            type: "badge",
+            name:"Badge 2",
+            url:"/img/badges/badge2.png",
+            description:"Badge 2"
+        }).save(function(err){
+            if(err) console.log(err)
+        });
+
+        new Misc({
+            sid: shortid.generate(),
+            tid:req.body.tid,
+            type: "badge",
+            name:"Badge 3",
+            url:"/img/badges/badge3.png",
+            description:"Badge 3"
+        }).save(function(err){
+            if(err) console.log(err)
+        });
+
+        res.json({"message": "done"});
+    });
+
+};
