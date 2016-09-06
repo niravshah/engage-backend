@@ -2,7 +2,7 @@ app.controller('mainSurveyController', function ($scope, $rootScope,  $statePara
     $scope.init = function () {
         $scope.disableLeftBar();
         $scope.projectId = $stateParams.id;
-        console.log($scope.projectId)
+        console.log($scope.projectId);
 
         $http.get('/api/projects/' + $scope.projectId + '/members').then(function (response) {
             if (response.data.success == true) {
@@ -10,6 +10,14 @@ app.controller('mainSurveyController', function ($scope, $rootScope,  $statePara
                 console.log($rootScope.team);
             } else {
                 notify('Could not retrieve Team Members.' + err.message);
+            }
+        });
+
+        $http.get('/api/projects/' + $scope.projectId + '/skills').then(function (response) {
+            if (response.data.success == true) {
+                $rootScope.info = response.data.project;
+            } else {
+                notify('Could not retrieve Project Info.' + err.message);
             }
         });
     };

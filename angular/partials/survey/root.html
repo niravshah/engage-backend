@@ -1,8 +1,8 @@
 <section id="contentw" class="sidebar-hide rightbar-show">
-    <div class="row md-mt-20">
-        <div class="col-md-offset-1 col-md-10">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10" style="max-height: 80vh;overflow-y: auto;">
             <div class="row md-mt-40" ng-repeat="member in team">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="media">
                         <div class="pull-left thumb">
                             <img style="width: 50px;height: 50px;" class="media-object img-circle"
@@ -17,26 +17,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
-                </div>
-                <div class="col-md-2">
-                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
-                </div>
-                <div class="col-md-2">
-                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <span ng-raty="ratyOptions" ng-model="value.rating"></span>
                 </div>
                 <div class="col-md-2">
                     <button ng-click="addDetails()"
-                            class="btn btn-sm btn-border btn-amethyst"><i class="fa fa-pencil"></i>&nbsp;Add Details
+                            class="btn btn-sm btn-border btn-amethyst"><i class="fa fa-pencil"></i>&nbsp;Add Detailed
+                        Ratings
                     </button>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 md-mt-40">
+            <div style="position: absolute;right:120px">
+                <button ng-click="" class="btn btn-primary">Submit</button>
+                <button ng-click="" class="btn btn-warning">Cancel</button>
+            </div>
+        </div>
     </div>
 </section>
 <div id="survey-sidebar" class="rightbar-hidden">
@@ -50,30 +50,26 @@
             </div>
         </div>
         <div class="aside-container">
-
-            <div class="row md-pt-20">
-                <div class="col-md-12">
-                    <label>Select Team Member</label>
-                    <selectize config='teamSelectConfigTeamCtrl' options='teamSelectOptions'
-                               ng-model="currentReceiver.receiver"></selectize>
+            <div class="row md-pt-20" ng-repeat="skill in info.skillsDesired">
+                <div class="col-md-4">
+                    <label>{[{skill.name}]}</label>
+                </div>
+                <div class="col-md-4">
+                    <span ng-raty="ratyOptions" ng-model="value.rating"></span>
                 </div>
             </div>
-
             <div class="row md-pt-20">
                 <div class="col-md-12">
-                    <label>Select Badge</label>
-                    <selectize config='badgeSelectConfig' options='badgeSelectOptions'
-                               ng-model="currentAward.badge"></selectize>
+                    <label>Detailed Comments</label>
+                    <textarea ng-model="currentReview.review" rows="8" style="width: 100%"></textarea>
                 </div>
             </div>
-
             <div class="row md-pt-50">
                 <div class="col-md-12">
-                    <button ng-click="saveAward(currentAward)" class="btn btn-primary">Award Badge</button>
+                    <button ng-click="saveAward(currentAward)" class="btn btn-primary">Save</button>
                     <button ng-click="closeRightSidebar('survey-sidebar')" class="btn btn-warning">Cancel</button>
                 </div>
             </div>
-
         </div>
     </aside>
 </div>

@@ -26,7 +26,6 @@ module.exports = function (app) {
     });
 
     app.get('/api/projects/:id/info', function (req, res) {
-
         Project.findOne({sid: req.params.id, tid: req.body.tid}, function (err, project) {
             if (err) {
                 res.status(500).json({success: false, err: err});
@@ -36,6 +35,20 @@ module.exports = function (app) {
         });
 
     });
+
+    app.get('/api/projects/:id/skills', function (req, res) {
+        Project.findOne({sid: req.params.id, tid: req.body.tid})
+            .populate({path: 'skillsDesired', match: {tid: req.body.tid}})
+            .exec( function (err, project) {
+            if (err) {
+                res.status(500).json({success: false, err: err});
+            } else {
+                res.json({success: true, project: project})
+            }
+        });
+
+    });
+
 
     app.get('/api/projects/available', function (req, res) {
         request

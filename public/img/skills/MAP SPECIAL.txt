@@ -1,6 +1,0 @@
-Special main skills so we can list them at the top of each profile with progress bars: 
-
-1 > Energy
-2 > Resilience
-3 > Integrity
-4 > Confidence
