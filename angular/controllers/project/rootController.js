@@ -5,7 +5,8 @@ app.controller('rootViewController', function ($window, $http, $scope, $rootScop
 
         $scope.disableLeftBar();
 
-        $scope.badges=[{id:1,url:'/img/badges/badge1.png'}];
+        //$scope.badges=[{id:1,url:'/img/badges/badge1.png'}];
+        $scope.badges=[];
 
         if ($localStorage.currentUser) {
 
@@ -19,6 +20,13 @@ app.controller('rootViewController', function ($window, $http, $scope, $rootScop
             $scope.user.shortid = $localStorage.currentUser.shortid;
             $scope.token = $localStorage.currentUser.token;
             $scope.projectId = $stateParams.id;
+
+
+            $http.get('/api/misc/badge').then(function(response){
+                if(response.data.success == true){
+                    $scope.badges = response.data.data;
+                }
+            });
 
 
             $http.get('/api/projects/' + $scope.projectId + '/members').then(function (response) {

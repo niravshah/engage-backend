@@ -137,9 +137,11 @@ app.filter('sidToUname', ['lodash', function (lodash) {
 app.filter('idToBadgeImg', ['lodash', function (lodash) {
     return function (id, badges) {
         var badge = lodash.find(badges, function (t) {
-            return t.id == id
+            return t.sid == id
         });
-        return badge.url;
+        if(typeof badge != 'undefined') {
+            return badge.url;
+        }
     }
 }]);
 

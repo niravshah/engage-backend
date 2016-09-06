@@ -4,7 +4,8 @@ module.exports = function (app) {
     var shortid = require('shortid');
 
     app.get('/api/misc/:type', function (req, res) {
-        Misc.find({type: req.params.type}, function (err, miscs) {
+
+        Misc.find({type: req.params.type, tid: req.body.tid}, function (err, miscs) {
             if (err) {
                 res.json({
                     success: false,

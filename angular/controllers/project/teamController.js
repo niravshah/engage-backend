@@ -1,7 +1,15 @@
 app.controller('teamController', function ($http, $scope, $rootScope, notify) {
 
+    $rootScope.badgeSelectOptions = [];
+
     $scope.init = function () {
         $scope.initScopeVars();
+        $http.get('/api/misc/badge').then(function(response){
+            if(response.data.success == true){
+                $rootScope.badgeSelectOptions = response.data.data;
+            }
+        });
+
     };
 
     $scope.initScopeVars = function () {
@@ -71,12 +79,12 @@ app.controller('teamController', function ($http, $scope, $rootScope, notify) {
 
     };
 
-    $rootScope.badgeSelectOptions = [{id: '1', name: 'badge1', img: '/img/badges/badge1.png'}];
+
 
     $rootScope.badgeSelectConfig = {
         create: false,
         persist: false,
-        valueField: 'id',
+        valueField: 'sid',
         labelField: 'name',
         searchField: ['name'],
         delimiter: '|',
@@ -84,7 +92,7 @@ app.controller('teamController', function ($http, $scope, $rootScope, notify) {
         maxItems: 1,
         render: {
             item: function (item, escape) {
-                var label = item.img;
+                var label = item.url;
                 var caption = item.name;
                 return '<div>' +
                     '<img class="img-circle-sm" src="' + label + '"/>' +
@@ -92,7 +100,7 @@ app.controller('teamController', function ($http, $scope, $rootScope, notify) {
                     '</div>';
             },
             option: function (item, escape) {
-                var label = item.img;
+                var label = item.url;
                 var caption = item.name;
                 return '<div>' +
                     '<img class="img-circle-sm" src="' + label + '"/>' +
