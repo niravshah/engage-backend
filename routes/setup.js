@@ -24,7 +24,8 @@ module.exports = function(app,bcrypt) {
                     "aboutOrg": "<p>Whenever anyone looks back on their childhood, most will undoubtedly comment on the perks of being ‘carefree’, but for many children across the UK this is sadly not the case. For some children, day to day life is complicated with stresses and situations that even the toughest of adults would struggle with. At Kids Adventure we believe that every child deserves to be just that. A child.</p> <p>Kids Adventure provides non-residential respite breaks for disadvantaged children aged 8-11 years. The program is run by teams of professional volunteers who provide desperately needed breaks for children and families within their local communities.</p>",
                     "orgContact": "",
                     "otherResources": "",
-                    "skillsDesired": skills
+                    "skillsDesired": skills,
+                    "status":"in_progress"
                 }).save(function (error, result) {
                     if (error) {
                         res.json({"message": "error", "error": error});

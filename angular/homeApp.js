@@ -167,6 +167,24 @@ app.directive('activeToggle', function () {
     };
 });
 
+app.filter('projectStatusNot', function() {
+    return function( projects, statusArr) {
+        var filtered = [];
+
+        if(statusArr === undefined || statusArr === []){
+            return projects;
+        }
+
+        angular.forEach(projects, function(project) {
+            if(statusArr.indexOf(project.status) == -1){
+                filtered.push(project);
+            }
+        });
+
+        return filtered;
+    };
+});
+
 app.directive('engageAvatar', ['lodash', function (lodash) {
     return {
         restrict: 'A',

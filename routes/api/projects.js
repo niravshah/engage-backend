@@ -38,16 +38,16 @@ module.exports = function (app) {
     app.get('/api/projects/:id/skills', function (req, res) {
         Project.findOne({sid: req.params.id, tid: req.body.tid})
             .populate({path: 'skillsDesired', match: {tid: req.body.tid}})
-            .exec( function (err, project) {
-            if (err) {
-                res.status(500).json({success: false, err: err});
-            } else {
-                res.json({success: true, project: project})
-            }
-        });
+            .exec(function (err, project) {
+                if (err) {
+                    res.status(500).json({success: false, err: err});
+                } else {
+                    res.json({success: true, project: project})
+                }
+            });
 
     });
-    
+
     app.get('/api/projects/available', function (req, res) {
         request
             .get(ENGAGE_SITE_URL + "/api/projects/available")
@@ -57,5 +57,29 @@ module.exports = function (app) {
             .on('error', function (err) {
                 console.log(err);
             })
+    });
+
+    app.post('/api/projects/:id/status/:status', function (req, res) {
+        Project
+            .findOne({sid: req.params.id, tid: req.body.tid})
+            .exec(function (err, project) {
+                if (err) {
+                    res.json({success: false, message: err.message, error: err})
+                } else {
+                    if (project) {
+                        project.status = req.params.status;
+                        project.save(function (err) {
+                            if (err) {
+                                res.json({success: false, message: err.message, error: err})
+                            } else {
+                                res.json({success: true})
+                            }
+                        })
+
+                    } else {
+                        res.json({success: false, message: 'Could not find the Project'})
+                    }
+                }
+            });
     });
 };

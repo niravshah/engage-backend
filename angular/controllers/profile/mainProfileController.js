@@ -1,4 +1,4 @@
-app.controller('mainProfileController', function ($window, $http, $scope,Upload, notify,usSpinnerService) {
+app.controller('mainProfileController', function ($window, $http, $scope, $state, Upload, notify,usSpinnerService) {
     $scope.init = function () {
 
         $scope.disableLeftBar();
@@ -112,5 +112,36 @@ app.controller('mainProfileController', function ($window, $http, $scope,Upload,
         },function(err){
             notify('Could not update user skills updated.' + err.message);
         })
-    }
+    };
+
+    $scope.markProjectComplete = function(id){
+        var url = '/api/projects/' + id + '/status/complete';
+        $http.post(url).then(function(res){
+            if(res.data.success == true){
+                notify('Project Status marked Complete.');
+                $state.reload();
+            }else{
+                notify('Could not mark Project status Complete.' + res.data.message)
+            }
+        },function(err){
+            if(err){
+                notify('Error occurred while marking Project status Complete.' + err.message)
+            }
+        });
+    };
+    $scope.archiveProject = function(id){
+        var url = '/api/projects/' + id + '/status/archived';
+        $http.post(url).then(function(res){
+            if(res.data.success == true){
+                notify('Project Archived.');
+                $state.reload();
+            }else{
+                notify('Could not Archive Project .' + res.data.message)
+            }
+        },function(err){
+            if(err){
+                notify('Error occurred Archiving Project. ' + err.message)
+            }
+        });
+    };
 });

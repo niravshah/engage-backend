@@ -11,7 +11,8 @@ var projectSchema = new Schema({
         orgContact: {type: String},
         otherResources: {type: String},
         logo: {type: String},
-        skillsDesired:[{type:ObjectId,ref:'Misc'}]
+        skillsDesired:[{type:ObjectId,ref:'Misc'}],
+        status: {type: String, enum:['draft','in_progress','complete','archived'],required:true,default:'draft'}
     }
 );
 module.exports = mongoose.model('Project', projectSchema);    
