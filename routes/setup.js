@@ -41,7 +41,7 @@ module.exports = function(app,bcrypt) {
 
     });
 
-    app.post('/setup/user', function (req, res) {
+    app.post('/setup/users', function (req, res) {
 
         new User({
             "shortid": "SJzN5Wqc",
