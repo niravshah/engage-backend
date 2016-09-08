@@ -72,6 +72,7 @@ require('./routes/api/projects')(app);
 require('./routes/api/dataupload')(app);
 require('./routes/api/userprofile')(app);
 require('./routes/api/misc')(app);
+require('./routes/api/survey')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
