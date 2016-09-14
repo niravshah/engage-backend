@@ -144,4 +144,20 @@ app.controller('mainProfileController', function ($window, $http, $scope, $state
             }
         });
     };
+    $scope.markProjectInProgress = function(id){
+        var url = '/api/projects/' + id + '/status/in_progress';
+        $http.post(url).then(function(res){
+            if(res.data.success == true){
+                notify('Project Status marked In Progress.');
+                $state.reload();
+            }else{
+                notify('Could not mark Project status to In Progress.' + res.data.message)
+            }
+        },function(err){
+            if(err){
+                notify('Error occurred while marking Project status In Progress.' + err.message)
+            }
+        });
+    };
+    
 });

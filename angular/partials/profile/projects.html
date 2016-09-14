@@ -1,12 +1,15 @@
 <div class="wrap-reset">
     <div class="md-p-20" style="min-height:200px;box-shadow: 5px 5px 5px #e7eaeb;border: 0.1px solid #e7eaeb;"
-         ng-repeat="project in projects |projectStatusNot:['archived','draft']">
+         ng-repeat="project in projects |projectStatusNot:['draft']">
         <img style="width:75px;" ng-src="{[{project.logo}]}">
-        <h4 class="custom-font"><strong>{[{project.name}]}</strong></h4>
-        <p ng-bind-html="project.description"></p>
-        <a class="md-mt-30 btn btn-rounded btn-primary" ng-href="#/projects/{[{project.sid}]}">Goto Project</a>
+        <h4 class="custom-font"><strong>{[{project.name}]} </strong></h4>
+        <span class="label bg-info">{[{project.status}]}</span>
+        <p ng-bind-html="project.description" class="md-mt-20"></p>
+        <a ng-if="project.status=='in_progress'" class="md-mt-30 btn btn-rounded btn-primary" ng-href="#/projects/{[{project.sid}]}">Goto Project</a>
         <a ng-if="project.status=='in_progress'" permission permission-only="'isAdmin'" class="md-mt-30 btn btn-rounded btn-danger" ng-click="markProjectComplete(project.sid)">Mark Project Complete</a>
         <a ng-if="project.status=='complete'" permission permission-only="'isAdmin'" class="md-mt-30 btn btn-rounded btn-success" ng-href="#/{[{project.sid}]}/survey">Project End Survey</a>
+        <a ng-if="project.status=='complete'" permission permission-only="'isAdmin'" class="md-mt-30 btn btn-rounded btn-primary" ng-click="markProjectInProgress(project.sid)">Mark Project In Progress</a>
         <a ng-if="project.status=='complete'" permission permission-only="'isAdmin'" class="md-mt-30 btn btn-rounded btn-danger" ng-click="archiveProject(project.sid)">Archive Project</a>
+        <a ng-if="project.status=='archived'" permission permission-only="'isAdmin'" class="md-mt-30 btn btn-rounded btn-amethyst" ng-click="markProjectComplete(project.sid)">Unarchive Project</a>
     </div>
 </div>
